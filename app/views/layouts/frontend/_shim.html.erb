@@ -1,0 +1,30 @@
+<script>
+
+		$(document).ready(function(){
+
+			$("body").queryLoader2({
+    			barHeight : 4,
+    			backgroundColor : '#fff',
+    			barColor : '#018bc8',
+    			minimumTime : 2000,
+    			onComplete : function(){
+
+					// show promo popup
+    				if($.arcticmodal && $('body').hasClass('promo_popup')){
+						$.arcticmodal({
+							url : "modals/promo.html"
+						});
+					}
+
+    			}
+    		});
+
+		});
+
+	</script>
+
+	<!-- Old IE stylesheet
+	============================================ -->
+	<!--[if lte IE 9]>
+		<link rel="stylesheet" type="text/css" href="css/oldie.css">
+	<![endif]-->

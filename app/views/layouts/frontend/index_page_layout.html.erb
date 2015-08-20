@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/frontend/shim' %>
+</head>
+<body>
+
+<!-- Page Container -->
+<div class="wide_layout">
+   <!-- Page Header -->
+   <%= render 'layouts/frontend/header' %>
+   <!-- End Page Header -->
+
+   <!-- Page Content -->
+   <%= yield %>
+   <!-- End Page Content -->
+   
+   <!-- Page Footer -->
+   <%= render 'layouts/frontend/footer' %>
+   <!-- End Page Footer -->
+   
+</div><!-- end page container -->
+</body>
+</html>
