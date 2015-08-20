@@ -2,12 +2,13 @@
 <html>
 <head>
   <title><%= page_title(yield(:title)) %></title>
+  <!-- Favicon -->
+  <%= favicon_link_tag 'fav_icon.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= render 'layouts/frontend/shim' %>
 </head>
-<body>
+<body class="home">
 
 <!-- Page Container -->
 <div class="wide_layout">
@@ -15,14 +16,29 @@
    <%= render 'layouts/frontend/header' %>
    <!-- End Page Header -->
 
+   <!-- Page Home Slider -->
+   <%= render 'layouts/frontend/home_slider' %>
+   <!-- End Page Home Slider -->
+
    <!-- Page Content -->
-   <%= yield %>
+   <div class="page_wrapper">
+
+        <div class="container">
+
+          <div class="row">
+               <%= yield %>
+          </div>
+
+        </div>
+  </div>
    <!-- End Page Content -->
-   
-   <!-- Page Footer -->
-   <%= render 'layouts/frontend/footer' %>
-   <!-- End Page Footer -->
-   
 </div><!-- end page container -->
+
+<!-- Page Footer -->
+ <%= render 'layouts/frontend/footer' %>
+ <!-- End Page Footer -->
+
+<!-- Include Libs and Plugins -->
+<%= javascript_include_tag 'frontend_index_page_manifest_footer', 'data-turbolinks-track' => true %>
 </body>
 </html>
