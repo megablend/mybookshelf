@@ -19,9 +19,9 @@
                 <div class="dropdown">
                     <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>My Account</span></a>
                     <ul class="dropdown-menu mega_dropdown" role="menu">
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="#">Compare</a></li>
-                        <li><a href="#">Wishlists</a></li>
+                        <li><%= link_to "Login", "#" %></li>
+                        <li><%= link_to "Compare", "#" %></li>
+                        <li><%= link_to "Wishlists", "#" %></li>
                     </ul>
                 </div>
             </div>
@@ -32,7 +32,7 @@
     <div class="container main-header">
         <div class="row">
             <div class="col-xs-12 col-sm-3 logo">
-                <a href="index-2.html"><%= image_tag 'site/logo.png' %></a>
+                <%= link_to image_tag('site/logo.png'), "#" %>
             </div>
             <div class="col-xs-7 col-sm-7 header-search-box">
                 <form class="form-inline">
@@ -64,7 +64,7 @@
                                     <div class="p-left">
                                         <a href="#" class="remove_link"></a>
                                         <a href="#">
-                                        <img class="img-responsive" src="assets/data/product-100x122.jpg" alt="p10">
+                                        <%= image_tag "data/product-100x122.jpg", class: "img-responsive", alt: "p10"
                                         </a>
                                     </div>
                                     <div class="p-right">

@@ -3,7 +3,7 @@
 <head>
   <title><%= page_title(yield(:title)) %></title>
   <!-- Favicon -->
-  <%= favicon_link_tag 'fav_icon.ico' %>
+  <%= favicon_link_tag 'favicon/favicon.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= render 'layouts/frontend/shim' %>
@@ -20,19 +20,17 @@
    <%= render 'layouts/frontend/home_slider' %>
    <!-- End Page Home Slider -->
 
-   <!-- Page Content -->
-   <div class="page_wrapper">
+   <!-- Services -->
+   <%= render 'layouts/frontend/services' %>
+   <!-- End Services -->
 
-        <div class="container">
-
-          <div class="row">
-               <%= yield %>
-          </div>
-
-        </div>
-  </div>
-   <!-- End Page Content -->
-</div><!-- end page container -->
+   <!-- Page Top -->
+  <%= render 'layouts/frontend/page_top' %>
+   <!-- End Page Top -->
+  
+  <!-- Page Content -->
+  <%= yield %>
+  <!-- End Page Content -->
 
 <!-- Page Footer -->
  <%= render 'layouts/frontend/footer' %>
