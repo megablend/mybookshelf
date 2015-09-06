@@ -12,7 +12,7 @@
             
             <div class="support-link">
                 <%= link_to "Support", "#" %>
-                <%= link_to "Sell on MyBookshelf", "#", class: "text-bold" %>
+                <%= link_to "Sell on MyBookshelf", sell_path, class: "text-bold" %>
             </div>
 
             <div id="user-info-top" class="user-info pull-right">
@@ -32,7 +32,7 @@
     <div class="container main-header">
         <div class="row">
             <div class="col-xs-12 col-sm-3 logo">
-                <%= link_to image_tag('site/logo.png'), "#" %>
+                <%= link_to image_tag('site/logo.png'), root_path %>
             </div>
             <div class="col-xs-7 col-sm-7 header-search-box">
                 <form class="form-inline">
@@ -64,7 +64,7 @@
                                     <div class="p-left">
                                         <a href="#" class="remove_link"></a>
                                         <a href="#">
-                                        <%= image_tag "data/product-100x122.jpg", class: "img-responsive", alt: "p10"
+                                        <%= image_tag "data/product-100x122.jpg", class: "img-responsive", alt: "p10" %>
                                         </a>
                                     </div>
                                     <div class="p-right">
@@ -109,7 +109,7 @@
                     <div class="box-vertical-megamenus">
                         <h4 class="title">
                             <span class="title-menu">Categories</span>
-                            <span class="btn-open-mobile pull-right home-page"><i class="fa fa-bars"></i></span>
+                            <span class="btn-open-mobile pull-right"><i class="fa fa-bars"></i></span>
                         </h4>
                     <div class="vertical-menu-content is-home">
                         <ul class="vertical-menu-list">

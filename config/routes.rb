@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
+  get 'merchants/new'
+
   # get 'frontend_pages/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+  # sellers 
+  get 'sell' => 'frontend_pages#sell'
+
+  # merchants signup link
+  get 'merchants/signup' => 'merchants#new'
+  
+  # resources generator for merchants
+  resources :merchants
 
   # You can have the root of your site routed with "root"
   root 'frontend_pages#index'

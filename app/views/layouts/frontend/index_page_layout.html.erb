@@ -8,10 +8,8 @@
   <%= csrf_meta_tags %>
   <%= render 'layouts/frontend/shim' %>
 </head>
-<body class="home">
+<body class="<%= body_class(yield(:class_name)) %>">
 
-<!-- Page Container -->
-<div class="wide_layout">
    <!-- Page Header -->
    <%= render 'layouts/frontend/header' %>
    <!-- End Page Header -->
@@ -35,6 +33,10 @@
 <!-- Page Footer -->
  <%= render 'layouts/frontend/footer' %>
  <!-- End Page Footer -->
+
+ <!-- Debugging Notifier -->
+ <%= debug(params) if Rails.env.development? %>
+ <!-- End Debugging Notifier-->
 
 <!-- Include Libs and Plugins -->
 <%= javascript_include_tag 'frontend_index_page_manifest_footer', 'data-turbolinks-track' => true %>

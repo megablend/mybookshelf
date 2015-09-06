@@ -43,6 +43,16 @@
 25. Box product
 -------------------------------------------------------------------*/
 
+@font-face {
+ font-family: 'dinregular';
+ src: url('https://s3.amazonaws.com/www.konga.com/fonts/FF_DIN_Regular.otf');
+}
+
+@font-face {
+ font-family: 'dinblack';
+ src: url('https://s3.amazonaws.com/www.konga.com/fonts/FF_DIN_Black.otf');
+}
+
 /* ----------------
  [1. Common styles]
  */
@@ -731,6 +741,74 @@ img.alignright{
     margin: 0;
     padding: 0;
     padding: 5px 10px;
+}
+
+/*-----------------
+  [ sell on mybookshelf ]
+*/
+.sell-banner
+{
+   background: url(<%= asset_path "site/sell-bg.jpg" %>) repeat-x center;
+   padding: 20px;
+}
+
+.center-page { text-align: center; margin: 0 auto; }
+
+.sell-banner-a{font-size: 150%; color: #fff; font-family: dinregular; margin-bottom: 15px;}
+
+.sell-banner-b {font-size: 180%; background-color: #fff; width: 55%; color: #CE0201; padding: 5px; margin-bottom: 15px; font-weight: bold; text-align: center; margin: 0 auto;}
+
+.sell-banner-c {margin-top: 15px;}
+
+.auto-align {vertical-align: middle;}
+
+.sell-d1-header { color: #428bca; font-family: dinblack; font-size: 32px; text-align: left;padding-top: 3%;
+                 line-height: 0px; border-bottom: 3px solid #96C900; padding-bottom: 20px; }
+
+.sell-d2-image{ width: 40%; float: left; padding-left: 11%; padding-top: 7%; padding-right: 20px; }
+
+.sell-d2-text{ width: 42%; float: left; font-family: dinregular; font-size: 19px; padding-top: 10%; }
+.bold {
+    font-family: dinblack;
+    color: #428bca;
+}
+
+.promotion-section{ background: #428bca; padding: 30px 100px; }
+
+.promotion-section-d2 { color: #fff;}
+
+.promotion-section-h2{ font-size: 190%; font-family: dinblack; }
+
+
+/*
+  Signup Page
+*/
+.signup-header{ font-family: dinblack; font-weight: bold; margin-bottom: 20px}
+.compulsory{color: red;}
+
+
+.register-now{
+border:1px solid #8bcf54; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:170%;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF;
+ background-color: #a9db80; background-image: -webkit-gradient(linear, left top, left bottom, from(#a9db80), to(#96c56f));
+ background-image: -webkit-linear-gradient(top, #BBF900, #96c56f);
+ background-image: -moz-linear-gradient(top, #BBF900, #96c56f);
+ background-image: -ms-linear-gradient(top, #BBF900, #96c56f);
+ background-image: -o-linear-gradient(top, #BBF900, #96c56f);
+ background-image: linear-gradient(to bottom, #BBF900, #96c56f);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a9db80, endColorstr=#96c56f);
+ -webkit-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+ -moz-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+ box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+}
+
+.register-now:hover{
+ color: #fff;
+ border:1px solid #74bf36;
+ background-color: #8ed058; background-image: -webkit-gradient(linear, left top, left bottom, from(#8ed058), to(#7bb64b));
+ background-image: -webkit-linear-gradient(top, #8ed058, #7bb64b);
+ background-image: -moz-linear-gradient(top, #8ed058, #7bb64b);
+ background-image: -ms-linear-gradient(top, #8ed058, #7bb64b);
+ background-image: -o-linear-gradient(top, #8ed058, #7bb64b);
+ background-image: linear-gradient(to bottom, #8ed058, #7bb64b);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#8ed058, endColorstr=#7bb64b);
 }
 /*-----------------
  [ 3.3 Main header]

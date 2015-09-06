@@ -6,6 +6,6 @@ module ApplicationHelper
 	end
 
 	def body_class(class_name)
-        if class_name.empty? then nil else "class=' " + class_name + "'" end
+        if class_name.empty? then nil else class_name  end
 	end
 end
