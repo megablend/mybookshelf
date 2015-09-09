@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905060205) do
+ActiveRecord::Schema.define(version: 20150906104718) do
 
   create_table "local_govts", force: :cascade do |t|
     t.string  "name",     limit: 255, null: false
@@ -31,15 +31,13 @@ ActiveRecord::Schema.define(version: 20150905060205) do
     t.integer  "state_id",          limit: 4
     t.string   "password_digest",   limit: 255,             null: false
     t.string   "remember_digest",   limit: 255
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "local_govt_id",     limit: 4
     t.integer  "account_status",    limit: 1,   default: 1
     t.integer  "email_verified",    limit: 1,   default: 0
     t.string   "verification_code", limit: 12
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
-  add_index "merchants", ["local_govt_id"], name: "index_merchants_on_local_govt_id", using: :btree
   add_index "merchants", ["state_id"], name: "index_merchants_on_state_id", using: :btree
 
   create_table "states", force: :cascade do |t|
@@ -49,6 +47,5 @@ ActiveRecord::Schema.define(version: 20150905060205) do
   end
 
   add_foreign_key "local_govts", "states"
-  add_foreign_key "merchants", "local_govts"
   add_foreign_key "merchants", "states"
 end

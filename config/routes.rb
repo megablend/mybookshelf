@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # sellers 
   get 'sell' => 'frontend_pages#sell'
-
+  
   # merchants signup link
   get 'merchants/signup' => 'merchants#new'
   
