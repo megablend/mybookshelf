@@ -42,15 +42,9 @@
   border-color: #eee #eee #eee transparent;
   z-index: 150;
 }
-.nav-pills.nav-wizard > li:hover .nav-arrow {
-  border-color: transparent transparent transparent #aaa;
-}
-.nav-pills.nav-wizard > li:hover .nav-wedge {
-  border-color: #aaa #aaa #aaa transparent;
-}
+
 .nav-pills.nav-wizard > li:hover a {
-  background-color: #aaa;
-  color: #fff;
+  color: inherit;
 }
 .nav-pills.nav-wizard > li.active .nav-arrow {
   border-color: transparent transparent transparent #428bca;

@@ -1,0 +1,94 @@
+
+<h2 class="signup-header">Use the form below to create your account</h2>
+<%= form_for(@merchant) do|f| %>
+     <%= render 'shared/error_messages' %>
+     <div class="form-group">
+            <%= f.label :firstname, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.text_field :firstname, class: 'form-control', placeholder: "Enter your First Name" %>
+            </div>
+    </div> 
+
+    <div class="form-group">
+            <%= f.label :lastname, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.text_field :lastname, class: 'form-control', placeholder: "Enter your Last Name" %>
+            </div>
+    </div>
+
+    <div class="form-group">
+            <%= f.label :phone_number, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.text_field :phone_number, class: 'form-control', placeholder: "Enter your Phone Number" %>
+            </div>
+    </div>
+
+    <div class="form-group">
+            <%= f.label :email, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.text_field :email, class: 'form-control', placeholder: "Enter your Email Address" %>
+            </div>
+    </div> 
+
+    <div class="form-group">
+            <%= f.label :address, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.text_field :address, class: 'form-control', placeholder: "Enter your Residential Address" %>
+            </div>
+    </div>
+
+
+    <div class="form-group">
+            <%= f.label :city, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-pin fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.text_field :city, class: 'form-control', placeholder: "Enter your City" %>
+            </div>
+    </div>
+
+    <div class="form-group">
+            <%= f.label :landmark, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-bank fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.text_field :landmark, class: 'form-control', placeholder: "Enter a Landmark near you" %>
+            </div>
+    </div>
+
+    <div class="form-group">
+            <%= f.label :state_id, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-signs fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.collection_select :state_id, State.order(:name), :id, :name, { :prompt => "Select State" }, { class: "form-control" } %>
+            </div>
+    </div>
+
+    <div class="form-group">
+            <%= f.label :password, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.password_field :password, class: 'form-control', placeholder: "Enter your Password" %>
+            </div>
+    </div> 
+
+    <div class="form-group">
+            <%= f.label :password_confirmation, class: "sr-only" %>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i> <span class="fa fa-asterisk text-danger compulsory"></span></span>
+                <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Confirm Password" %>
+            </div>
+    </div> 
+     
+    <div class="form-group terms">
+        <%= f.label :terms, class: "checkbox inline" do %>
+           <%= f.check_box :terms %>
+           <span>I have read and accepted the <%= link_to "terms and conditions", merchants_url("terms-and-conditions") %> of the agreement</span>
+        <% end %>
+    </div>
+    <%= f.submit "Continue to Merchant Store Details", class: "btn btn-primary" %>
+
+  <% end %>
