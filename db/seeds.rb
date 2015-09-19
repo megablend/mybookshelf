@@ -44,9 +44,9 @@ states_list = ["Abia",
                "Taraba",      
                "Yobe",   
                "Zamfara"]
-# states_list.each do|name|
-#     State.create(name: name)
-# end
+states_list.each do|name|
+    State.create(name: name)
+end
 
 # Store Types
 store_types = ["Print Books Only", "EBooks Only", "Print Books and EBooks"]

@@ -11,7 +11,13 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap
 //= require jquery_ujs
 //= require turbolinks
-//= require jquery-2.1.1.min
-//= require queryloader2.min
+//= require_tree ./fancybox
+//= require parallax
+//= require common
+//= require common1
+//= require cloudzoom
+//= require_tree ./jquery-lib/owl-carousel
+//= require revslider

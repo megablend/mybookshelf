@@ -5,6 +5,11 @@
   <!-- Favicon -->
   <%= favicon_link_tag 'favicon/favicon.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <!-- Include Libs and Plugins -->
+  <%= javascript_include_tag 'frontend_index_page_manifest', 'data-turbolinks-track' => true %>
+
+  <!-- Cross Site Request Forgery -->
   <%= csrf_meta_tags %>
   <%= render 'layouts/frontend/shim' %>
 </head>
@@ -15,15 +20,15 @@
    <!-- End Page Header -->
 
    <!-- Page Home Slider -->
-   <%= render 'layouts/frontend/home_slider' %>
+   <%= render 'layouts/frontend/nav_bar' %>
    <!-- End Page Home Slider -->
 
    <!-- Services -->
-   <%= render 'layouts/frontend/services' %>
+   <%= render 'layouts/frontend/slider' %>
    <!-- End Services -->
 
    <!-- Page Top -->
-  <%= render 'layouts/frontend/page_top' %>
+  <%= render 'layouts/frontend/categories' %>
    <!-- End Page Top -->
   
   <!-- Page Content -->
@@ -38,7 +43,5 @@
  <%= debug(params) if Rails.env.development? %>
  <!-- End Debugging Notifier-->
 
-<!-- Include Libs and Plugins -->
-<%= javascript_include_tag 'frontend_index_page_manifest_footer', 'data-turbolinks-track' => true %>
 </body>
 </html>
