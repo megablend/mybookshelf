@@ -6,4 +6,9 @@ class FrontendPagesController < ApplicationController
   def sell
      
   end
+
+  def terms
+
+  end
+  
 end

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   
   # merchants signup link
   get 'merchants/signup' => 'merchants#new'
+
+  # terms of use
+  get 'terms' => 'frontend_pages#terms'
   
   # resources generator for merchants
   resources :merchants
