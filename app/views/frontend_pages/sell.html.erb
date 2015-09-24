@@ -1,113 +1,116 @@
-<% provide(:title, "Sell on MyBookshelf") %>
-<% provide(:class_name, "category-page") %>
+<% provide(:title, "Sell on MYBOOKSHELF") %>
+<% provide(:class_name, "information-information") %>
+<% provide(:current_page, raw("<strong>Sell on MYBOOKSHELF</strong>")) %>
 <!-- page wapper-->
-<div class="columns-container">
-    <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <%= link_to "Home", root_path, class: "home", title: "Return to Home" %>
-            <span class="navigation-pipe">&nbsp;</span>
-            <span class="navigation_page">Sellers</span>
-        </div>
+<!-- Page -->
+<div class="main-container wow bounceInUp animated">
+  <div class="main container">
+     <div class="col-main">
+         <div class="row">                
+            <div id="content" class="col-sm-12">
 
-        <!-- banner -->
-        <div class="container">
-           <div class="row sell-banner">
-                <div class="col-md-12 center-page">
-                     <div><%= image_tag "data/sell-on-mybookshelf.png",  alt: "sell-on-mybookshelf" %></div>
-                     <div class="sell-banner-a">With our platform, you can reach millions of readers all over Nigeria</div>
-                     <div class="sell-banner-b">START SELLING ON MYBOOKSHELF TODAY!</div>
-                     <div class="sell-banner-c"><a href="<%= 'merchants/signup' %>" class="register-now ">Signup Now <i class="fa fa-arrow-right auto-align"></i></a></div>
+                <!-- banner -->
+                <div class="container">
+                   <div class="row sell-banner">
+                        <div class="col-md-12 center-page">
+                             <div><%= image_tag "site/sell-on-mybookshelf.png",  alt: "sell-on-mybookshelf" %></div>
+                             <div class="sell-banner-a">With our platform, you can reach millions of readers all over Nigeria</div>
+                             <div class="sell-banner-b">START SELLING ON MYBOOKSHELF TODAY!</div>
+                             <div class="sell-banner-c"><a href="<%= 'merchants/signup' %>" class="register-now ">Signup Now <i class="fa fa-arrow-right auto-align"></i></a></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- end banner -->
+                <!-- end banner -->
 
-        <!-- ./breadcrumb -->
-        <div class="page-content">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="sell-d1-header"><p>WHY SHOULD I SELL ON MYBOOKSHELF?</p></div>
+                <!-- ./breadcrumb -->
+                <div class="page-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="sell-d1-header"><p>WHY SHOULD I SELL ON MYBOOKSHELF?</p></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                             <div class="sell-d2-image">
+                                  <%= image_tag "site/commission.png", alt: "sell-on-mybookshelf" %>
+                             </div>
+
+                             <div class="sell-d2-text">
+                                 <p class="bold">Low Commissions</p>
+                                 <p>Commission fees are as low as 13%, and you only pay when you successfully sell a book.</p> 
+                             </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                             <div class="sell-d2-image">
+                                  <%= image_tag "site/Earn-money.png", alt: "sell-on-mybookshelf" %>
+                             </div>
+
+                             <div class="sell-d2-text">
+                                 <p class="bold">You Earn More Money</p>
+                                 <p>MYBOOKSHELF is Nigeria's Largest online bookstore. Sell your books to over 10 million readers all over Nigeria.</p> 
+                             </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                             <div class="sell-d2-image">
+                                  <%= image_tag "site/customer-relationship.png", alt: "sell-on-mybookshelf" %>
+                             </div>
+
+                             <div class="sell-d2-text">
+                                 <p class="bold">Easy Customer Relationship</p>
+                                 <p>Communication with customers is made easy.</p> 
+                             </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                             <div class="sell-d2-image">
+                                  <%= image_tag "site/247-support.png", alt: "sell-on-mybookshelf" %>
+                             </div>
+
+                             <div class="sell-d2-text">
+                                 <p class="bold">24/7 Support</p>
+                                 <p>We are always there to help you make the best out of your business.</p> 
+                             </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                             <div class="sell-d2-image">
+                                  <%= image_tag "site/protection.png", alt: "sell-on-mybookshelf" %>
+                             </div>
+
+                             <div class="sell-d2-text">
+                                 <p class="bold">Your titles are protected</p>
+                                 <p>We help you prevent piracy with our Digital Rights Management System which inturn helps increase your revenue.</p> 
+                             </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                             <div class="sell-d2-image">
+                                  <%= image_tag "site/control.png", alt: "sell-on-mybookshelf" %>
+                             </div>
+
+                             <div class="sell-d2-text">
+                                 <p class="bold">You are in Control</p>
+                                 <p>With MYBOOKSHELF, you are in control of what you sell. You define the pricing list for titles.</p> 
+                             </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-6">
-                     <div class="sell-d2-image">
-                          <%= image_tag "site/commission.png", alt: "sell-on-mybookshelf" %>
-                     </div>
-
-                     <div class="sell-d2-text">
-                         <p class="bold">Low Commissions</p>
-                         <p>Commission fees are as low as 13%, and you only pay when you successfully sell a book.</p> 
-                     </div>
-                </div>
-
-                <div class="col-sm-6">
-                     <div class="sell-d2-image">
-                          <%= image_tag "site/Earn-money.png", alt: "sell-on-mybookshelf" %>
-                     </div>
-
-                     <div class="sell-d2-text">
-                         <p class="bold">You Earn More Money</p>
-                         <p>MYBOOKSHELF is Nigeria's Largest online bookstore. Sell your books to over 10 million readers all over Nigeria.</p> 
-                     </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-sm-6">
-                     <div class="sell-d2-image">
-                          <%= image_tag "site/customer-relationship.png", alt: "sell-on-mybookshelf" %>
-                     </div>
-
-                     <div class="sell-d2-text">
-                         <p class="bold">Easy Customer Relationship</p>
-                         <p>Communication with customers is made easy.</p> 
-                     </div>
-                </div>
-
-                <div class="col-sm-6">
-                     <div class="sell-d2-image">
-                          <%= image_tag "site/247-support.png", alt: "sell-on-mybookshelf" %>
-                     </div>
-
-                     <div class="sell-d2-text">
-                         <p class="bold">24/7 Support</p>
-                         <p>We are always there to help you make the best out of your business.</p> 
-                     </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-sm-6">
-                     <div class="sell-d2-image">
-                          <%= image_tag "site/protection.png", alt: "sell-on-mybookshelf" %>
-                     </div>
-
-                     <div class="sell-d2-text">
-                         <p class="bold">Your titles are protected</p>
-                         <p>We help you prevent piracy with our Digital Rights Management System which inturn helps increase your revenue.</p> 
-                     </div>
-                </div>
-
-                <div class="col-sm-6">
-                     <div class="sell-d2-image">
-                          <%= image_tag "site/control.png", alt: "sell-on-mybookshelf" %>
-                     </div>
-
-                     <div class="sell-d2-text">
-                         <p class="bold">You are in Control</p>
-                         <p>With MYBOOKSHELF, you are in control of what you sell. You define the pricing list for titles.</p> 
-                     </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- ./page wapper-->
+</div>
+<!-- End Page -->
 
 <!-- Promotion Video -->
 <div class="container-fluid promotion-section"> 

@@ -1,4 +1,5 @@
-<!-- Page Header -->
+<div class="page">
+  <!-- Page Header -->
   <header class="header-container">
 
     <div class="header-top">
@@ -34,10 +35,8 @@
     <div class="header container">
       <div class="row">
         <div class="col-lg-4 col-sm-3 col-md-2">
-       
-            <a class="logo" href="#" title="Your Store">
-                <%= image_tag "site/logo.png", title: "MYBOOKSHELF", alt: "MYBOOKSHELF" %>
-            </a>
+      
+          <%= link_to image_tag("site/logo.png", title: "MYBOOKSHELF", alt: "MYBOOKSHELF"), root_path, title: "MYBOOKSHELF" %>
               
           
         </div>

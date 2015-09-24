@@ -8,4 +8,8 @@ module ApplicationHelper
 	def body_class(class_name)
         if class_name.empty? then nil else class_name  end
 	end
+
+	def breadcrumb(current_page)
+        if current_page.empty? then nil else current_page end
+	end
 end

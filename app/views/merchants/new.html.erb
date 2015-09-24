@@ -1,34 +1,143 @@
-<% provide(:title, "Signup as a merchant on MyBookshelf") %>
-<% provide(:class_name, "category-page") %>
-<!-- page wapper-->
-<div class="columns-container">
-    <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <%= link_to "Home", root_path, class: "home", title: "Return to Home" %>
-            <span class="navigation-pipe">&nbsp;</span>
-            <span class="navigation_page">Signup</span>
-        </div>
-        <!-- ./breadcrumb -->
+<% provide(:title, "Sell on MYBOOKSHELF") %>
+<% provide(:class_name, "information-information") %>
+<% provide(:current_page, raw("<strong>Signup as a Merchant</strong>")) %>
 
-        <!-- Stepped Navigation -->
-             <ul class="nav nav-pills nav-wizard">
-                <li class="active"><a href="javacript:void()" data-toggle="tab"><span class="nav-badge">1</span> Merchant Personal Details</a><div class="nav-arrow"></div></li>
-                <li><div class="nav-wedge"></div><a href="javacript:void()" data-toggle="tab"><span class="nav-badge">2</span> Merchant Store Details</a><div class="nav-arrow"></div></li>
-                <li><div class="nav-wedge"></div><a href="javacript:void()" data-toggle="tab"><span class="nav-badge">2</span> Verify Email</a><div class="nav-arrow"></div></li>
-                <li><div class="nav-wedge"></div><a href="javacript:void()" data-toggle="tab"><span class="nav-badge">3</span> Complete Registration</a></li>
+<!-- Registration Form -->
+<div class="main-container col2-right-layout wow bounceInUp animated">
+  <div class="main container page-margin-bottom">
+
+    <!-- Stepped Navigation -->
+             <ul class="nav nav-pills nav-wizard stepped-navigation-bottom">
+                <li class="active"><a href="javacript:void()"><span class="nav-badge">1</span> Merchant Personal Details</a><div class="nav-arrow"></div></li>
+                <li><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">2</span> Merchant Store Details</a><div class="nav-arrow"></div></li>
+                <li><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">2</span> Verify Email</a><div class="nav-arrow"></div></li>
+                <li><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">3</span> Complete Registration</a></li>
             </ul>
-        <!-- End Stepped Navigation -->
+    <!-- End Stepped Navigation -->
+  
+    <div class="row">                
+        <div id="content" class="col-sm-9 col-main">      
+            <div class="page-title"><h2>Register Account</h2></div>
+               <p>If you already have an account with us, please login at the <%= link_to "login page", "login" %>.</p>
+               <%= form_for(@merchant, html: { class: 'form-horizontal'} ) do|f| %>
+                    <fieldset id="account">
+                           <legend>Your Personal Details</legend>
+                           <div class="form-group required">
+                               <%= f.label :firstname, "First Name", class: "col-sm-2 control-label" %>
+                               <div class="col-sm-10">
+                                  <%= f.text_field :firstname, class: "form-control", placeholder: "Enter your first name" %>
+                               </div>
+                           </div>
+
+                           <div class="form-group required">
+                               <%= f.label :lastname, "Last Name", class: "col-sm-2 control-label" %>
+                               <div class="col-sm-10">
+                                  <%= f.text_field :lastname, class: "form-control", placeholder: "Enter your last name" %>
+                               </div>
+                           </div>
+
+                           <div class="form-group required">
+                               <%= f.label :email, "Email", class: "col-sm-2 control-label" %>
+                               <div class="col-sm-10">
+                                  <%= f.text_field :email, class: "form-control", placeholder: "Enter your email address" %>
+                               </div>
+                           </div>
+
+                           <div class="form-group required">
+                               <%= f.label :phone_number, "Telephone", class: "col-sm-2 control-label" %>
+                               <div class="col-sm-10">
+                                  <%= f.text_field :phone_number, class: "form-control", placeholder: "Enter your telephone number" %>
+                               </div>
+                           </div>
+                    </fieldset>
+
+                  <fieldset id="address">
+                     <legend>Your Address</legend>
+                     <div class="form-group required">
+                           <%= f.label :address, "Address", class: "col-sm-2 control-label" %>
+                           <div class="col-sm-10">
+                              <%= f.text_field :address, class: "form-control", placeholder: "Enter your residential address" %>
+                           </div>
+                     </div>
+
+                     <div class="form-group required">
+                       <%= f.label :city, "City", class: "col-sm-2 control-label" %>
+                       <div class="col-sm-10">
+                          <%= f.text_field :city, class: "form-control", placeholder: "Enter your city" %>
+                       </div>
+                   </div>
+
+                   <div class="form-group required">
+                       <%= f.label :landmark, "Landmark", class: "col-sm-2 control-label" %>
+                       <div class="col-sm-10">
+                          <%= f.text_field :landmark, class: "form-control", placeholder: "Enter a landmark near you" %>
+                       </div>
+                   </div>
 
 
-        <div class="page-content">
-            <div class="row">
-                <div class="col-sm-8">
-                      <%= render 'merchants/partials/' + current_step %>
-                </div>
+                   <div class="form-group required">
+                       <%= f.label :state_id, "Telephone", class: "col-sm-2 control-label" %>
+                       <div class="col-sm-10">
+                          <%= f.collection_select :state_id, State.order(:name), :id, :name, { :prompt => "Select State" }, { class: "form-control" } %>
+                       </div>
+                   </div>
+              </fieldset>
+
+              <fieldset>
+                  <legend>Your Password</legend>
+                  <div class="form-group required">
+                        <%= f.label :password, "Password", class: "col-sm-2 control-label" %>
+                        <div class="col-sm-10">
+                             <%= f.text_field :password, class: "form-control", placeholder: "Enter a preferred password" %>
+                        </div>
+                  </div>
+
+                  <div class="form-group required">
+                        <%= f.label :password_confirmation, "Password", class: "col-sm-2 control-label" %>
+                        <div class="col-sm-10">
+                             <%= f.text_field :password_confirmation, class: "form-control", placeholder: "Password Confirm" %>
+                        </div>
+                  </div>
+             </fieldset>
+               
+               <div class="buttons">
+                    <div class="pull-right">I have read and agree to the <%= link_to raw('<b>Terms and Conditions</b>'), terms_path, class: "agree" %>                        
+                           <%= f.check_box :terms %>
+                             &nbsp;
+                           <%= f.submit "Continue", class: "button" %>
+                    </div>
+               </div>
+
+            <% end %>
+      </div>
+
+
+    <div id="column-right" class="col-sm-3">
+        <div class="block block-account">
+           <div class="block-title">Account  </div>
+             <div class="block-content">
+                  <ul>
+                    
+                      <li><a href="indexe223.html?route=account/login" class="">Login</a> </li>
+                      <li><a href="index5502.html?route=account/register" class="">Register</a> </li>
+                      <li><a href="indexacda.html?route=account/forgotten" class="">Forgotten Password</a></li>
+                        
+                      <li><a href="indexe223.html?route=account/account" class="">My Account</a></li>
+                        
+                      <li><a href="indexc6b3.php?route=account/address" class="">Address Book</a> </li>
+                      <li><a href="index4628.php?route=account/wishlist" class="">Wish List</a> </li>
+                      <li><a href="indexe223.html?route=account/order" class="">Order History</a> </li>
+                      <li><a href="indexe223.html?route=account/download" class="">Downloads</a> </li>
+                      <li><a href="indexe223.html?route=account/reward" class="">Reward Points</a> </li>
+                      <li><a href="indexe223.html?route=account/return" class="">Returns</a> </li>
+                      <li><a href="indexe223.html?route=account/transaction" class="">Transactions</a> </li>
+                      <li><a href="indexe223.html?route=account/newsletter" class="">Newsletter</a></li>
+                      <li><a href="indexe223.html?route=account/recurring" class="">Recurring payments</a></li>
+                  </ul>
             </div>
-        </div>
+        </div>  
     </div>
 </div>
-<!-- ./page wapper-->
+</div><!-- main container -->
 
+<!-- End Registration Form -->
