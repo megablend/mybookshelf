@@ -9,4 +9,4 @@ Rails.application.config.assets.paths << Rails.root.join("fonts", "less")
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( frontend_index_page_manifest.js )
+Rails.application.config.assets.precompile += %w( frontend_index_page_manifest.js validation_manifest.js validation.css )

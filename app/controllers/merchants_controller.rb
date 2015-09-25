@@ -14,7 +14,10 @@ class MerchantsController < ApplicationController
   def create
      @merchant = Merchant.new(merchant_params)
      if(@merchant.save)
-
+         # set active session and render the merchant page with store details form
+         session[:active_step] = "store_details"
+         session[:merchant_id] = @merchant.id
+         render 'new'
      else
        render 'new'
      end
