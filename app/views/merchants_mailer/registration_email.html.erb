@@ -9,7 +9,7 @@
 
 <body marginheight="0" topmargin="0" marginwidth="0" leftmargin="0" style="margin: 0px; background-color: #f5f5f5; font-family: Helvetica, Arial, sans-serif;">
 <!--100% body table-->
-<table cellspacing="0" border="0" bgcolor="" style="margin: 0; padding: 0; border: 0;" width="100%" cellpadding="0">
+<table cellspacing="0" border="0" bgcolor="" style="margin: 0 0 30px 0; padding: 0; border: 0;" width="100%" cellpadding="0">
   <tr style="margin: 0; padding: 0; border: 0;">
     <td align="center" style="margin: 0; padding: 0; border: 0;">
     <!--email container-->
@@ -28,7 +28,7 @@
 							<td height="50" style="margin: 0; padding: 0; border: 0;"></td>
 							<td align="center" style="padding: 0; font-size: 12px; line-height: 16px; border: 0; color: #EDEDED; margin: 0; font-famiy:Helvetica,Arial,sans-serif">
 						      <img src="images/logo.png" /><br/>
-							  <div style="margin-top: 20px; color: #333;">Need help? Call <img src="images/phone.png" style="display: inline; vertical-align: middle; margin-right: 3px;" /> <strong>08060108165</strong> or Drop us an email on <strong><a href="mailto:support@mybookshelf.com.ng" style="text-decoration: none; color: #333">support@mybookshelf.com.ng</a></strong></div>
+							  <div style="margin-top: 20px; color: #333;">Need help? Call <img src="images/phone.png" style="display: inline; vertical-align: middle; margin-right: 3px;" /> <strong><%= @company_profile.telephone %></strong> or Drop us an email on <strong><%= link_to @company_profile.eamil, "mailto:#{@company_profile.email}", style: "text-decoration: none; color: #333" %></strong></div>
 							</td>
 							<td style="margin: 0; padding: 0; border: 0;"></td>
 						</tr>
@@ -64,9 +64,26 @@
 								</tr>
 								<tr style="margin: 0; padding: 0; border: 0;">
 									<td colspan="2" style="margin: 0; padding: 0; border: 0;">
-										<p style="margin: 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494">Hello {{merchant}},</p>
+										<p style="margin: 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494">Hello <%= @merchant.firstname.capitalize %>,</p>
 										<p style="margin: 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494">Thank you for choosing MyBookshelf to sell your books!</p>
-										<p style="margin: 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494">{{MESSAGE}}</p>
+										<p style="margin: 10px 0 10px 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494">
+										<%= link_to "Click here to verify your email", "/merchants/verify-email/#{@merchant.verification_code}", style: "border:solid 1px #09AAC7;background-color:#09AAC7;color:#ffffff;padding:9px 20px;border-radius:3px;font-weight:bold;text-decoration:none", target: "_blank" %>
+										</p>
+
+										<p style="margin: 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494">In MyBookshelf, we avail you the opportunity to:</p>
+
+										<ul>
+                                            <li>Gain access to our growning books marketplace</li>
+                                            <li>Create your own virtual store</li>
+                                            <li>Stock your store with your books</li>
+                                            <li>Update your shipping preferences</li>
+                                            <li>Manage your inventory and sales orders</li>
+                                            <li>Chat directly with your customers</li>
+                                            <li>Receive payouts</li>
+                                        </ul>
+
+                                        <p style="margin: 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494">Button not working? Try pasting this link into your browser:</p>
+                                        <p style="margin: 0; padding: 0; font-size: 15px; padding-bottom: 10px; font-family: Helvetica, Arial, sans-serif; color:#949494"><%= link_to "#{@domain}/merchants/verify-email/#{@merchant.verification_code}", "/merchants/verify-email/#{@merchant.verification_code}" %></p>
 									</td>
 								</tr>
 							</table>
@@ -95,12 +112,12 @@
                      <table border="0" cellspacing="0" cellpadding="0">
                             <tbody>
                             	<tr>
-                    <td><img src="images/spacer.jpg" style="display:block" width="70" class="CToWUd"></td>
-                    <td><a href="#" target="_blank"><img src="images/facebook.png" style="display:block; margin: 10px 20px" class="CToWUd"></a></td>
-                    <td><a href="#" target="_blank"><img src="images/twitter.png" style="display:block; margin: 10px 20px" class="CToWUd"></a></td>
-                    <td><a href="#" target="_blank"><img src="images/google-plus.png" style="display:block; margin: 10px 20px" class="CToWUd"></a></td>
-                    <td><a href="#" target="_blank"><img src="images/youtube.png" style="display:block; margin: 10px 20px" class="CToWUd"></a></td>
-                    <td><a href="#" target="_blank"><img src="images/blackberry.png" style="display:block" class="CToWUd"></a></td>
+                    <td><%= image_tag "mails/spacer.png", style: "display:block", class: "CToWUd" %></td>
+                    <td><a href="<%= @company_profile.facebook_profile %>" target="_blank"><%= image_tag "mails/facebook.png", style: "display:block; margin: 10px 20px", class: "CToWUd" %></a></td>
+                    <td><a href="<%= @company_profile.twitter_profile %>" target="_blank"><%= image_tag "mails/twitter.png", style: "display:block; margin: 10px 20px", class: "CToWUd" %></a></td>
+                    <td><a href="<%= @company_profile.google_plus_profile %>" target="_blank"><%= image_tag "mails/google-plus.png", style: "display:block; margin: 10px 20px", class: "CToWUd" %></a></td>
+                    <td><a href="<%= @company_profile.youtube_profile %>" target="_blank"><%= image_tag "mails/youtube.png", style: "display:block; margin: 10px 20px", class: "CToWUd" %></a></td>
+                    <td><a href="<%= @company_profile.bbm_profile %>" target="_blank"><%= image_tag "mails/blackberry.png", style: "display:block", class: "CToWUd" %></a></td>
                 </tr>
             </tbody></table>
 </td>
@@ -113,12 +130,12 @@
                     <td height="40" style="border-bottom:1px dashed #fff;border-top:1px dashed #fff">
                         <table border="0" align="center" cellpadding="0" cellspacing="0" style="font-size:11px;color:#fff">
                             <tbody><tr>
-                                <td width="70" align="center" style="display: inline"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif;" href="mailto:support@mybookshelf.com.ng" target="_blank">Contact Us</a> <img src="images/asterisks.png" style="vertical-align: middle; margin: 0px 10px 0px 10px"/></td>
-                                <td width="60" align="center" style="padding-left:5px; display: inline"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="#" target="_blank">About Us</a> <img src="images/asterisks.png" style="vertical-align: middle; margin: 0px 10px 0px 10px"/></td>
+                                <td width="70" align="center" style="display: inline"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif;" href="<%= 'mailto:#{@company_profile.email}' %>" target="_blank">Contact Us</a> <%= image_tag "mails/asterisks.png", style: "vertical-align: middle; margin: 0px 10px 0px 10px" %></td>
+                                <td width="60" align="center" style="padding-left:5px; display: inline"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="<%= @footer_links.about_us %>" target="_blank">About Us</a> <%= image_tag "mails/asterisks.png", style: "vertical-align: middle; margin: 0px 10px 0px 10px" %></td>
                                 <!-- <td width="119" align="center" style="padding-left:5px; display: inline"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="#" target="_blank">Become an Affiliate</a> <img src="images/asterisks.png" style="vertical-align: middle; margin: 0px 10px 0px 10px"/></td> -->
-                                <td width="60" align="center" style="padding-left:5px; display: inline"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="#" target="_blank">FAQ</a> <img src="images/asterisks.png" style="vertical-align: middle; margin: 0px 10px 0px 10px"/></td>
-                                <td width="84" align="center" style="display: inline; padding-left:5px"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="#" target="_blank">Sell on MYBOOKSHELF</a> <img src="images/asterisks.png" style="vertical-align: middle; margin: 0px 10px 0px 10px"/></td>
-                                <td width="65" align="center" style="display: inline; padding-left:5px"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="#" target="_blank">Our Blog</a></td>
+                                <td width="60" align="center" style="padding-left:5px; display: inline"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="<%= @footer_links.faq %>" target="_blank">FAQ</a> <%= image_tag "mails/asterisks.png", style: "vertical-align: middle; margin: 0px 10px 0px 10px" %></td>
+                                <td width="84" align="center" style="display: inline; padding-left:5px"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="<%= sell_url %>" target="_blank">Sell on MYBOOKSHELF</a> <%= image_tag "mails/asterisks.png", style: "vertical-align: middle; margin: 0px 10px 0px 10px" %></td>
+                                <td width="65" align="center" style="display: inline; padding-left:5px"><a style="text-decoration:none;color:#fff;font-family:Arial,Helvetica,sans-serif" href="<%= blog_url %>" target="_blank">Our Blog</a></td>
 
                             </tr>
                         </tbody></table>
@@ -127,7 +144,8 @@
 				</tr>
 				<tr height="40" style="margin: 0; padding: 0; border: 0;">
 					<td style="margin: 0; padding: 0; border: 0;"></td>
-					<td align="center" style="padding: 0; font-size: 11px; line-height: 22px; border: 0; color: #fff; margin: 0; font-family:Helvetica,Arial,sans-serif">To ensure delivery to your inbox, please add <strong><a href="mailto:support@mybookshelf.com.ng" style="text-decoration: none; color: #D2FF4A">support@mybookshelf.com.ng</a></strong> to your address book.
+					<td align="center" style="padding: 0; font-size: 11px; line-height: 22px; border: 0; color: #fff; margin: 0; font-family:Helvetica,Arial,sans-serif">To ensure delivery to your inbox, please add <strong>
+						<%= link_to "support@mybookshelf.com.ng", "mailto:support@mybookshelf.com.ng", style: "text-decoration: none; color: #D2FF4A" %></strong> to your address book.
 										</td>
 					<td style="margin: 0; padding: 0; border: 0;"></td>
 				</tr>
@@ -136,15 +154,14 @@
 					<td align="center" style="padding: 0; font-size: 11px; color: #fff; margin: 0; font-family:Helvetica,Arial,sans-serif">
 						                <span>PLEASE DO NOT REPLY TO THIS MESSAGE<span><br/>
 						                <span>This is a system generated <span style="color: #D2FF4A">mybookshelf.com.ng</span> email. Replies will not be read or forwarded for handling<span><br/>
-						                <span>23a, Sura Mogaji, Off Coker Road,</span><br/>
-						                <span>Ilupeju Lagos</span>
+						                <span><%= @company_profile.address %></span>
 					</td>
 					<td style="margin: 0; padding: 0; border: 0;"></td>
 				</tr>
 
 				<tr height="40" style="margin: 0; padding: 0; border: 0;">
 					<td style="margin: 0; padding: 0; border: 0;"></td>
-					<td align="center" style="padding: 0; font-size: 11px; line-height: 22px; border: 0; color: #fff; margin: 0; font-family:Helvetica,Arial,sans-serif">Copyright &copy; 2015 MyBookshelf Limited. All rights reserved
+					<td align="center" style="padding: 0; font-size: 11px; line-height: 22px; border: 0; color: #fff; margin: 0; font-family:Helvetica,Arial,sans-serif">Copyright &copy; <%= Time.now.year + " " + @company_profile.name %>. All rights reserved
 										</td>
 					<td style="margin: 0; padding: 0; border: 0;"></td>
 				</tr>

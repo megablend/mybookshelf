@@ -12,4 +12,9 @@ module ApplicationHelper
 	def breadcrumb(current_page)
         if current_page.empty? then nil else current_page end
 	end
+
+	# capitalize strings
+	def capitalize_string(string)
+        string.downcase.split(" ").map(&:capitalize).join(" ")
+	end
 end

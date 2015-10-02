@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002155352) do
+ActiveRecord::Schema.define(version: 20151002181857) do
 
   create_table "company_profiles", force: :cascade do |t|
     t.string "name",                limit: 100, null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20151002155352) do
     t.string "google_plus_profile", limit: 50
     t.string "youtube_profile",     limit: 50
     t.string "bbm_profile",         limit: 50
+    t.string "domain_name",         limit: 50
   end
 
   create_table "local_govts", force: :cascade do |t|
@@ -47,7 +48,7 @@ ActiveRecord::Schema.define(version: 20151002155352) do
     t.datetime "updated_at",                                null: false
     t.integer  "account_status",    limit: 1,   default: 1
     t.integer  "email_verified",    limit: 1,   default: 0
-    t.string   "verification_code", limit: 12
+    t.string   "verification_code", limit: 50
   end
 
   add_index "merchants", ["email"], name: "index_merchants_on_email", unique: true, using: :btree

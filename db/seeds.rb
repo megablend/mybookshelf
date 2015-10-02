@@ -54,3 +54,15 @@ store_types = ["Print Books Only", "EBooks Only", "Print Books and EBooks"]
 store_types.each do|type|
    StoreType.create(name: type)
 end
+
+# Add Default Company Profile details'
+company_profiles = {name: "MyBookshelf Limited", 
+                    address: "23a, Sura Mogaji, Off Coker Road, Ilupeju Lagos",
+                    email: "support@mybookshelf.com.ng",
+                    telephone: "08060108165",
+                    facebook_profile: "http://www.facebook.com/mybookshelf.ng",
+                    twitter_profile: "http://www.twitter.com/mybookshelf.ng",
+                    google_plus_profile: "http://www.googleplus.com/mybookshelf.ng",
+                    youtube_profile: "http://www.youtube.com/mybookshelf.ng",
+                    bbm_profile: "CR535636"}
+CompanyProfile.create(company_profiles)
