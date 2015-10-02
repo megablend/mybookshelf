@@ -9,15 +9,15 @@
 
     <!-- Stepped Navigation -->
              <ul class="nav nav-pills nav-wizard stepped-navigation-bottom">
-                <li class="active"><a href="javacript:void()"><span class="nav-badge">1</span> Merchant Personal Details</a><div class="nav-arrow"></div></li>
-                <li><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">2</span> Merchant Store Details</a><div class="nav-arrow"></div></li>
-                <li><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">2</span> Verify Email</a><div class="nav-arrow"></div></li>
-                <li><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">3</span> Complete Registration</a></li>
+                <li class="<%= get_active_step_class 'merchant_details' %>"><a href="javacript:void()"><span class="nav-badge">1</span> Merchant Personal Details</a><div class="nav-arrow"></div></li>
+                <li class="<%= get_active_step_class 'store_details' %>"><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">2</span> Merchant Store Details</a><div class="nav-arrow"></div></li>
+                <li class="<%= get_active_step_class 'verify_email' %>"><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">3</span> Verify Email</a><div class="nav-arrow"></div></li>
+                <li class="<%= get_active_step_class 'complete_registration' %>"><div class="nav-wedge"></div><a href="javacript:void()"><span class="nav-badge">3</span> Complete Registration</a></li>
             </ul>
     <!-- End Stepped Navigation -->
   
     <div class="row">                
-        <div id="content" class="col-sm-9 col-main">     
+        <div id="content" class="col-sm-9 col-main">    
             <%= render 'merchants/partials/' + current_step %>
       </div>
 

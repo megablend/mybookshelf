@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916064913) do
+ActiveRecord::Schema.define(version: 20151002155352) do
+
+  create_table "company_profiles", force: :cascade do |t|
+    t.string "name",                limit: 100, null: false
+    t.string "address",             limit: 128, null: false
+    t.string "email",               limit: 96,  null: false
+    t.string "telephone",           limit: 20,  null: false
+    t.string "facebook_profile",    limit: 50
+    t.string "twitter_profile",     limit: 50
+    t.string "google_plus_profile", limit: 50
+    t.string "youtube_profile",     limit: 50
+    t.string "bbm_profile",         limit: 50
+  end
 
   create_table "local_govts", force: :cascade do |t|
     t.string  "name",     limit: 255, null: false
@@ -63,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150916064913) do
 
   add_index "stores", ["merchant_id"], name: "index_stores_on_merchant_id", using: :btree
   add_index "stores", ["store_type_id"], name: "index_stores_on_store_type_id", using: :btree
+  add_index "stores", ["url"], name: "index_stores_on_url", unique: true, using: :btree
 
   add_foreign_key "local_govts", "states"
   add_foreign_key "merchants", "states"

@@ -5,12 +5,12 @@ class MerchantsSignupTest < ActionDispatch::IntegrationTest
   #   assert true
   # end
   test "invalid signup information" do
-      get "merchants/signup"
+      get "/merchants/signup"
       assert_no_difference "Merchant.count" do
-          post merchants_path, merchant: {firstname: "",
-                                          lastname: "",
-                                          phone_number: "ggfggff",
-                                          email: "dhfjfj@hdhff",
+          post merchants_path, merchant: {firstname: "nonso",
+                                          lastname: "megafu",
+                                          phone_number: "08060108165",
+                                          email: "dhfjfj@gmail.com",
                                           city: "fjfjj",
                                           landmark: "people's club",
                                           state_id: 2,

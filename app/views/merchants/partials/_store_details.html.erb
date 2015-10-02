@@ -1,0 +1,59 @@
+<!-- Validation Script -->
+   <% content_for :validation do %>
+       <%= stylesheet_link_tag    'validation', media: 'all', 'data-turbolinks-track' => true %>
+       <%= javascript_include_tag 'validation_manifest', 'data-turbolinks-track' => true %>
+   <% end %>
+<!-- End Add Validation Script -->
+
+<div class="page-title"><h2>Your Store Details</h2></div>
+               
+               <%= form_for(@store, html: { class: 'form-horizontal'} ) do|f| %>
+                    <% if @store.errors.any? %>
+                        <div class="alert alert-danger">
+                            Your store details contains <%= pluralize(@store.errors.count, "error") %>, please scroll down to view the errors marked in red.
+                        </div>
+                    <% end %>
+                    <fieldset id="account">
+                           <legend>Your Store Details</legend>
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:name) %>">
+                               <%= f.label :name, "Store Name", class: "col-sm-2 control-label" %>
+                               <div class="col-sm-10">
+                                  <%= f.text_field :name, class: "form-control validate[required]", autofocus: true, placeholder: "Enter the name of your store" %>
+                                  <span class="<%= 'form-error' if f.object.errors.include?(:name) %>"><%= f.object.errors[:name].join(raw(" -- Store Name ")) %></span>
+                               </div>
+                           </div>
+
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:description) %>">
+                               <%= f.label :description, "Description", class: "col-sm-2 control-label" %>
+                               <div class="col-sm-10">
+                                  <%= f.text_area :description, size: "5x10", class: "form-control validate[required]", autofocus: true, placeholder: "Enter a brief description for your store" %>
+                                  <span class="<%= 'form-error' if f.object.errors.include?(:description) %>"><%= f.object.errors[:description].join(raw(" -- Store Description ")) %></span>
+                               </div>
+                           </div>
+
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:url) %>">
+                               <%= f.label :url, "Store URL", class: "col-sm-2 control-label" %>
+                               <div class="col-sm-2 middle-align"><span class="store-url">www.mybookshelf.com.ng/</span></div>
+                               <div class="col-sm-8">
+                                  
+                                  <%= f.text_field :url, class: "form-control validate[required]", autofocus: true, placeholder: "Enter a preferred URL name for your store" %>
+                                  <span class="<%= 'form-error' if f.object.errors.include?(:url) %>"><%= f.object.errors[:url].join(raw(" -- Email ")) %></span>
+                               </div>
+                           </div>
+
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:store_type_id) %>">
+                             <%= f.label :store_type_id, "Type of Store1", class: "col-sm-2 control-label" %>
+                             <div class="col-sm-10">
+                                <%= f.collection_select :store_type_id, StoreTypes.order(:name), :id, :name, { :prompt => "Select a Store Type" }, { class: "form-control" } %>
+                                <span class="<%= 'form-error' if f.object.errors.include?(:store_type_id) %>"><%= f.object.errors[:store_type_id].join(raw(" -- Store Type ")) %></span>
+                          </div>
+                   </div>
+                    </fieldset>
+               
+               <div class="buttons">                       
+                           <div class="pull-right">
+                           <%= f.submit "Continue", class: "button add-margin-top" %>
+                          </div>
+               </div>
+
+            <% end %>

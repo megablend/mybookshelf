@@ -1,3 +1,3 @@
 class State < ActiveRecord::Base
-	has_many :merchant
+	has_many :merchants
 end

@@ -8,95 +8,109 @@
 <div class="page-title"><h2>Register Account</h2></div>
                <p>If you already have an account with us, please login at the <%= link_to "login page", "login" %>.</p>
                <%= form_for(@merchant, html: { class: 'form-horizontal'} ) do|f| %>
-                    <%= # render("shared/error_messages") %>
+                    <% if @merchant.errors.any? %>
+                        <div class="alert alert-danger">
+                            Your registration contains <%= pluralize(@merchant.errors.count, "error") %>, please scroll down to view the errors marked in red.
+                        </div>
+                    <% end %>
                     <fieldset id="account">
                            <legend>Your Personal Details</legend>
-                           <div class="form-group required">
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:firstname) %>">
                                <%= f.label :firstname, "First Name", class: "col-sm-2 control-label" %>
                                <div class="col-sm-10">
                                   <%= f.text_field :firstname, class: "form-control validate[required]", autofocus: true, placeholder: "Enter your first name" %>
-                                  <span class="<%= 'form-error' if f.object.errors.include?(:firstname) %>"><%= f.object.errors[:firstname].join(raw('<br/>')) %></span>
+                                  <span class="<%= 'form-error' if f.object.errors.include?(:firstname) %>"><%= f.object.errors[:firstname].join(raw(" -- First Name ")) %></span>
                                </div>
                            </div>
 
-                           <div class="form-group required">
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:lastname) %>">
                                <%= f.label :lastname, "Last Name", class: "col-sm-2 control-label" %>
                                <div class="col-sm-10">
-                                  <%= f.text_field :lastname, class: "form-control validate[required]", placeholder: "Enter your last name" %>
-                                  <span class="<%= 'form-error' if f.object.errors.include?(:lastname) %>"><%= f.object.errors[:lastname].join(raw('<br/>')) %></span>
+                                  <%= f.text_field :lastname, class: "form-control validate[required]", autofocus: true, placeholder: "Enter your last name" %>
+                                  <span class="<%= 'form-error' if f.object.errors.include?(:lastname) %>"><%= f.object.errors[:lastname].join(raw(" -- Last Name ")) %></span>
                                </div>
                            </div>
 
-                           <div class="form-group required">
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:email) %>">
                                <%= f.label :email, "Email", class: "col-sm-2 control-label" %>
                                <div class="col-sm-10">
-                                  <%= f.text_field :email, class: "form-control validate[required,custom[email]]", placeholder: "Enter your email address" %>
+                                  <%= f.text_field :email, class: "form-control validate[required,custom[email]]", autofocus: true, placeholder: "Enter your email address" %>
+                                  <span class="<%= 'form-error' if f.object.errors.include?(:email) %>"><%= f.object.errors[:email].join(raw(" -- Email ")) %></span>
                                </div>
                            </div>
 
-                           <div class="form-group required">
+                           <div class="form-group required <%= 'has-error' if f.object.errors.include?(:phone_number) %>">
                                <%= f.label :phone_number, "Telephone", class: "col-sm-2 control-label" %>
                                <div class="col-sm-10">
-                                  <%= f.text_field :phone_number, class: "form-control validate[required,custom[phone-number]]", placeholder: "Enter your telephone number" %>
+                                  <%= f.text_field :phone_number, class: "form-control validate[required,custom[phone-number]]", autofocus: true, placeholder: "Enter your telephone number" %>
+                                  <span class="<%= 'form-error' if f.object.errors.include?(:phone_number) %>"><%= f.object.errors[:phone_number].join(raw(" -- Telephone ")) %></span>
                                </div>
                            </div>
                     </fieldset>
 
                   <fieldset id="address">
                      <legend>Your Address</legend>
-                     <div class="form-group required">
+                     <div class="form-group required <%= 'has-error' if f.object.errors.include?(:address) %>">
                            <%= f.label :address, "Address", class: "col-sm-2 control-label" %>
                            <div class="col-sm-10">
-                              <%= f.text_field :address, class: "form-control validate[required]", placeholder: "Enter your residential address" %>
+                              <%= f.text_field :address, class: "form-control validate[required]", autofocus: true, placeholder: "Enter your residential address" %>
+                              <span class="<%= 'form-error' if f.object.errors.include?(:address) %>"><%= f.object.errors[:address].join(raw(" -- Address ")) %></span>
                            </div>
                      </div>
 
-                     <div class="form-group required">
+                     <div class="form-group required <%= 'has-error' if f.object.errors.include?(:city) %>">
                        <%= f.label :city, "City", class: "col-sm-2 control-label" %>
                        <div class="col-sm-10">
-                          <%= f.text_field :city, class: "form-control validate[required]", placeholder: "Enter your city" %>
+                          <%= f.text_field :city, class: "form-control validate[required]", autofocus: true, placeholder: "Enter your city" %>
+                          <span class="<%= 'form-error' if f.object.errors.include?(:city) %>"><%= f.object.errors[:city].join(raw(" -- City ")) %></span>
                        </div>
                    </div>
 
-                   <div class="form-group required">
+                   <div class="form-group required <%= 'has-error' if f.object.errors.include?(:landmark) %>">
                        <%= f.label :landmark, "Landmark", class: "col-sm-2 control-label" %>
                        <div class="col-sm-10">
-                          <%= f.text_field :landmark, class: "form-control validate[required]", placeholder: "Enter a landmark near you" %>
+                          <%= f.text_field :landmark, class: "form-control validate[required]", autofocus: true, placeholder: "Enter a landmark near you" %>
+                          <span class="<%= 'form-error' if f.object.errors.include?(:landmark) %>"><%= f.object.errors[:landmark].join(raw(" -- Landmark ")) %></span>
                        </div>
                    </div>
 
 
-                   <div class="form-group required">
+                   <div class="form-group required <%= 'has-error' if f.object.errors.include?(:state_id) %>">
                        <%= f.label :state_id, "State", class: "col-sm-2 control-label" %>
                        <div class="col-sm-10">
                           <%= f.collection_select :state_id, State.order(:name), :id, :name, { :prompt => "Select State" }, { class: "form-control" } %>
+                          <span class="<%= 'form-error' if f.object.errors.include?(:state_id) %>"><%= f.object.errors[:state_id].join(raw(" -- State ")) %></span>
                        </div>
                    </div>
               </fieldset>
 
               <fieldset>
                   <legend>Your Password</legend>
-                  <div class="form-group required">
+                  <div class="form-group required <%= 'has-error' if f.object.errors.include?(:password) %>">
                         <%= f.label :password, "Password", class: "col-sm-2 control-label" %>
                         <div class="col-sm-10">
-                             <%= f.password_field :password, class: "form-control validate[required]", placeholder: "Enter a preferred password" %>
+                             <%= f.password_field :password, class: "form-control validate[required]", autofocus: true, placeholder: "Enter a preferred password" %>
+                             <span class="<%= 'form-error' if f.object.errors.include?(:password) %>"><%= f.object.errors[:password].join(raw(" -- Password ")) %></span>
                         </div>
                   </div>
 
-                  <div class="form-group required">
+                  <div class="form-group required <%= 'has-error' if f.object.errors.include?(:password_confirmation) %>">
                         <%= f.label :password_confirmation, "Confirm Password", class: "col-sm-2 control-label" %>
                         <div class="col-sm-10">
-                             <%= f.password_field :password_confirmation, class: "form-control validate[required, equals[password]]", placeholder: "Password Confirmation" %>
+                             <%= f.password_field :password_confirmation, class: "form-control validate[required, equals[merchant_password]]", autofocus: true, placeholder: "Password Confirmation" %>
+                             <span class="<%= 'form-error' if f.object.errors.include?(:password_confirmation) %>"><%= f.object.errors[:password_confirmation].join(raw(" -- Password ")) %></span>
                         </div>
                   </div>
              </fieldset>
                
-               <div class="buttons">
-                    <div class="pull-right">I have read and agree to the <%= link_to raw('<b>Terms and Conditions</b>'), terms_path, class: "agree" %>                        
-                           <%= f.check_box :terms %>
-                             &nbsp;
-                           <%= f.submit "Continue", class: "button" %>
-                    </div>
+               <div class="buttons">                       
+                           <div class="pull-right">
+                            <%= f.check_box :terms %>
+                            I have read and agree to the <%= link_to raw('<b>Terms and Conditions</b>'), "/merchants/terms", class: "agree" %> 
+                             <br/>
+                             <span class="<%= 'form-error' if f.object.errors.include?(:terms) %>"><%= f.object.errors[:terms].join(raw(" -- Terms ")) %></span><br/>
+                           <%= f.submit "Continue", class: "button add-margin-top" %>
+                          </div>
                </div>
 
             <% end %>

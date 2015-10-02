@@ -1,21 +1,23 @@
 class Merchant < ActiveRecord::Base
     belongs_to :state
+    has_one :store, inverse_of: :merchant
     attr_accessor :remember_token
 
 	before_save {self.email = self.email.downcase}
 
 	# Validate the form details
-	validates :firstname, presence: true, length: {maximum: 32}
-	validates :lastname, presence: true, length: {maximum: 32}
-	validates :phone_number, presence: true, length: {maximum: 32}, numericality: true
+	validates :firstname, presence: { message: "Your first name can't be blank"}, length: {maximum: 32}
+	validates :lastname, presence: { message: "Your last name can't be blank"}, length: {maximum: 32}
+	validates :phone_number, presence: { message: "Your phone number can't be blank"}, length: {maximum: 32}, numericality: true
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-	validates :email, presence: true, length: {maximum: 96}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
-	validates :address, presence: true, length: {maximum: 128}
-	validates :city, presence: true, length: {maximum: 128}
-	validates :landmark, presence: true, length: {maximum: 128}
-	validates_acceptance_of :terms
+	validates :email, presence: { message: "Your email address can't be blank"}, length: {maximum: 96}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
+	validates :address, presence: { message: "Your residential address can't be blank"}, length: {maximum: 128}
+	validates :city, presence: { message: "Your city can't be blank"}, length: {maximum: 128}
+	validates :landmark, presence: { message: "Landmark can't be blank"}, length: {maximum: 128}
+	validates :state_id, presence: {message: "Please select your state"}
+	validates_acceptance_of :terms, message: "You must accept our terms and conditions"
 
 	#ensure a secure passowrd for the system
 	has_secure_password
-	validates :password, presence: true, length: { minimum: 6 }
+	validates :password, length: { minimum: 6,  }
 end

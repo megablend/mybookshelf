@@ -7,13 +7,16 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # sellers 
-  get 'sell' => 'frontend_pages#sell'
+  get '/sell' => 'frontend_pages#sell'
   
   # merchants signup link
-  get 'merchants/signup' => 'merchants#new'
+  get '/merchants/signup' => 'merchants#new'
 
   # terms of use
-  get 'terms' => 'frontend_pages#terms'
+  get '/terms' => 'frontend_pages#terms'
+
+  # stores route
+  post '/stores' => 'stores#create'
   
   # resources generator for merchants
   resources :merchants
