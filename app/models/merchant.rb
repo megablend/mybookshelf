@@ -20,4 +20,8 @@ class Merchant < ActiveRecord::Base
 	#ensure a secure passowrd for the system
 	has_secure_password
 	validates :password, length: { minimum: 6,  }
+
+	def complete_registration
+       update_attribute(:email_verified, 1)
+	end
 end

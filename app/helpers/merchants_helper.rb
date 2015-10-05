@@ -37,7 +37,7 @@ module MerchantsHelper
             when "store_details" then "store_details"
             when "verify_email" then "verify_email"
             else
-                "complete_registration"
+                "merchant_details"
             end
         else
             "merchant_details"
@@ -53,6 +53,29 @@ module MerchantsHelper
 	def step_active?
        !session[:active_step].nil?
 	end
+
+    # check if the merchant session is set
+    def merchant_session_active?
+       !session[:merchant_id].nil?
+    end
+
+    # complete merchant registration
+    def completed_registration?
+          if step_active? && current_step == "verify_email" && merchant_session_active?
+              # check if the merchant email has been verified
+              merchant = Merchant.find(session[:merchant_id])
+
+              if merchant.email_verified == 1
+                 reset_active_step_session # reset sessions
+                 return true
+              end
+          end
+          false
+    end
+
+    def complete_registration(merchant)
+        merchant.complete_registration
+    end
 
     # reset active step session
     def reset_active_step_session

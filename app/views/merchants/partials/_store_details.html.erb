@@ -44,7 +44,7 @@
                            <div class="form-group required <%= 'has-error' if f.object.errors.include?(:store_type_id) %>">
                              <%= f.label :store_type_id, "Type of Store1", class: "col-sm-2 control-label" %>
                              <div class="col-sm-10">
-                                <%= f.collection_select :store_type_id, StoreTypes.order(:name), :id, :name, { :prompt => "Select a Store Type" }, { class: "form-control" } %>
+                                <%= f.collection_select :store_type_id, StoreType.order(:name), :id, :name, { :prompt => "Select a Store Type" }, { class: "form-control" } %>
                                 <span class="<%= 'form-error' if f.object.errors.include?(:store_type_id) %>"><%= f.object.errors[:store_type_id].join(raw(" -- Store Type ")) %></span>
                           </div>
                    </div>

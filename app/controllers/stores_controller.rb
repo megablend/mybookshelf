@@ -5,26 +5,29 @@ class StoresController < ApplicationController
 
 	# store index page
 	def index
-
+       # check the regisgration is still going on
+       if(step_active?)
+           redirect_to '/merchants/signup'
+       else
+       	render plain: "index of stores"
+       end
 	end
 
 	# create a new store
 	def create
-       # render plain: "working"
        @store = Store.new(store_params)
        @store.merchant_id = session[:merchant_id]
 	   if(@store.save)
-	         # set active session and render the email verification page
+	   	     # set active session and render the email verification page
 	         start_registration_step "verify_email"
 	         process_registration_steps "store_details"
+	         
+	         # logger.debug "This is the current active step: #{session[:active_step]} and steps #{session[:steps]}"
 
-	         # get merchant details 
-	         @merchant = Merchant.find(session[:merchant_id])
+	   	     # send an email verification mail to merchant
+	         @merchant = Merchant.find(session[:merchant_id])# get merchant details 
+	         MerchantsMailer.registration_email(@merchant).deliver_later
 
-	         # send a verification email to this merchant
-
-	         logger.debug "Steps: #{current_step}"
-	         logger.debug "Steps: #{session[:steps]}"
 	         render 'merchants/new'
 	   else
 	       render 'merchants/new'

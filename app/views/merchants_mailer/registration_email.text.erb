@@ -1,0 +1,11 @@
+Thank you for signing up on MyBookshelf
+===============================================
+
+Hello <%= @merchant.firstname.capitalize %>,
+Thank you for choosing MyBookshelf to sell your books!
+
+To verify your email, just click on this link <%= "#{@domain}/merchants/verify-email/#{@merchant.verification_code}" %>
+ 
+Need help? Call <%= @company_profile.telephone %> or Drop us an email on <%= @company_profile.email %>.
+ 
+Thanks for joining and have a great day!

@@ -1,5 +1,6 @@
 class Store < ActiveRecord::Base
     belongs_to :merchant, inverse_of: :store
+    belongs_to :store_type, inverse_of: :stores
 
     # validate form data
     validates :name, presence: {message: "The name of your store can't be blank"}, length: {maximum: 128}
