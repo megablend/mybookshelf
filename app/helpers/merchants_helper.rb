@@ -7,7 +7,7 @@ module MerchantsHelper
 
     # get the active merchant id
     def active_merchant_id(user)
-        session[:merchant_id] = user.id
+        session[:temporary_merchant_id] = user.id
     end
 
     # get the class of the active
@@ -56,14 +56,14 @@ module MerchantsHelper
 
     # check if the merchant session is set
     def merchant_session_active?
-       !session[:merchant_id].nil?
+       !session[:temporary_merchant_id].nil?
     end
 
     # complete merchant registration
     def completed_registration?
           if step_active? && current_step == "verify_email" && merchant_session_active?
               # check if the merchant email has been verified
-              merchant = Merchant.find(session[:merchant_id])
+              merchant = Merchant.find(session[:temporary_merchant_id])
 
               if merchant.email_verified == 1
                  reset_active_step_session # reset sessions
@@ -80,7 +80,7 @@ module MerchantsHelper
     # reset active step session
     def reset_active_step_session
         session.delete(:active_step)
-        session.delete(:merchant_id)
+        session.delete(:temporary_merchant_id)
         session.delete(:steps)
     end
 end

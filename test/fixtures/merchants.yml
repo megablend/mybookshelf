@@ -1,0 +1,5 @@
+michael:
+   firstname: Megafu
+   lastname: Charles
+   email: megablendjobs@gmail.com
+   password_digest: <%= Merchant.digest('megacharsy') %>

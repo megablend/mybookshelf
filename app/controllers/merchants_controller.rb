@@ -6,10 +6,10 @@ class MerchantsController < ApplicationController
   # dashboard
   def index
       # check the registration is still going on
-       if(step_active?)
-           redirect_to '/merchants/signup'
+       if(is_merchant_logged_in?)
+           render plain: 'welcome to the dashboard of merchants'
        else
-        render plain: "index of merchants"
+           redirect_to '/merchants/login'
        end
   end
    
@@ -46,7 +46,7 @@ class MerchantsController < ApplicationController
   def resend_mail
       if step_active? && merchant_session_active?
           # send an email verification mail to merchant
-          @merchant = Merchant.find(session[:merchant_id])# get merchant details 
+          @merchant = Merchant.find(session[:temporary_merchant_id])# get merchant details 
           MerchantsMailer.registration_email(@merchant).deliver_later
           render 'new'
       else

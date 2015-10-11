@@ -16,7 +16,7 @@ class StoresController < ApplicationController
 	# create a new store
 	def create
        @store = Store.new(store_params)
-       @store.merchant_id = session[:merchant_id]
+       @store.merchant_id = session[:temporary_merchant_id]
 	   if(@store.save)
 	   	     # set active session and render the email verification page
 	         start_registration_step "verify_email"
@@ -25,7 +25,7 @@ class StoresController < ApplicationController
 	         # logger.debug "This is the current active step: #{session[:active_step]} and steps #{session[:steps]}"
 
 	   	     # send an email verification mail to merchant
-	         @merchant = Merchant.find(session[:merchant_id])# get merchant details 
+	         @merchant = Merchant.find(session[:temporary_merchant_id])# get merchant details 
 	         MerchantsMailer.registration_email(@merchant).deliver_later
 
 	         render 'merchants/new'

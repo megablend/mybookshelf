@@ -24,4 +24,9 @@ class Merchant < ActiveRecord::Base
 	def complete_registration
        update_attribute(:email_verified, 1)
 	end
+
+	# Returns the has digest of the given string
+	def self.digest(string)
+       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+	end
 end

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
+  get 'session/new'
+
   #  get 'merchants/new'
 
   # get 'frontend_pages/index'
@@ -18,6 +22,11 @@ Rails.application.routes.draw do
     post '/stores' => 'stores#create'
   
   # -- Merchants Routes --
+    # merchants login routes
+    get '/merchants/login' => 'sessions#new'
+    post '/merchants/login' => 'sessions#create'
+    delete 'merchants/logout' => 'sessions#destroy'
+
     get '/merchants/signup' => 'merchants#new' # merchants signup link
     get '/merchants/resend-verification-mail' => 'merchants#resend_mail' # resend verification code
     get '/merchants/verify-email/:verification_code', to: 'merchants#verify_email', constraints: { verification_code: /[A-Za-z0-9]{50}/ } # verify email

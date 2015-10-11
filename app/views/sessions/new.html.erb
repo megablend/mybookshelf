@@ -1,0 +1,82 @@
+<!-- Validation Script -->
+   <% content_for :validation do %>
+       <%= stylesheet_link_tag    'validation', media: 'all', 'data-turbolinks-track' => true %>
+       <%= javascript_include_tag 'validation_manifest', 'data-turbolinks-track' => true %>
+   <% end %>
+<!-- End Add Validation Script -->
+<% provide(:title, "Merchants Login") %>
+<% provide(:class_name, "information-information") %>
+<% provide(:current_page, raw("<strong>Merchant Login</strong>")) %>
+
+
+<!-- Registration Form -->
+<div class="main-container col2-right-layout wow bounceInUp animated">
+  <div class="main container page-margin-bottom">
+  
+    <div class="row">                
+        <div id="content" class="col-sm-9 col-main">    
+            <div class="col-sm-6">
+          <div class="well">
+            <h2>New Merchant?</h2>
+            <p><strong>Register Account</strong></p>
+            <p>By creating an account you will be able to sell your books, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+            <%= link_to raw('<button class="button continue"><span><span>Continue</span></span></button>'), "/merchants/signup" %>
+           </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="well">
+            <h2>Returning Merchant</h2>
+            <p><strong>I am a returning merchant</strong></p>
+            <% flash.each do|message_type, message| %>
+               <div class="alert alert-<%= message_type %>"><%= raw(message) %></div>
+            <% end %>
+            <%= form_for(:session, url: '/merchants/login', html: {class: "form-horizontal add-margin-left-account-login", id: "merchant-login" }) do|f| %>
+                <div class="form-group">
+                    <%= f.label :email, "E-Mail Address", class: "control-label" %>
+                    <%= f.text_field :email, class: "form-control validate[required]", placeholder: "E-Mail Address" %>
+                </div>
+
+                <div class="form-group">
+                    <%= f.label :password, "Password", class: "control-label" %>
+                    <%= f.password_field :password, class: "form-control validate[required]", placeholder: "Password" %>
+                </div>
+                
+                <div class="form-group">
+                   <%= f.submit "Login", class: "button login" %><%= link_to "Forgotten Password?", "/merchants/forgot-password", class: "forgot_link" %>
+                </div>
+            <% end %>
+            
+          </div>
+        </div>
+      </div>
+
+
+    <div id="column-right" class="col-sm-3">
+        <div class="block block-account">
+           <div class="block-title">Account  </div>
+             <div class="block-content">
+                  <ul>
+                    
+                      <li><a href="indexe223.html?route=account/login" class="">Login</a> </li>
+                      <li><a href="index5502.html?route=account/register" class="">Register</a> </li>
+                      <li><a href="indexacda.html?route=account/forgotten" class="">Forgotten Password</a></li>
+                        
+                      <li><a href="indexe223.html?route=account/account" class="">My Account</a></li>
+                        
+                      <li><a href="indexc6b3.php?route=account/address" class="">Address Book</a> </li>
+                      <li><a href="index4628.php?route=account/wishlist" class="">Wish List</a> </li>
+                      <li><a href="indexe223.html?route=account/order" class="">Order History</a> </li>
+                      <li><a href="indexe223.html?route=account/download" class="">Downloads</a> </li>
+                      <li><a href="indexe223.html?route=account/reward" class="">Reward Points</a> </li>
+                      <li><a href="indexe223.html?route=account/return" class="">Returns</a> </li>
+                      <li><a href="indexe223.html?route=account/transaction" class="">Transactions</a> </li>
+                      <li><a href="indexe223.html?route=account/newsletter" class="">Newsletter</a></li>
+                      <li><a href="indexe223.html?route=account/recurring" class="">Recurring payments</a></li>
+                  </ul>
+            </div>
+        </div>  
+    </div>
+</div>
+</div><!-- main container -->
+
+<!-- End Registration Form -->

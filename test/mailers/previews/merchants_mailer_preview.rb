@@ -2,6 +2,6 @@
 class MerchantsMailerPreview < ActionMailer::Preview
 
    def registration_email_preview
-      MerchantsMailer.registration_email(Merchant.find(15))
+      MerchantsMailer.registration_email(Merchant.find(16))
    end
 end

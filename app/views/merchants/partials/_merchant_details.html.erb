@@ -109,7 +109,7 @@
                             I have read and agree to the <%= link_to raw('<b>Terms and Conditions</b>'), "/merchants/terms", class: "agree" %> 
                              <br/>
                              <span class="<%= 'form-error' if f.object.errors.include?(:terms) %>"><%= f.object.errors[:terms].join(raw(" -- Terms ")) %></span><br/>
-                           <%= f.submit "Continue", class: "button add-margin-top" %>
+                           <%= f.submit "Continue", class: "button continue add-margin-top" %>
                           </div>
                </div>
 
