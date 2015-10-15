@@ -1,5 +1,13 @@
 michael:
    firstname: Megafu
    lastname: Charles
+   phone_number: 08060108165
    email: megablendjobs@gmail.com
+   address: 34 Ayanbode Street
+   city: Ikeja
+   landmark: NEPA Office
+   state_id: 3
    password_digest: <%= Merchant.digest('megacharsy') %>
+   account_status: 1
+   email_verified: 1
+   verification_code: Yp5fQSbczlmWsaQh1EivNS2A4ta9PrH2j64WS7RtPtmjX2jHvF

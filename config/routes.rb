@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     # merchants login routes
     get '/merchants/login' => 'sessions#new'
     post '/merchants/login' => 'sessions#create'
-    delete 'merchants/logout' => 'sessions#destroy'
+    delete '/merchants/logout' => 'sessions#destroy'
 
     get '/merchants/signup' => 'merchants#new' # merchants signup link
     get '/merchants/resend-verification-mail' => 'merchants#resend_mail' # resend verification code

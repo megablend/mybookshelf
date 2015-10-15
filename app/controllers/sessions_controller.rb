@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
      	 	flash.now['danger'] = "Your email address is not yet verified, please visit your inbox or click <a href='/merchants/signup'>here</a> for a new verification request"
      	 	render 'new'
          else
-         	log_in merchant # log in the existing merchant
+         	  log_in merchant # log in the existing merchant
             render plain: "successful login"
          end
      else
@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
 
   # logout a merchant
   def destroy
-     logout
+     logout if logged_in?
      redirect_to '/merchants/login'
   end
 end
