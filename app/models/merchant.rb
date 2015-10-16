@@ -3,10 +3,7 @@ class Merchant < ActiveRecord::Base
     has_one :store, inverse_of: :merchant
     attr_accessor :remember_token
 
-	before_save do 
-		self.email = self.email.downcase
-		self.password = self.password.strip
-	end
+	before_save {self.email = self.email.downcase}
 
 	# Validate the form details
 	validates :firstname, presence: { message: "Your first name can't be blank"}, length: {maximum: 32}

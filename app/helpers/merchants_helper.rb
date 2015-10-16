@@ -83,4 +83,19 @@ module MerchantsHelper
         session.delete(:temporary_merchant_id)
         session.delete(:steps)
     end
+
+    # greets a merchant on a particular time
+    def greet
+        morning_hours = 0..11
+        afternoon_hours = 12..15
+        hour = Time.now.hour
+
+        # switch between the current time
+        case hour
+        when morning_hours then return "Good Morning "
+        when afternoon_hours then return "Good Afternoon "
+        else
+            return "Good Evening "
+        end
+    end
 end

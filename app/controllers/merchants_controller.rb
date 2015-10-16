@@ -22,6 +22,7 @@ class MerchantsController < ApplicationController
 
   	 @merchant = Merchant.new
      @store = Store.new
+     logger.debug "The time is: #{Time.now.getutc.to_i}"
      # logger.debug "Registration steps: #{session[:steps]}" 
   end
 
