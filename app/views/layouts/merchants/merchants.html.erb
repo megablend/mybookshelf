@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title(yield(:title)) %></title>
+  <!-- Favicon -->
+  <%= favicon_link_tag 'favicon/favicon.ico' %>
+  <%= stylesheet_link_tag    'merchants_manifest', media: 'all', 'data-turbolinks-track' => true %>
+
+  <!-- Include Libs and Plugins -->
+  <%= yield :other_files %>
+  
+  <!-- Cross Site Request Forgery -->
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/frontend/shim' %>
+</head>
+<body class="">
+    <!-- Start vbox section -->
+    <section class="vbox">
+   
+   <!-- Page Header -->
+   <%= render 'layouts/merchants/sections/header' %>
+   <!-- End Page Header -->
+
+   <section>
+      <section class="hbox stretch">
+
+        <!-- Page Header -->
+        <%= render 'layouts/merchants/sections/side_nav' %>
+        <!-- End Page Header -->
+
+        <!-- Page Content -->
+           <%= yield %>
+        <!-- End Page Content -->
+      </section>
+   </section>
+
+ </section>
+ <!-- End vbox section -->
+
+ <!-- Include Libs and Plugins -->
+<%= yield :modals %>
+
+ <!-- Debugging Notifier -->
+ <%= debug(params) if Rails.env.development? %>
+ <!-- End Debugging Notifier-->
+
+
+<!-- Include Libs and Plugins -->
+<%= javascript_include_tag 'merchants_manifest', 'data-turbolinks-track' => true %>
+</body>
+</html>

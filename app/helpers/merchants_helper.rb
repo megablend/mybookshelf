@@ -92,10 +92,58 @@ module MerchantsHelper
 
         # switch between the current time
         case hour
-        when morning_hours then return "Good Morning "
-        when afternoon_hours then return "Good Afternoon "
+        when morning_hours then return "Good Morning " # time between 23 and 11
+        when afternoon_hours then return "Good Afternoon " # time between 12 and 15
         else
             return "Good Evening "
+        end
+    end
+
+    # Return merchants membership duration
+    def membership_duration(date_joined)
+         date_joined_timestamp = date_joined.to_time.to_i
+         current_date = Time.now.getutc.to_i
+         time = current_date - date_joined_timestamp
+         # return time
+
+         if time <= 60
+            return 'Started'
+         elsif 60 < time && time <= 3600 # Minutes
+            if (time/60).round == 1
+                return 'A Minute'
+            else
+                return  (time/60).round.to_s + " Minutes"
+            end
+        elsif 3600 < time && time <= 86400 # Hours
+            if (time/3600).round == 1
+                return 'An Hour'
+            else
+                return  (time/3600).round.to_s + " Hours"
+            end
+        elsif 86400 < time && time <= 604800 # Days
+            if (time/86400).round == 1
+                return 'A Day'
+            else
+                return (time/86400).round.to_s + " Days"
+            end
+        elsif 604800 < time && time <= 2592000
+            if (time/604800).round == 1
+                return 'A Week'
+            else
+                return (time/604800).round.to_s + " Weeks"
+            end
+        elsif 2592000 < time && time <= 29030400 # Months
+            if (time/2592000).round == 1
+                return 'A Month'
+            else
+                return (time/2592000).round.to_s + " Months"
+            end
+        else # Years
+            if (time/29030400).round == 1
+                return 'A Year'
+            else
+                return (time/29030400).round.to_s + " Years"
+            end
         end
     end
 end

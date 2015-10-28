@@ -7,10 +7,22 @@ class MerchantsController < ApplicationController
   def index
       # check the registration is still going on
        if(is_merchant_logged_in?)
-           render plain: 'welcome to the dashboard of merchants'
+           @merchant = Merchant.find(session[:merchant_id])
+           @fullname = "#{@merchant.firstname.downcase.capitalize} #{@merchant.lastname.downcase.capitalize}" 
+           render layout: 'merchants/merchants'
        else
            redirect_to '/merchants/login'
        end
+  end
+
+  # Sell a book
+  def sell
+
+  end
+
+  # Show merchant details
+  def show
+     render plain: "This is where the user profile will be"
   end
    
   # signup page 
@@ -22,7 +34,6 @@ class MerchantsController < ApplicationController
 
   	 @merchant = Merchant.new
      @store = Store.new
-     logger.debug "The time is: #{Time.now.getutc.to_i}"
      # logger.debug "Registration steps: #{session[:steps]}" 
   end
 

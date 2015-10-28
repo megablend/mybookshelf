@@ -16,23 +16,23 @@ class SessionsController < ApplicationController
 	        start_registration_step "store_details"
 	        active_merchant_id merchant
 	        process_registration_steps "merchant_details"
-     	 	flash.now['danger'] = "You did not complete step two of your registration (Merchant Store Details). 
-     	 	                       Please click on this <a href='/merchants/signup'>link</a> to continue"
-     	 	render 'new'
+     	 	  flash.now['danger'] = "You did not complete step two of your registration (Merchant Store Details). 
+     	 	                         Please click on this <a href='/merchants/signup'>link</a> to continue"
+     	 	  render 'new'
      	 elsif !is_merchant_email_verified?(merchant.email_verified)
      	 	# set active session and render the merchant page with store details form
 	        start_registration_step "verify_email"
 	        active_merchant_id merchant
 	        process_registration_steps "merchant_details"
 	        process_registration_steps "store_details"
-     	 	flash.now['danger'] = "Your email address is not yet verified, please visit your inbox or click <a href='/merchants/signup'>here</a> for a new verification request"
-     	 	render 'new'
+     	 	  flash.now['danger'] = "Your email address is not yet verified, please visit your inbox or click <a href='/merchants/signup'>here</a> for a new verification request"
+     	 	  render 'new'
          else
          	  log_in merchant # log in the existing merchant
-            render plain: "successful login"
+            redirect_to '/merchants'
          end
      else
-     	 flash.now['danger'] = 'Invalid Email/Password provided, please try again.'
+     	   flash.now['danger'] = 'Invalid Email/Password provided, please try again.'
          render 'new'
      end
   end
