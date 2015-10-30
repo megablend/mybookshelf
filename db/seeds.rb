@@ -66,3 +66,22 @@ company_profiles = {name: "MyBookshelf Limited",
                     youtube_profile: "http://www.youtube.com/mybookshelf.ng",
                     bbm_profile: "CR535636"}
 CompanyProfile.create(company_profiles)
+
+# Seed Categories Data
+Dir.glob(Rails.root.join("db/seed_files/*.txt")) do|dir_file|
+
+     File.open(dir_file) do|file|
+         file.each do|line|
+            name, parent_id, position, level, children_count = line.chomp.split(/\s*\|\s*/) # get the line details, remove end of line and split with the pipe(|) symbol
+            name.squeeze!(" ")
+            Category.create(name: name, parent_id: parent_id, position: position, level: level, children_count: children_count)
+         end
+     end
+end
+
+# File.open(Rails.root.join("db/seed_files/seed_categories.txt")) do|file|
+#     file.each do|line|
+#        name, parent_id, position, level, children_count = line.chomp.split(/\s*\|\s*/) # get the line details, remove end of line and split with the pipe(|) symbol
+#        Category.create(name: name, parent_id: parent_id, position: position, level: level, children_count: children_count)
+#     end
+# end

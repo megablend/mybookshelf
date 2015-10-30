@@ -7,6 +7,7 @@ class MerchantsController < ApplicationController
   def index
       # check the registration is still going on
        if(is_merchant_logged_in?)
+           #logger.debug Rails.root.join("db/seed_files/seed_categories.txt")
            @merchant = Merchant.find(session[:merchant_id])
            @fullname = "#{@merchant.firstname.downcase.capitalize} #{@merchant.lastname.downcase.capitalize}" 
            render layout: 'merchants/merchants'

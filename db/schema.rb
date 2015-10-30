@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028184213) do
+ActiveRecord::Schema.define(version: 20151029163916) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
     t.integer  "position",       limit: 4
     t.integer  "level",          limit: 4
     t.integer  "children_count", limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "name",           limit: 32, null: false
   end
+
+  add_index "categories", ["name", "parent_id"], name: "index_categories_on_name_and_parent_id", unique: true, using: :btree
 
   create_table "company_profiles", force: :cascade do |t|
     t.string "name",                limit: 100, null: false
