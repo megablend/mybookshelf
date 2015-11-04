@@ -92,8 +92,8 @@ module MerchantsHelper
 
         # switch between the current time
         case hour
-        when morning_hours then return "Good Morning " # time between 23 and 11
-        when afternoon_hours then return "Good Afternoon " # time between 12 and 15
+        when morning_hours then return "Good Morning " # time between 23:00 and 11:00
+        when afternoon_hours then return "Good Afternoon " # time between 12:00 and 15:00
         else
             return "Good Evening "
         end

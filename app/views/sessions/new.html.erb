@@ -30,7 +30,7 @@
             <% flash.each do|message_type, message| %>
                <div class="alert alert-<%= message_type %>"><%= raw(message) %></div>
             <% end %>
-            <%= form_for(:session, url: '/merchants/login', html: {class: "form-horizontal add-margin-left-account-login", id: "merchant-login" }) do|f| %>
+            <%= form_for(:session, url: merchants_login_path, html: {class: "form-horizontal add-margin-left-account-login", id: "merchant-login" }) do|f| %>
                 <div class="form-group">
                     <%= f.label :email, "E-Mail Address", class: "control-label" %>
                     <%= f.text_field :email, class: "form-control validate[required]", placeholder: "E-Mail Address" %>

@@ -1,3 +1,7 @@
+/**
+ * Created by Megafu Charles 04/11/2015
+ */
+
 $(document).ready(function() {
 	var siteDomain = $("#domain-name").val();
 	var pageLoadingDiv = "#loadingModal";
@@ -7,5 +11,12 @@ $(document).ready(function() {
    		setTimeout(function () {
 				     window.location.href = siteDomain + '/merchants/sell';
 				 }, 2000); // in milliseconds
+   	});
+
+   //Preloader for sub-categories
+   $("#categories").change(function()
+   	{
+   		var element = '<div style="text-align: center; margin-top: 5px;"><%= image_tag "merchants/495.GIF" %></div>';
+         $("#sub-categories-holder").html(element);
    	});
 });

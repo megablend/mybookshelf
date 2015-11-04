@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     post '/merchants/login' => 'sessions#create'
     delete '/merchants/logout' => 'sessions#destroy'
 
+    post '/merchants/categories' => 'categories#get_sub_categories' #books categories
+
     get '/merchants/sell' => 'merchants#sell' # sell a book
     get '/merchants/signup' => 'merchants#new' # merchants signup link
     get '/merchants/resend-verification-mail' => 'merchants#resend_mail' # resend verification code

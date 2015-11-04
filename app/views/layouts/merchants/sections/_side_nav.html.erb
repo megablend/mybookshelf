@@ -8,8 +8,7 @@
                                     <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Links</div>
                                     <ul class="nav nav-main" data-ride="collapse">
                                         <li class="active">
-                                            <a href="index.html" class="auto"> <i class="i i-statistics icon"> </i>  <span class="font-bold">Overview</span> 
-                                            </a>
+                                            <%= link_to raw('<i class="i i-statistics icon"> </i>  <span class="font-bold">Overview</span>'), merchants_path, class: "auto" %>
                                         </li>
                                         <li>
                                             <a href="index.html" class="auto"> <i class="i i-user2 icon"> </i>  <span class="font-bold">Profile</span> 
@@ -24,8 +23,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="index.html" class="auto"> <i class="i i-book icon"> </i>  <span class="font-bold">Sell A Book</span> 
-                                            </a>
+                                            <%= link_to raw('<i class="i i-book icon"> </i>  <span class="font-bold">Sell A Book</span>'), merchants_sell_path, class: "auto" %>
                                         </li>
                                         <li>
                                             <a href="#" class="auto"> <span class="pull-right text-muted"> <i class="i i-circle-sm-o text"></i> <i class="i i-circle-sm text-active"></i> </span>  <i class="i i-cart icon"> </i>  <span class="font-bold">Manage Orders</span> 

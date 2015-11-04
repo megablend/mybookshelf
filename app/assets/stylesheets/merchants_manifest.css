@@ -12,4 +12,7 @@
  *
  *= require merchants/app.v1
  *= require merchants/calendar/bootstrap_calendar
+ *= require merchants/form_wizard_two
+ *= require merchants/form_wizard
+ *= require merchants/fontello
  */
