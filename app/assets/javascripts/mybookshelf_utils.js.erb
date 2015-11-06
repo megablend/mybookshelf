@@ -7,7 +7,7 @@ $(document).ready(function() {
 	var pageLoadingDiv = "#loadingModal";
    $('.sell-a-book, .sell-a-book-link').on('click', function()
    	{
-   		$(pageLoadingDiv).modal();
+   		$(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
    		setTimeout(function () {
 				     window.location.href = siteDomain + '/merchants/sell';
 				 }, 2000); // in milliseconds
@@ -16,7 +16,36 @@ $(document).ready(function() {
    //Preloader for sub-categories
    $("#categories").change(function()
    	{
-   		var element = '<div style="text-align: center; margin-top: 5px;"><%= image_tag "merchants/495.GIF" %></div>';
+         var form = $("#categories-form");
+         
+         //reset next step button holder
+         $("#step-1-completed-holder").html("");
+         $("#continue-btn-holder").html("");
+
+         //set active category type
+         $("#category-type").val("main-category");
+
+         var element = '<div style="text-align: center; margin-top: 5px;"><%= image_tag "merchants/495.GIF" %></div>';
          $("#sub-categories-holder").html(element);
+         var categoryDetailsElementsHolder = $("#category-details");
+         var categoryDetailsElement = '<div class="row">\
+                                             <div class="col-md-12"> <!-- .breadcrumb -->\
+                                                <div class="breadcrumb">\
+                                                    <p>You have selected your book details</p>\
+                                                    <p id="selected-category"></p>\
+                                              </div>\
+                                          </div>\
+                                      </div>';
+         categoryDetailsElementsHolder.html(categoryDetailsElement);
+         $("#selected-category").html("<strong>" + $(this).find('option:selected').text() + "</strong>");
+
+         setTimeout(function () {
+                 form.submit();
+             }, 1000); // in milliseconds
    	});
+
+   $('#tooltipister').tooltipster({
+         position: 'right'
+   });
+
 });

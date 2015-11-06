@@ -2,6 +2,7 @@ class MerchantsController < ApplicationController
 
   # Load Merchants Helper
   include MerchantsHelper
+  include CategoriesHelper
   
   # dashboard
   def index

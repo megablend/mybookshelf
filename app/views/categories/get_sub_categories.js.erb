@@ -1,0 +1,79 @@
+/**
+ * Created by Megafu Charles 05/11/2015
+ */
+
+//Sell a Book Step Navigation Bar
+var stepOne = $("#sell-a-book-nav-step-1");
+var stepTwo = $("#sell-a-book-nav-step-2");
+var stepThree = $("#sell-a-book-nav-step-3");
+var pageLoadingDiv = "#loadingModal";
+
+
+<% if @active_category == "main-category" %>
+   var selectSubCategory = '<select multiple="multiple" class="form-control" size="10" id="sub-categories" name="books_categories[sub_categories]">\
+                         </select>';
+	$("#sub-categories-holder").html(selectSubCategory);
+	//console.log('<%= j (@active_category) %>');
+
+	//append the list of sub-categories to the holder
+	<% if @sub_categories.any? %>
+	    <% @sub_categories.each do|sub_category| %>
+	       $("#sub-categories").append('<option value="<%= sub_category.id %>"><%= sub_category.name %></option>');
+	    <% end %>
+	<% end %>
+<% else %>
+     //load step two
+        $(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
+		setTimeout(function () {
+			     stepOne.removeClass("tmm-current").addClass("tmm-success");
+			     stepTwo.addClass("tmm-current");
+			     $("#sell-a-book-nav-icon-2").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
+			     $(pageLoadingDiv).modal('hide');
+			     $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_2') %>");
+		}, 2000); // in milliseconds
+<% end %>
+
+$("#sub-categories").change(function()
+{
+     //set active category type
+     $("#category-type").val("sub-category");
+
+     var btnElements = '<div class="line line-dashed b-b line-lg pull-in"></div>\
+                        <div class="form-group">\
+                            <div class="col-sm-4">\
+                                <button class="btn btn-primary" id="step-one-btn">Continue</button>\
+                            </div>\
+                        </div>';
+     var breadcrumb = "<strong>" + $("#categories").find('option:selected').text();
+         breadcrumb += " <i class='fa fa-arrow-right'></i> ";
+         breadcrumb += $(this).find('option:selected').text() + "</strong>";
+
+     //set breadcrumb
+     $("#selected-category").html(breadcrumb);
+
+     //show the selected category and the successful completion
+     stepCompletedElements = '<p class="category-label">Step One Completed</p>\
+                                <div id="complete-step-one">\
+                                       <div style="text-align: center"><i class="step-1-completed fa  fa-check-circle fa-5x"></i></div>\
+                                       <p style="text-align: center">You have selected <strong>' + $(this).find('option:selected').text() + '</strong></p>\
+                                       <p style="text-align: center">Click CONTINUE</p>\
+                                </div>';
+
+     $("#step-1-completed-holder").html(stepCompletedElements);                          
+     $("#continue-btn-holder").html(btnElements);
+});
+
+$("#step-one-btn").on("click", function()
+{
+    var form = $("#categories-form");
+    form.submit();
+});
+
+function goBackToStepOne()
+{
+	$(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
+	setTimeout(function () {
+		     $(pageLoadingDiv).modal('hide');
+		     $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_1') %>");
+	}, 2000); // in milliseconds
+}

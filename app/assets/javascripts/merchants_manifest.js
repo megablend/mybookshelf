@@ -22,6 +22,7 @@
 //= require merchants/charts/flot/jquery.flot.resize
 //= require merchants/charts/flot/jquery.flot.grow
 //= require merchants/charts/flot/demo
+//= require merchants/jquery.tooltipster.min
 //= require merchants/app.plugin
 //= require mybookshelf_utils
 //= require merchants/custom

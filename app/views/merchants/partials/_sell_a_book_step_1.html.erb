@@ -1,0 +1,41 @@
+<section class="panel panel-default">
+            <header class="panel-heading font-bold">Pick a Category</header>
+            <div class="panel-body">
+                <p class="move-text-center">To guarantee a quick listing in MyBookshelf, select the type of book you want to sell from the list our books categories</p>
+
+                <%= form_for(:books_categories, url: merchants_categories_path, remote: true, html: {class: "form-horizontal", id: "categories-form"}) do|f| %>
+
+                    <div class="form-group" style="margin-left: 10px;">
+                        <!-- Categories Section -->
+                        <div class="col-lg-4 m-l-n">
+                            <p class="category-label">Category</p>
+                        <%= f.select :name, Category.where(parent_id: 0).order(:name).collect {|p| [ p.name, p.id ] }, {}, {multiple: true, class: "form-control", size: "10", id: "categories" } %>
+                        <%= f.hidden_field :type, id: "category-type" %>
+                        </div>
+
+                        <!-- Sub Categories Section -->
+                        <div class="col-lg-4 m-l-n">
+                            <p class="category-label">Sub-Category</p>
+                            <div id="sub-categories-holder">
+                                
+                            </div>
+                        </div>
+
+                        <!-- Sub Categories Section -->
+                        <div class="col-lg-4 m-l-n">
+                            <div id="step-1-completed-holder">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="continue-btn-holder">
+                        
+                    </div>
+                <% end %>
+            </div>
+        </section>
+
+        <div id="category-details">
+            
+        </div>

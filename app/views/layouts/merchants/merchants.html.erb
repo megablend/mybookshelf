@@ -7,7 +7,7 @@
   <%= stylesheet_link_tag    'merchants_manifest', media: 'all', 'data-turbolinks-track' => true %>
 
   <!-- Include Libs and Plugins -->
-  <%= yield :other_files %>
+  <%= yield :other_css_files %>
   
   <!-- Cross Site Request Forgery -->
   <%= csrf_meta_tags %>
@@ -47,5 +47,7 @@
 
 <!-- Include Libs and Plugins -->
 <%= javascript_include_tag 'merchants_manifest', 'data-turbolinks-track' => true %>
+<!-- Include Other Javascript Libs and Plugins -->
+<%= yield :other_js_files %>
 </body>
 </html>

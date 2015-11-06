@@ -2,6 +2,9 @@
 <% content_for :modals do %>
        <%= render 'layouts/merchants/modals/page_loading' %>
 <% end %>
+<% content_for :other_js_files do %>
+       <%= javascript_include_tag 'sell_a_book_manifest', 'data-turbolinks-track' => true %>
+<% end %>
 <section id="content">
                     <section class="vbox">
                         <section class="scrollable padder">
@@ -11,7 +14,7 @@
                   <div id="tmm-form-wizard" class="substrate">
                     <div class="row stage-container">
 
-                        <div class="stage tmm-current col-md-4 col-sm-4">
+                        <div id="sell-a-book-nav-step-1" class="stage tmm-current col-md-4 col-sm-4">
                             <div class="stage-header head-icon"><i class="fa fa-paper-plane add-nav-margin-white"> </i></div>
                             <div class="stage-content">
                                 <h3 class="stage-title">Pick Your Category</h3>
@@ -21,8 +24,8 @@
                             </div>
                         </div><!--/ .stage-->
 
-                        <div class="stage col-md-4 col-sm-4">
-                            <div class="stage-header head-icon"><i class="fa fa-book add-nav-margin-black"> </i></div>
+                        <div id="sell-a-book-nav-step-2" class="stage col-md-4 col-sm-4">
+                            <div class="stage-header head-icon"><i class="fa fa-book add-nav-margin-black"  id="sell-a-book-nav-icon-2"> </i></div>
 
                             <div class="stage-content">
                                 <h3 class="stage-title">Descibe Your Book</h3>
@@ -34,7 +37,7 @@
 
                         
 
-                        <div class="stage col-md-4 col-sm-4">
+                        <div id="sell-a-book-nav-step-3" class="stage col-md-4 col-sm-4">
                             <div class="stage-header head-icon"><i class="fa fa-eye add-nav-margin-black"> </i></div>
                             <div class="stage-content">
                                 <h3 class="stage-title">Review And Confirm</h3>
@@ -46,29 +49,9 @@
 
                     </div><!--/ .row-->
                   </div>
-                            <section class="panel panel-default">
-                                <header class="panel-heading font-bold">Pick a Category</header>
-                                <div class="panel-body">
-                                    <p class="move-text-center">To guarantee a quick listing in MyBookshelf, select the type of book you want to sell from the list our books categories</p>
-
-                                    <%= form_for(:categories, url: merchants_categories_path, remote: true, html: {class: "form-horizontal"}) do|f| %>
-                                        <!-- Categories Section -->
-                                        <div class="col-lg-4 m-l-n">
-                                            <p class="category-label">Category</p>
-                                        <%= f.select :name, Category.where(parent_id: 0).order(:name).collect {|p| [ p.name, p.id ] }, {}, {multiple: true, class: "form-control", size: "10", id: "categories" } %>
-                                        </div>
-
-                                        <!-- Sub Categories Section -->
-                                        <div class="col-lg-4 m-l-n">
-                                            <p class="category-label">Sub-Category</p>
-                                            <div id="sub-categories-holder">
-                                                
-                                            </div>
-                                        </div>
-                                    <% end %>
-                                    
-                                </div>
-                            </section>
+                          <div id="sell-a-book-form-holder">
+                               <%= render 'merchants/partials/sell_a_book_step_1' %>
+                          </div>
                         </section>
                     </section>
                     <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
