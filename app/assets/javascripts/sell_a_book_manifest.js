@@ -14,3 +14,4 @@
 //= require merchants/wysiwyg/jquery.hotkeys
 //= require merchants/wysiwyg/bootstrap-wysiwyg
 //= require merchants/wysiwyg/demo
+//= require dropzone

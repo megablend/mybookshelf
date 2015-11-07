@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029163916) do
+ActiveRecord::Schema.define(version: 20151106192053) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
     t.integer  "position",       limit: 4
     t.integer  "level",          limit: 4
     t.integer  "children_count", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "name",           limit: 32, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "name",           limit: 32,    null: false
+    t.string   "image",          limit: 255
+    t.text     "description",    limit: 65535
   end
 
   add_index "categories", ["name", "parent_id"], name: "index_categories_on_name_and_parent_id", unique: true, using: :btree
@@ -66,6 +68,58 @@ ActiveRecord::Schema.define(version: 20151029163916) do
   add_index "merchants", ["email"], name: "index_merchants_on_email", unique: true, using: :btree
   add_index "merchants", ["state_id"], name: "index_merchants_on_state_id", using: :btree
 
+  create_table "product_types", force: :cascade do |t|
+    t.string   "type",       limit: 128, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string  "isbn_number",     limit: 64
+    t.string  "resource_id",     limit: 10
+    t.integer "quantity",        limit: 4,                           default: 0
+    t.integer "merchant_id",     limit: 4
+    t.integer "product_type_id", limit: 4
+    t.decimal "price",                      precision: 15, scale: 4, default: 0.0
+    t.integer "points",          limit: 8,                           default: 0
+    t.integer "status",          limit: 1,                           default: 0
+    t.integer "approved",        limit: 1,                           default: 0
+    t.integer "viewed",          limit: 8,                           default: 0
+  end
+
+  add_index "products", ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
+  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
+
+  create_table "products_categories", id: false, force: :cascade do |t|
+    t.integer "product_id",  limit: 4
+    t.integer "category_id", limit: 4
+  end
+
+  add_index "products_categories", ["category_id"], name: "index_products_categories_on_category_id", using: :btree
+  add_index "products_categories", ["product_id"], name: "index_products_categories_on_product_id", using: :btree
+
+  create_table "products_descriptions", force: :cascade do |t|
+    t.string  "title",            limit: 255,   null: false
+    t.string  "author",           limit: 255,   null: false
+    t.text    "description",      limit: 65535
+    t.integer "product_id",       limit: 4
+    t.string  "publisher",        limit: 255
+    t.date    "publish_date"
+    t.text    "tag",              limit: 65535
+    t.string  "meta_title",       limit: 255,   null: false
+    t.string  "meta_description", limit: 255,   null: false
+    t.string  "meta_keyword",     limit: 255,   null: false
+  end
+
+  add_index "products_descriptions", ["product_id"], name: "index_products_descriptions_on_product_id", using: :btree
+
+  create_table "products_images", force: :cascade do |t|
+    t.integer "product_id", limit: 4
+    t.string  "image",      limit: 255
+  end
+
+  add_index "products_images", ["product_id"], name: "index_products_images_on_product_id", using: :btree
+
   create_table "states", force: :cascade do |t|
     t.string   "name",       limit: 64, null: false
     t.datetime "created_at",            null: false
@@ -75,6 +129,8 @@ ActiveRecord::Schema.define(version: 20151029163916) do
   create_table "store_types", force: :cascade do |t|
     t.string "name", limit: 64, null: false
   end
+
+  add_index "store_types", ["name"], name: "index_store_types_on_name", unique: true, using: :btree
 
   create_table "stores", force: :cascade do |t|
     t.string   "name",          limit: 128,   null: false
@@ -92,6 +148,12 @@ ActiveRecord::Schema.define(version: 20151029163916) do
 
   add_foreign_key "local_govts", "states"
   add_foreign_key "merchants", "states"
+  add_foreign_key "products", "merchants"
+  add_foreign_key "products", "product_types"
+  add_foreign_key "products_categories", "categories"
+  add_foreign_key "products_categories", "products"
+  add_foreign_key "products_descriptions", "products"
+  add_foreign_key "products_images", "products"
   add_foreign_key "stores", "merchants"
   add_foreign_key "stores", "store_types"
 end

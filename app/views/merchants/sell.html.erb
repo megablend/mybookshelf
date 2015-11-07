@@ -2,6 +2,9 @@
 <% content_for :modals do %>
        <%= render 'layouts/merchants/modals/page_loading' %>
 <% end %>
+<% content_for :other_css_files do %>
+       <%= stylesheet_link_tag    'sell_a_book_manifest', media: 'all', 'data-turbolinks-track' => true %>
+<% end %>
 <% content_for :other_js_files do %>
        <%= javascript_include_tag 'sell_a_book_manifest', 'data-turbolinks-track' => true %>
 <% end %>
@@ -50,7 +53,7 @@
                     </div><!--/ .row-->
                   </div>
                           <div id="sell-a-book-form-holder">
-                               <%= render 'merchants/partials/sell_a_book_step_1' %>
+                               <%= render 'merchants/partials/sell_a_book_step_2' %>
                           </div>
                         </section>
                     </section>
