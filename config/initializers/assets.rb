@@ -12,6 +12,7 @@ Rails.application.config.assets.paths << Rails.root.join("vendor/assets/fonts")
 Rails.application.config.assets.precompile += %w( frontend_index_page_manifest.js 
 	                                              merchants_manifest.js
 	                                              validation_manifest.js
-	                                              sell_a_book_manifest.js 
+	                                              sell_a_book_manifest.js
+	                                              sell_a_book_manifest.css
 	                                              validation.css 
 	                                              merchants_manifest.css)
