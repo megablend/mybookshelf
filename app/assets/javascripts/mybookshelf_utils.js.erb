@@ -44,8 +44,10 @@ $(document).ready(function() {
              }, 1000); // in milliseconds
    	});
 
-   $('#tooltipister').tooltipster({
-         position: 'right'
-   });
-
 });
+
+var MyBookshelfUtil = {};
+MyBookshelfUtil.openCoverImageModal = function(){
+   var coverImageModalDiv = $('#coverImageModal');
+   $(coverImageModalDiv).modal({backdrop: 'static', keyboard: false});
+};

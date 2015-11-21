@@ -26,8 +26,9 @@ Rails.application.routes.draw do
     post '/merchants/categories' => 'categories#get_sub_categories' #books categories
 
     # merchants products routes
-    get '/products' => 'products#index'
-    post '/products' => 'products#create'
+    get '/merchants/products' => 'products#index'
+    post '/merchants/products' => 'products#create'
+    post '/merchants/upload-cover-image' => 'products#upload_cover_image'
 
     get '/merchants/sell' => 'merchants#sell' # sell a book
     get '/merchants/signup' => 'merchants#new' # merchants signup link

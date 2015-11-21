@@ -9,4 +9,9 @@ class ProductsController < ApplicationController
 	def create
 
 	end
+
+	# upload a cover image for a title
+	def upload_cover_image
+       
+	end
 end
