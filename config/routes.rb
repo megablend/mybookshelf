@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   #  get 'merchants/new'
 
   # get 'frontend_pages/index'
