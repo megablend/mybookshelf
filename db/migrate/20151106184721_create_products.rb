@@ -11,7 +11,7 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :status, limit: 1, default: 0
       t.integer :approved, limit: 1, default: 0
       t.integer :viewed, limit: 5, default: 0
-      t.timestamp null: false
+      t.timestamps null: false
     end
   end
 end

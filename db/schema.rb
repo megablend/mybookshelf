@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106192053) do
+ActiveRecord::Schema.define(version: 20151128175933) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20151106192053) do
   add_index "merchants", ["state_id"], name: "index_merchants_on_state_id", using: :btree
 
   create_table "product_types", force: :cascade do |t|
-    t.string   "type",       limit: 128, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "product_type", limit: 128, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -113,6 +113,15 @@ ActiveRecord::Schema.define(version: 20151106192053) do
 
   add_index "products_descriptions", ["product_id"], name: "index_products_descriptions_on_product_id", using: :btree
 
+  create_table "products_ebooks", force: :cascade do |t|
+    t.string   "ebook",      limit: 255, null: false
+    t.integer  "product_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "products_ebooks", ["product_id"], name: "index_products_ebooks_on_product_id", using: :btree
+
   create_table "products_images", force: :cascade do |t|
     t.integer "product_id", limit: 4
     t.string  "image",      limit: 255
@@ -153,6 +162,7 @@ ActiveRecord::Schema.define(version: 20151106192053) do
   add_foreign_key "products_categories", "categories"
   add_foreign_key "products_categories", "products"
   add_foreign_key "products_descriptions", "products"
+  add_foreign_key "products_ebooks", "products"
   add_foreign_key "products_images", "products"
   add_foreign_key "stores", "merchants"
   add_foreign_key "stores", "store_types"

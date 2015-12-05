@@ -10,6 +10,7 @@ class CreateCompanyProfiles < ActiveRecord::Migration
       t.string :google_plus_profile, limit: 50
       t.string :youtube_profile, limit: 50
       t.string :bbm_profile, limit: 50
+      t.timestamps null: false
     end
   end
 end

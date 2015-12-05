@@ -79,6 +79,12 @@ Dir.glob(Rails.root.join("db/seed_files/*.txt")) do|dir_file|
      end
 end
 
+# Product Types
+product_types = ["Print Book", "EBook", "Print and EBook"]
+product_types.each do|type|
+   ProductType.create(product_type: type)
+end
+
 # File.open(Rails.root.join("db/seed_files/seed_categories.txt")) do|file|
 #     file.each do|line|
 #        name, parent_id, position, level, children_count = line.chomp.split(/\s*\|\s*/) # get the line details, remove end of line and split with the pipe(|) symbol

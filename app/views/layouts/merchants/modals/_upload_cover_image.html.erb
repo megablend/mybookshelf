@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Upload Cover Image</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag 'merchants/upload-cover-image', method: :post, class: "dropzone form", id: "media-dropzone" do %>
+        <%= form_tag merchants_upload_cover_image_path, method: :post, class: "dropzone form", id: "media-dropzone" do %>
           <div class="fallback">
             <%= file_field_tag "media", multiple: true %>
           </div>
