@@ -22,6 +22,10 @@ gem 'sdoc',                    '0.4.0', group: :doc
 gem 'mysql2'
 gem "font-awesome-rails"
 
+# CKEDITOR GEMS FOR MY PROJECT
+gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'paperclip'
+
 
 group :development, :test do
   gem 'byebug',      '3.4.0'

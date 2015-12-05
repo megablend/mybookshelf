@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128175933) do
+ActiveRecord::Schema.define(version: 20151205190535) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -68,12 +68,6 @@ ActiveRecord::Schema.define(version: 20151128175933) do
   add_index "merchants", ["email"], name: "index_merchants_on_email", unique: true, using: :btree
   add_index "merchants", ["state_id"], name: "index_merchants_on_state_id", using: :btree
 
-  create_table "product_types", force: :cascade do |t|
-    t.string   "product_type", limit: 128, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.string  "isbn_number",     limit: 64
     t.string  "resource_id",     limit: 10
@@ -129,6 +123,13 @@ ActiveRecord::Schema.define(version: 20151128175933) do
 
   add_index "products_images", ["product_id"], name: "index_products_images_on_product_id", using: :btree
 
+  create_table "products_types", force: :cascade do |t|
+    t.string   "product_type", limit: 128,             null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "status",       limit: 1,   default: 1
+  end
+
   create_table "states", force: :cascade do |t|
     t.string   "name",       limit: 64, null: false
     t.datetime "created_at",            null: false
@@ -155,10 +156,17 @@ ActiveRecord::Schema.define(version: 20151128175933) do
   add_index "stores", ["store_type_id"], name: "index_stores_on_store_type_id", using: :btree
   add_index "stores", ["url"], name: "index_stores_on_url", unique: true, using: :btree
 
+  create_table "vat_options", force: :cascade do |t|
+    t.string   "name",       limit: 50, null: false
+    t.integer  "status",     limit: 1,  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
   add_foreign_key "local_govts", "states"
   add_foreign_key "merchants", "states"
   add_foreign_key "products", "merchants"
-  add_foreign_key "products", "product_types"
+  add_foreign_key "products", "products_types", column: "product_type_id"
   add_foreign_key "products_categories", "categories"
   add_foreign_key "products_categories", "products"
   add_foreign_key "products_descriptions", "products"

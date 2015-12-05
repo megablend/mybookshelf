@@ -15,4 +15,5 @@ Rails.application.config.assets.precompile += %w( frontend_index_page_manifest.j
 	                                              sell_a_book_manifest.js
 	                                              sell_a_book_manifest.css
 	                                              validation.css 
-	                                              merchants_manifest.css)
+	                                              merchants_manifest.css
+	                                              ckeditor/*)

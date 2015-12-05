@@ -1,106 +1,61 @@
 <section class="panel panel-default set-book-cover-section-margin-top">
         <header class="panel-heading font-bold">Tell us about your book</header>
         <div class="panel-body">
+            <%= form_for(:book_description, url: merchants_book_description_path, remote: true, html: {class: "form-horizontal", id: "description-form"}) do|f| %>
+                <div class="form-group">
+                   <label class="col-sm-2 control-label"><strong>Book Type <span class="compulsory">*</span></strong></label>
+                    <div class="col-sm-10">
+                        <%= f.select :book_type, ProductsType.where(status: 1).order(:product_type).collect {|p| [p.product_type, p.id]}, {:prompt => "--Select Book Type--"}, {class: "form-control"} %>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <%= f.label :book_title, raw("<strong>Book Title <span class='compulsory'>*</span></strong>"), class: "col-sm-2 control-label" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :book_title, class: "form-control" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <%= f.label :vat, raw('<strong>VAT <span class="compulsory">*</span> <a href="javascript:void(0)" id="tooltipister" title="Please note: Sellers are responsible for the remittance of VAT to the government.">[?]</a></strong>'), class: "col-sm-2 control-label" %>
+                    <div class="col-sm-10">
+                        <%= f.select :vat, VatOption.all.order(:name).collect {|p| [p.name, p.id]}, {prompt: "--Select Vat Option--"}, {class: "form-control m-b"} %>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <%= f.label :price, raw('<strong>Price  &#8358; <span class="compulsory">*</span></strong>'), class: "col-sm-2 control-label", for: "price" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :price, class: "form-control", id: "price" %>
+                        <span class="help-block m-b-none">Only numerals e.g 1200</span>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <%= f.label :special_price, raw('<strong>Special Price  &#8358; </strong>'), class: "col-sm-2 control-label", for: "special-price" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :special_price, class: "form-control", id: "special-price" %>
+                        <span class="help-block m-b-none">Only numerals e.g 1200</span>
+                    </div>
+                </div>
+
+            <% end %>
             <form class="form-horizontal" method="get">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><strong>Book Type <span class="compulsory">*</span></strong></label>
-                    <div class="col-sm-10">
-                        <select name="account" class="form-control m-b">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><strong>Book Title <span class="compulsory">*</span></strong></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control"> <span class="help-block m-b-none">Maximum of 100 Characters</span> 
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><strong>VAT <span class="compulsory">*</span> <a href="javascript:void(0)" id="tooltipister" title="Please note: Sellers are responsible for the remittance of VAT to the government.">[?]</a></strong></label>
-                    <div class="col-sm-10">
-                        <select name="account" class="form-control m-b">
-                            <option></option>
-                            <option>5%</option>
-                            <option>Exempt</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-id-1"><strong>Price  &#8358; <span class="compulsory">*</span></strong></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-id-1">
-                        <span class="help-block m-b-none">Only numerals e.g 1200</span>
-                    </div>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-id-1"><strong>Special Price  &#8358; </strong></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input-id-1">
-                        <span class="help-block m-b-none">Only numerals e.g 1200</span>
-                    </div>
-                </div>
+                
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <!-- Description -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><strong>Description <span class="compulsory">*</span></strong></label>
                     <div class="col-sm-10">
-                        <div class="btn-toolbar m-b-sm btn-editor" data-role="editor-toolbar" data-target="#editor">
-                            <div class="btn-group"> <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a> 
-                                <ul class="dropdown-menu"></ul>
-                            </div>
-                            <div class="btn-group"> <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a> 
-                                <ul class="dropdown-menu">
-                                    <li><a data-edit="fontSize 5"><font size="5">Huge</font></a>
-                                    </li>
-                                    <li><a data-edit="fontSize 3"><font size="3">Normal</font></a>
-                                    </li>
-                                    <li><a data-edit="fontSize 1"><font size="1">Small</font></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="btn-group"> <a class="btn btn-default btn-sm" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>  <a class="btn btn-default btn-sm" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a> 
-                                <a
-                                class="btn btn-default btn-sm" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i>
-                                    </a> <a class="btn btn-default btn-sm" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a> 
-                            </div>
-                            <div class="btn-group"> <a class="btn btn-default btn-sm" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a> 
-                                <a class="btn btn-default btn-sm" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i>
-                                </a> <a class="btn btn-default btn-sm" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a> 
-                                <a class="btn btn-default btn-sm" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i>
-                                </a>
-                            </div>
-                            <div class="btn-group"> <a class="btn btn-default btn-sm" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a> 
-                                <a class="btn btn-default btn-sm" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i>
-                                </a> <a class="btn btn-default btn-sm" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a> 
-                                <a class="btn btn-default btn-sm" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i>
-                                </a>
-                            </div>
-                            <div class="btn-group"> <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a> 
-                                <div class="dropdown-menu">
-                                    <div class="input-group m-l-xs m-r-xs">
-                                        <input class="form-control input-sm" placeholder="URL" type="text" data-edit="createLink" />
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-default btn-sm" type="button">Add</button>
-                                        </div>
-                                    </div>
-                                </div> <a class="btn btn-default btn-sm" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a> 
-                            </div>
-                            <div class="btn-group hide"> <a class="btn btn-default btn-sm" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a> 
-                                <input type="file" data-role="magic-overlay" data-target="#pictureBtn"
-                                data-edit="insertImage" />
-                            </div>
-                            <div class="btn-group"> <a class="btn btn-default btn-sm" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>  <a class="btn btn-default btn-sm" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a> 
-                            </div>
+                        <div id="editor">
+                            <h1>Hello world!</h1>
+                            <p>I'm an instance of <a href="http://ckeditor.com">CKEditor</a>.</p>
                         </div>
-                        <div id="editor" class="form-control" style="overflow:scroll;height:150px;max-height:150px">Go ahead&hellip;</div>
+
                     </div>
                 </div>
                 <!-- End Description -->

@@ -8,6 +8,9 @@
 <% end %>
 <% content_for :other_js_files do %>
        <%= javascript_include_tag 'sell_a_book_manifest', 'data-turbolinks-track' => true %>
+       <script>
+         initEditor();
+       </script>
 <% end %>
 <section id="content">
                     <section class="vbox">
@@ -65,7 +68,7 @@
                     </div><!--/ .row-->
                   </div>
                           <div id="sell-a-book-form-holder">
-                               <%= render 'merchants/partials/sell_a_book_step_1' %>
+                               <%= render 'merchants/partials/sell_a_book_step_2' %>
                           </div>
                         </section>
                     </section>

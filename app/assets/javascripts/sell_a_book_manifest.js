@@ -12,6 +12,5 @@
 //
 //= require merchants/file-input/bootstrap-filestyle.min
 //= require merchants/wysiwyg/jquery.hotkeys
-//= require merchants/wysiwyg/bootstrap-wysiwyg
-//= require merchants/wysiwyg/demo
+//= require ckeditor/init
 //= require dropzone

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     delete '/merchants/logout' => 'sessions#destroy'
 
     post '/merchants/categories' => 'categories#get_sub_categories' #books categories
+    post '/merchants/book-description' => 'products#description' #add book description
 
     # merchants products routes
     get '/merchants/products' => 'products#index'
