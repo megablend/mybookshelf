@@ -2,15 +2,13 @@
 <% content_for :modals do %>
        <%= render 'layouts/merchants/modals/page_loading' %>
        <%= render 'layouts/merchants/modals/upload_cover_image' %>
+       <%= render 'layouts/merchants/modals/upload_epub_file' %>
 <% end %>
 <% content_for :other_css_files do %>
        <%= stylesheet_link_tag    'sell_a_book_manifest', media: 'all', 'data-turbolinks-track' => true %>
 <% end %>
 <% content_for :other_js_files do %>
        <%= javascript_include_tag 'sell_a_book_manifest', 'data-turbolinks-track' => true %>
-       <script>
-         initEditor();
-       </script>
 <% end %>
 <section id="content">
                     <section class="vbox">
@@ -68,7 +66,7 @@
                     </div><!--/ .row-->
                   </div>
                           <div id="sell-a-book-form-holder">
-                               <%= render 'merchants/partials/sell_a_book_step_2' %>
+                               <%= render 'merchants/partials/sell_a_book_step_1' %>
                           </div>
                         </section>
                     </section>

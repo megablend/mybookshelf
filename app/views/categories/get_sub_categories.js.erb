@@ -31,6 +31,7 @@ var pageLoadingDiv = "#loadingModal";
 			     $("#sell-a-book-nav-icon-2").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
 			     $(pageLoadingDiv).modal('hide');
 			     $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_2') %>");
+                 $('#tooltipister').tooltipster();
 		}, 2000); // in milliseconds
 <% end %>
 
@@ -78,3 +79,6 @@ function goBackToStepOne()
 		     $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_1') %>");
 	}, 2000); // in milliseconds
 }
+
+// Second Stage of Form Submission
+

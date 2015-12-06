@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     get '/merchants/products' => 'products#index'
     post '/merchants/products' => 'products#create'
     post '/merchants/upload-cover-image' => 'products#upload_cover_image'
+    post '/merchants/upload-epub-file' => 'products#upload_epub_file'
 
     get '/merchants/sell' => 'merchants#sell' # sell a book
     get '/merchants/signup' => 'merchants#new' # merchants signup link
