@@ -14,3 +14,4 @@
 //= require merchants/wysiwyg/jquery.hotkeys
 //= require ckeditor/init
 //= require dropzone
+//= require upload_epub_file

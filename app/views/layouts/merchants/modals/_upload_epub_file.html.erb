@@ -6,11 +6,12 @@
         <h4 class="modal-title" id="myModalLabel">Upload EPUB File</h4>
       </div>
       <div class="modal-body">
-        <%= form_tag merchants_upload_cover_image_path, method: :post, class: "dropzone form", id: "media-dropzone" do %>
+        <%= form_tag merchants_upload_epub_file_path, method: :post, class: "dropzone form", id: "epub-dropzone" do %>
           <div class="fallback">
             <%= file_field_tag "media", multiple: true %>
           </div>
         <% end %>
+        <div id="upload-epub-error" style="margin-top: 10px;"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

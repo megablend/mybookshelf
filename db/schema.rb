@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205214657) do
+ActiveRecord::Schema.define(version: 20151206164000) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -172,6 +172,16 @@ ActiveRecord::Schema.define(version: 20151205214657) do
   add_index "stores", ["store_type_id"], name: "index_stores_on_store_type_id", using: :btree
   add_index "stores", ["url"], name: "index_stores_on_url", unique: true, using: :btree
 
+  create_table "temporary_uploads", force: :cascade do |t|
+    t.string   "upload_type", limit: 32,  null: false
+    t.string   "file_name",   limit: 255, null: false
+    t.integer  "merchant_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "temporary_uploads", ["merchant_id"], name: "index_temporary_uploads_on_merchant_id", using: :btree
+
   create_table "vat_options", force: :cascade do |t|
     t.string   "name",       limit: 50, null: false
     t.integer  "status",     limit: 1,  null: false
@@ -190,4 +200,5 @@ ActiveRecord::Schema.define(version: 20151205214657) do
   add_foreign_key "products_images", "products"
   add_foreign_key "stores", "merchants"
   add_foreign_key "stores", "store_types"
+  add_foreign_key "temporary_uploads", "merchants"
 end

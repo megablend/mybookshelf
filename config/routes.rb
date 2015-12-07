@@ -20,6 +20,25 @@ Rails.application.routes.draw do
   
   # -- Merchants Routes --
     # merchants login routes
+    # scope path: "/merchants" do
+    #     get 'login' => 'sessions#new'
+    #     post 'login' => 'sessions#create'
+    #     delete 'logout' => 'sessions#destroy'
+
+    #     post 'categories' => 'categories#get_sub_categories' #books categories
+    #     post 'book-description' => 'products#description' #add book description
+
+    #     # merchants products routes
+    #     get 'products' => 'products#index'
+    #     post 'products' => 'products#create'
+    #     post 'upload-cover-image' => 'products#upload_cover_image'
+    #     post 'upload-epub-file' => 'products#upload_epub_file'
+
+    #     get 'sell' => 'merchants#sell' # sell a book
+    #     get 'signup' => 'merchants#new' # merchants signup link
+    #     get 'resend-verification-mail' => 'merchants#resend_mail' # resend verification code
+    #     get 'verify-email/:verification_code', to: 'merchants#verify_email', constraints: { verification_code: /[A-Za-z0-9]{50}/ } # verify email
+    # end
     get '/merchants/login' => 'sessions#new'
     post '/merchants/login' => 'sessions#create'
     delete '/merchants/logout' => 'sessions#destroy'
