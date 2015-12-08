@@ -24,6 +24,7 @@
 //= require merchants/charts/flot/demo
 //= require jquery.tooltipster.min.js
 //= require merchants/app.plugin
+//= require bootbox
 //= require mybookshelf_utils
 //= require merchants/custom
 

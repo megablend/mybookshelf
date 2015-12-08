@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
        temporary_upload_params = { upload_type: "epub file", file_name: params[:file], merchant_id: session[:merchant_id] }
 
        # check if a record of the active mechant exists in the temporary uploads table
-       check_member_details = TemporaryUpload.find_by(merchant_id: session[:merchant_id])
+       check_member_details = TemporaryUpload.find_by(merchant_id: session[:merchant_id], upload_type: "epub file")
        @epub_file = if check_member_details != nil then check_member_details else TemporaryUpload.new temporary_upload_params end
 
        if check_member_details.nil?

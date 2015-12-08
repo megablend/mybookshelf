@@ -1,20 +1,32 @@
 $(function()
 {
 	var epubDropzone;
-	// Dropzone.options.myAwesomeDropzone = {
-	//   accept: function(file, done) {
-	//     console.log("uploaded");
-	//     done();
-	//   },
-	//   init: function() {
-	//     this.on("addedfile", function() {
-	//       if (this.files[1]!=null){
-	//         this.removeFile(this.files[0]);
-	//       }
-	//     });
-	//   }
-	// };
-	epubDropzone = new Dropzone("#epub-dropzone");
+	Dropzone.options.myAwesomeDropzone = {
+	  accept: function(file, done) {
+	    console.log("uploaded");
+	    done();
+	  },
+	  init: function() {
+	    this.on("addedfile", function() {
+	      if (this.files[1]!=null){
+	        this.removeFile(this.files[0]);
+	      }
+	    });
+	  }
+	};
+	epubDropzone = new Dropzone("#epub-dropzone",{
+												  accept: function(file, done) {
+												    //console.log("uploaded");
+												    done();
+												  },
+												  init: function() {
+												    this.on("addedfile", function() {
+												      if (this.files[1]!=null){
+												        this.removeFile(this.files[0]);
+												      }
+												    });
+												  }
+												});
 	return epubDropzone.on("success", function(file, responseText)
 	{
 		var _this = this;
@@ -29,7 +41,7 @@ $(function()
 				{
 					var getFileName = responseText.file_name.url.split("/");
 					var fileName = getFileName[getFileName.length - 1].charAt(0).toUpperCase() + getFileName[getFileName.length - 1].slice(1);
-					console.log(fileName);
+					//console.log(fileName);
 
 				   //disable further upload of files
 				   var element = '<div style="text-align: left"><i class="step-1-completed fa  fa-check-circle fa-2x"></i> File successfully uploaded.</div>';
