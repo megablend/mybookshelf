@@ -112,26 +112,32 @@ MyBookshelfUtil.getVatDescription = function()
 }
 MyBookshelfUtil.getFivePercentVat = function(amount)
 {
-   console.log("The amount is" + amount);
-   return (amount * 0.05);
+   var percentage = amount * 0.05;
+   //console.log("The percentage is" + percentage);
+   return percentage;
 }
 MyBookshelfUtil.getPricePreview = function(amount)
 {
    var description = $("#vat-options").find('option:selected').text();
-   var amt = parseInt(amount).toFixed();
-   console.log(amount);
+   
+   
     switch(description)
     {
        case '5%':
-           return amt + MyBookshelfUtil.getFivePercentVat(amt);
+            new_amt = parseInt(amount) + parseFloat(MyBookshelfUtil.getFivePercentVat(amount));
+            //console.log(new_amt);
+            return parseFloat(new_amt).toFixed().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
        break;
 
        case 'Exempt':
-           return amt;
+           //console.log(new_amt);
+           return parseFloat(amount).toFixed().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
        break;
 
        default:
-           return amt + MyBookshelfUtil.getFivePercentVat(amt);
+           new_amt = parseInt(amount) + parseFloat(MyBookshelfUtil.getFivePercentVat(amount));
+           //console.log(new_amt);
+           return parseFloat(new_amt).toFixed().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
        break;
     }
 };
@@ -139,6 +145,33 @@ MyBookshelfUtil.filterPrice = function(event, element)
 {
    //event.preventDefault();
    return MyBookshelfUtil.isNumber(event, element);
+};
+MyBookshelfUtil.populatePricePreview = function(elementType)
+{
+   var activeElement;
+   //alert($("#" + elementType).val());
+   var amount = parseInt($("#" + elementType).val());
+   var previewElement = '<div class="line line-dashed b-b line-lg pull-in"></div>\
+                        <div class="form-group">\
+                            <label class="col-sm-2 control-label"><strong>Total Price</strong><br/>\
+                            <span class="helper_text total-price-info">' +  MyBookshelfUtil.getVatDescription()  +'</span>\
+                            </label>\
+                            <div class="col-sm-10">\
+                                <span class="total-price-display">&#8358;<span id="preview-amount">' + MyBookshelfUtil.getPricePreview(amount) + '</span></span>\
+                            </div>\
+                        </div>';
+   if(elementType == "price") 
+   {
+      activeElement = $("#price-preview");
+      $("#special-price-preview").html("");
+   }
+   else
+   {
+      activeElement = $("#special-price-preview");
+      $("#price-preview").html("");
+   }
+
+   if($("#" + elementType).val() != "" && !isNaN(amount)) activeElement.html(previewElement); else activeElement.html("");
 };
 MyBookshelfUtil.isNumber = function(evt, element)
 {

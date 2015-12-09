@@ -1,7 +1,7 @@
 <section class="panel panel-default set-book-cover-section-margin-top">
         <header class="panel-heading font-bold">Tell us about your book</header>
         <div class="panel-body">
-            <%= form_for(:book_description, url: merchants_book_description_path, remote: true, html: {class: "form-horizontal", id: "description-form"}) do|f| %>
+            <%= form_for(:book_description, url: merchants_book_description_path, remote: true, html: {class: "form-horizontal", id: "description-form-1"}) do|f| %>
                 <div class="form-group">
                    <label class="col-sm-2 control-label"><strong>Book Type <span class="compulsory">*</span></strong></label>
                     <div class="col-sm-10">
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <%= f.label :price, raw('<strong>Price  &#8358; <span class="compulsory">*</span></strong>'), class: "col-sm-2 control-label", for: "price" %>
                     <div class="col-sm-10">
-                        <%= f.text_field :price, class: "form-control validate[required, custom[phone-number]]", id: "price", onKeypress: "return MyBookshelfUtil.filterPrice(event, this);" %>
+                        <%= f.text_field :price, class: "form-control validate[required, custom[phone-number]]", id: "price", onKeypress: "return MyBookshelfUtil.filterPrice(event, this);", onKeyup: "MyBookshelfUtil.populatePricePreview('price');" %>
                         <span class="help-block m-b-none">Only numerals e.g 1200</span>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <%= f.label :special_price, raw('<strong>Special Price  &#8358; </strong>'), class: "col-sm-2 control-label", for: "special-price" %>
                     <div class="col-sm-10">
-                        <%= f.text_field :special_price, class: "form-control validate[required, custom[phone-number]]", id: "special-price", onKeypress: "return MyBookshelfUtil.filterPrice(event, this);" %>
+                        <%= f.text_field :special_price, class: "form-control validate[required, custom[phone-number]]", id: "special-price", onKeypress: "return MyBookshelfUtil.filterPrice(event, this);", onKeyup: "MyBookshelfUtil.populatePricePreview('special-price');" %>
                         <span class="help-block m-b-none">Only numerals e.g 1200</span>
                     </div>
                 </div>

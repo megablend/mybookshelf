@@ -13,6 +13,11 @@ class ProductsController < ApplicationController
 
 	end
 
+	# add a temporary books description
+	def description
+       logger.debug params[:book_description].to_s
+	end
+
 	# upload a cover image for a title
 	def upload_cover_image
        

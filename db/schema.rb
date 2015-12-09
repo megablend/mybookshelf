@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206164000) do
+ActiveRecord::Schema.define(version: 20151209161044) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -95,10 +95,12 @@ ActiveRecord::Schema.define(version: 20151206164000) do
     t.integer "status",          limit: 1,                           default: 0
     t.integer "approved",        limit: 1,                           default: 0
     t.integer "viewed",          limit: 8,                           default: 0
+    t.integer "vat_option_id",   limit: 4
   end
 
   add_index "products", ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
+  add_index "products", ["vat_option_id"], name: "index_products_on_vat_option_id", using: :btree
 
   create_table "products_categories", id: false, force: :cascade do |t|
     t.integer "product_id",  limit: 4
@@ -193,6 +195,7 @@ ActiveRecord::Schema.define(version: 20151206164000) do
   add_foreign_key "merchants", "states"
   add_foreign_key "products", "merchants"
   add_foreign_key "products", "products_types", column: "product_type_id"
+  add_foreign_key "products", "vat_options"
   add_foreign_key "products_categories", "categories"
   add_foreign_key "products_categories", "products"
   add_foreign_key "products_descriptions", "products"
