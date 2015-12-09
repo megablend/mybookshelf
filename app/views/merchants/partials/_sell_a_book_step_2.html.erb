@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <%= f.label :book_title, raw("<strong>Book Title <span class='compulsory'>*</span></strong>"), class: "col-sm-2 control-label" %>
                     <div class="col-sm-10">
-                        <%= f.text_field :book_title, class: "form-control" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
+                        <%= f.text_field :book_title, class: "form-control validate[required]" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <%= f.label :vat, raw('<strong>VAT <span class="compulsory">*</span> <a href="javascript:void(0)" id="tooltipister" title="Please note: Sellers are responsible for the remittance of VAT to the government.">[?]</a></strong>'), class: "col-sm-2 control-label" %>
                     <div class="col-sm-10">
-                        <%= f.select :vat, VatOption.all.order(:name).collect {|p| [p.name, p.id]}, {prompt: "--Select Vat Option--"}, {class: "form-control m-b"} %>
+                        <%= f.select :vat, VatOption.all.order(:name).collect {|p| [p.name, p.id]}, {prompt: "--Select Vat Option--"}, {class: "form-control m-b", id: "vat-options"} %>
                     </div>
                 </div>
 
@@ -29,28 +29,26 @@
                 <div class="form-group">
                     <%= f.label :price, raw('<strong>Price  &#8358; <span class="compulsory">*</span></strong>'), class: "col-sm-2 control-label", for: "price" %>
                     <div class="col-sm-10">
-                        <%= f.text_field :price, class: "form-control", id: "price" %>
+                        <%= f.text_field :price, class: "form-control validate[required, custom[phone-number]]", id: "price", onKeypress: "return MyBookshelfUtil.filterPrice(event, this);" %>
                         <span class="help-block m-b-none">Only numerals e.g 1200</span>
                     </div>
+                </div>
+
+                <div id="price-preview">
+
                 </div>
 
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <div class="form-group">
                     <%= f.label :special_price, raw('<strong>Special Price  &#8358; </strong>'), class: "col-sm-2 control-label", for: "special-price" %>
                     <div class="col-sm-10">
-                        <%= f.text_field :special_price, class: "form-control", id: "special-price" %>
+                        <%= f.text_field :special_price, class: "form-control validate[required, custom[phone-number]]", id: "special-price", onKeypress: "return MyBookshelfUtil.filterPrice(event, this);" %>
                         <span class="help-block m-b-none">Only numerals e.g 1200</span>
                     </div>
                 </div>
-                
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><strong>Total Price</strong><br/>
-                    <span class="helper_text total-price-info">VAT Inclusive</span>
-                    </label>
-                    <div class="col-sm-10">
-                        <span class="total-price-display">₦105</span>
-                    </div>
+
+                <div id="special-price-preview">
+
                 </div>
 
                 <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -58,7 +56,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label"><strong>Description <span class="compulsory">*</span></strong></label>
                     <div class="col-sm-10">
-                        <%= f.cktext_area :description, :cols => 40, :ckeditor => {:toolbar => 'mini'} %>
+                        <%= f.cktext_area :description, :cols => 40, :ckeditor => {:toolbar => 'mini'}, class: " validate[required]" %>
                     </div>
                 </div>
                 <!-- End Description -->
@@ -67,7 +65,7 @@
                 <div class="form-group">
                     <%= f.label :quantity, raw('<strong>Quantity <span class="compulsory">*</span></strong>'), class: "col-sm-2 control-label", for: "quantity" %>
                     <div class="col-sm-10">
-                        <%= f.text_field :quantity, class: "form-control", id: "quantity" %>
+                        <%= f.text_field :quantity, class: "form-control  validate[required, custom[phone-number]]", id: "quantity" %>
                     </div>
                 </div>
 
@@ -77,8 +75,6 @@
                 </div>
                 <!-- End Upload EBooks -->
 
-            <% end %>
-            <form class="form-horizontal" method="get">
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <div class="form-group">
                     <div class="col-sm-4 col-sm-offset-2">
@@ -86,6 +82,7 @@
                         <button class="btn btn-primary">Continue</button>
                     </div>
                 </div>
-            </form>
+
+            <% end %>
         </div>
     </section>

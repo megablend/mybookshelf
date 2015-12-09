@@ -5,7 +5,7 @@
    <% end %>
 <!-- End Add Validation Script -->
 
-<div class="page-title" style="margin-top: 30px"><h2>You are almost done!</h2></div>
+<div class="page-title add-margin-20px-top" style="margin-top: 30px"><h2>You are almost done!</h2></div>
 <p>Hi, you are almost done with your registration. Please click on  the link sent to your inbox to verify your email address.</p>
 <p>If you did not receive any email, click on the button below to receive another verification mail. If it doesn't work, please contact us on 08060108165 or shoot us an email at <%= link_to "support@mybookshelf.com.ng", "mailto:support@mybookshelf.com.ng" %>. Thank you.</p>
-<p  class="add-margin-top"><%= link_to "Resend Email", "/merchants/resend-verification-mail", class: "button add-margin-top" %></p>
+<p  class="add-margin-top"><%= link_to "Resend Email", { controller: "merchants", action: "resend_mail" }, class: "button add-margin-top" %></p>

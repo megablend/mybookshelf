@@ -7,10 +7,12 @@ $(document).ready(function()
 	newMerchant = "#new_merchant";
 	newStore = "#new_store";
   merchantLogin = "#merchant-login";
+  productDescription = "#description-form";
    //form handlers
    $(newMerchant).validationEngine();
    $(newStore).validationEngine();
    $(merchantLogin).validationEngine();
+   $(productDescription).validationEngine();
 
    //submit merchant login form
   $(merchantLogin).submit(function (e) {
@@ -32,6 +34,11 @@ $(document).ready(function()
                }
            });
       
+    });
+
+  //submit merchant login form
+  $(productDescription).submit(function (e) {
+          
     });
 
    //submit store signup form

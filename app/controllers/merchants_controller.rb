@@ -28,6 +28,11 @@ class MerchantsController < ApplicationController
   def show
      render plain: "This is where the user profile will be"
   end
+
+  # Show the terms and conditions for a merchant
+  def terms
+
+  end
    
   # signup page 
   def new

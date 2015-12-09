@@ -92,3 +92,85 @@ MyBookshelfUtil.populateEbookSection = function(element)
    else
      ebookSection.html('');
 };
+MyBookshelfUtil.getVatDescription = function()
+{
+    var description = $("#vat-options").find('option:selected').text();
+    switch(description)
+    {
+       case '5%':
+           return 'VAT Inclusive';
+       break;
+
+       case 'Exempt':
+           return 'VAT Exempted';
+       break;
+
+       default:
+           return 'VAT Inclusive';
+       break;
+    }
+}
+MyBookshelfUtil.getFivePercentVat = function(amount)
+{
+   console.log("The amount is" + amount);
+   return (amount * 0.05);
+}
+MyBookshelfUtil.getPricePreview = function(amount)
+{
+   var description = $("#vat-options").find('option:selected').text();
+   var amt = parseInt(amount).toFixed();
+   console.log(amount);
+    switch(description)
+    {
+       case '5%':
+           return amt + MyBookshelfUtil.getFivePercentVat(amt);
+       break;
+
+       case 'Exempt':
+           return amt;
+       break;
+
+       default:
+           return amt + MyBookshelfUtil.getFivePercentVat(amt);
+       break;
+    }
+};
+MyBookshelfUtil.filterPrice = function(event, element)
+{
+   //event.preventDefault();
+   return MyBookshelfUtil.isNumber(event, element);
+};
+MyBookshelfUtil.isNumber = function(evt, element)
+{
+   var charCode = (evt.which) ? evt.which : event.keyCode;
+   if((charCode != 8) && (charCode < 48 || charCode > 57))
+      return false;
+
+    return true;
+};
+MyBookshelfUtil.submitBookDescription = function(event, element)
+{
+   var form = element;
+   $(form).validationEngine();
+   event.preventDefault();
+      
+      //check if the error message exists
+      $('body').each(function(){
+               var $error = $('.formError',$(this));
+               if(!$error.length){
+                  //check if the special price is greater than price
+                  var price = $("#price").val();
+                  var specialPrice = $("#special-price").val();
+                  if(specialPrice > price)
+                  {
+                     bootbox.alert("Special price shouldn't be greater than price", function(result)
+                     {
+                         return;
+                     });
+                  }
+                  else
+                    form.submit();
+               }
+           });
+      
+}

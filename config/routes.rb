@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     #     get 'resend-verification-mail' => 'merchants#resend_mail' # resend verification code
     #     get 'verify-email/:verification_code', to: 'merchants#verify_email', constraints: { verification_code: /[A-Za-z0-9]{50}/ } # verify email
     # end
+    get '/merchants/terms' => 'merchants#terms'
     get '/merchants/login' => 'sessions#new'
     post '/merchants/login' => 'sessions#create'
     delete '/merchants/logout' => 'sessions#destroy'

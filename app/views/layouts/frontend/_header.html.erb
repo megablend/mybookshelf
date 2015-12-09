@@ -22,8 +22,10 @@
 
                 <div class="check bold"><a href="<%= sell_path %>" title="Sell on MYBOOKSHELF"><span class="hidden-xs">Sell on MYBOOKSHELF</span></a></div> 
 
-                <div class="login">                     <a href="#"><span class="hidden-xs">Login</span></a>
-                                 </div>
+                <div class="login">    
+                  <%= link_to raw('<span class="hidden-xs">Login</span>'), controller: "sessions", action: "new" %>                 
+                  <!-- <a href="#"><span class="hidden-xs">Login</span></a> -->
+                </div>
 
               </div>
             </div>
