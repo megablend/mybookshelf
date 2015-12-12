@@ -17,6 +17,9 @@ class MerchantsController < ApplicationController
 
   # Sell a book
   def sell
+     # delete all active temporary sessions
+     delete_sell_a_book_temporary_sessions
+     
      @categories = Category.where(parent_id: 0).order(:name)
      @merchant = Merchant.find(session[:merchant_id])
      @fullname = "#{@merchant.firstname.downcase.capitalize} #{@merchant.lastname.downcase.capitalize}" 

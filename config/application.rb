@@ -26,5 +26,8 @@ module MyBookshelf
 
     # configuration for action mailer host
     config.action_mailer.default_url_options = { host: 'mybookshelf.com.ng' }
+
+    # add custom validators path
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
   end
 end

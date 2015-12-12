@@ -3,25 +3,33 @@
         <div class="panel-body">
             <%= form_for(:book_description, url: merchants_book_description_path, remote: true, html: {class: "form-horizontal", id: "description-form-1"}) do|f| %>
                 <div class="form-group">
-                   <label class="col-sm-2 control-label"><strong>Book Type <span class="compulsory">*</span></strong></label>
+                    <%= f.label :products_type_id, raw('<strong>Book Type <span class="compulsory">*</span></strong>'), class: "col-sm-2 control-label", for: "product-type-id" %>
                     <div class="col-sm-10">
-                        <%= f.select :book_type, ProductsType.where(status: 1).order(:product_type).collect {|p| [p.product_type, p.id]}, {:prompt => "--Select Book Type--"}, {class: "form-control", onChange: "MyBookshelfUtil.populateEbookSection(this);"} %>
+                        <%= f.select :products_type_id, ProductsType.where(status: 1).order(:product_type).collect {|p| [p.product_type, p.id]}, {:prompt => "--Select Book Type--"}, {class: "form-control", id: "product-type-id", onChange: "MyBookshelfUtil.populateEbookSection(this);"} %>
                     </div>
                 </div>
 
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <div class="form-group">
-                    <%= f.label :book_title, raw("<strong>Book Title <span class='compulsory'>*</span></strong>"), class: "col-sm-2 control-label" %>
+                    <%= f.label :title, raw("<strong>Book Title <span class='compulsory'>*</span></strong>"), class: "col-sm-2 control-label" %>
                     <div class="col-sm-10">
-                        <%= f.text_field :book_title, class: "form-control validate[required]" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
+                        <%= f.text_field :title, class: "form-control validate[required]" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
                     </div>
                 </div>
 
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <div class="form-group">
-                    <%= f.label :vat, raw('<strong>VAT <span class="compulsory">*</span> <a href="javascript:void(0)" id="tooltipister" title="Please note: Sellers are responsible for the remittance of VAT to the government.">[?]</a></strong>'), class: "col-sm-2 control-label" %>
+                    <%= f.label :isbn, raw("<strong>ISBN</strong>"), class: "col-sm-2 control-label" %>
                     <div class="col-sm-10">
-                        <%= f.select :vat, VatOption.all.order(:name).collect {|p| [p.name, p.id]}, {prompt: "--Select Vat Option--"}, {class: "form-control m-b", id: "vat-options"} %>
+                        <%= f.text_field :isbn, class: "form-control" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <%= f.label :vat_option_id, raw('<strong>VAT <span class="compulsory">*</span> <a href="javascript:void(0)" id="tooltipister" title="Please note: Sellers are responsible for the remittance of VAT to the government.">[?]</a></strong>'), class: "col-sm-2 control-label" %>
+                    <div class="col-sm-10">
+                        <%= f.select :vat_option_id, VatOption.all.order(:name).collect {|p| [p.name, p.id]}, {prompt: "--Select Vat Option--"}, {class: "form-control m-b", id: "vat-options"} %>
                     </div>
                 </div>
 
@@ -54,7 +62,7 @@
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <!-- Description -->
                 <div class="form-group">
-                    <label class="col-sm-2 control-label"><strong>Description <span class="compulsory">*</span></strong></label>
+                    <%= f.label :description, raw('<strong>Description <span class="compulsory">*</span></strong>'), class: "col-sm-2 control-label", for: "description" %>
                     <div class="col-sm-10">
                         <%= f.cktext_area :description, :cols => 40, :ckeditor => {:toolbar => 'mini'}, class: " validate[required]" %>
                     </div>

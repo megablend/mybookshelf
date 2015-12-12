@@ -1,0 +1,16 @@
+<% if @epub_not_uploaded.present? && @epub_not_uploaded %>
+   bootbox.alert("You haven't uploaded an epub file yet!", function(result) { return; });
+<% else %>
+   <% if @error %>
+      //console.log('errors section');
+      var message = '<h2>Please correct the errors listed below.</h2>';
+      <% @temporary_products.errors.full_messages.each do|msg| %>
+          message += "<span style='color: #ff0000'>**</span> <%= j (msg) %>" + "</br>";
+      <% end %>
+      
+      bootbox.alert(message, function(result) { return; });
+   <% else %>
+      /* Proceed to the review page */
+      alert("Yaaay! I got it");
+   <% end %>
+<% end %>

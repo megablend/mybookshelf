@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209161044) do
+ActiveRecord::Schema.define(version: 20151212203440) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -174,6 +174,25 @@ ActiveRecord::Schema.define(version: 20151209161044) do
   add_index "stores", ["store_type_id"], name: "index_stores_on_store_type_id", using: :btree
   add_index "stores", ["url"], name: "index_stores_on_url", unique: true, using: :btree
 
+  create_table "temporary_products_descriptions", force: :cascade do |t|
+    t.integer  "products_type_id",  limit: 4
+    t.string   "title",             limit: 255,                                        null: false
+    t.string   "isbn",              limit: 255
+    t.integer  "vat_option_id",     limit: 4
+    t.decimal  "price",                           precision: 15, scale: 4,             null: false
+    t.decimal  "special_price",                   precision: 15, scale: 4
+    t.text     "description",       limit: 65535
+    t.integer  "quantity",          limit: 1,                              default: 0, null: false
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
+    t.integer  "merchant_id",       limit: 4
+    t.integer  "product_protected", limit: 1,                              default: 1
+  end
+
+  add_index "temporary_products_descriptions", ["merchant_id"], name: "index_temporary_products_descriptions_on_merchant_id", using: :btree
+  add_index "temporary_products_descriptions", ["products_type_id"], name: "index_temporary_products_descriptions_on_products_type_id", using: :btree
+  add_index "temporary_products_descriptions", ["vat_option_id"], name: "index_temporary_products_descriptions_on_vat_option_id", using: :btree
+
   create_table "temporary_uploads", force: :cascade do |t|
     t.string   "upload_type", limit: 32,  null: false
     t.string   "file_name",   limit: 255, null: false
@@ -203,5 +222,8 @@ ActiveRecord::Schema.define(version: 20151209161044) do
   add_foreign_key "products_images", "products"
   add_foreign_key "stores", "merchants"
   add_foreign_key "stores", "store_types"
+  add_foreign_key "temporary_products_descriptions", "merchants"
+  add_foreign_key "temporary_products_descriptions", "products_types"
+  add_foreign_key "temporary_products_descriptions", "vat_options"
   add_foreign_key "temporary_uploads", "merchants"
 end

@@ -146,4 +146,11 @@ module MerchantsHelper
             end
         end
     end
+
+    # Delete Sell a Book temporary sessions
+    def delete_sell_a_book_temporary_sessions
+      session.delete(:selected_sub_category) unless session[:selected_sub_category].nil?
+      session.delete(:epub_id) unless session[:epub_id].nil?
+      session.delete(:book_description_id) unless session[:book_description_id].nil?
+    end
 end
