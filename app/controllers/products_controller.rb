@@ -57,7 +57,36 @@ class ProductsController < ApplicationController
 
 	# upload a cover image for a title
 	def upload_cover_image
-       
+       temporary_upload_params = { upload_type: "cover image file", file_name: params[:file], merchant_id: session[:merchant_id] }
+       # check if a record of the active mechant exists in the temporary uploads table
+       check_member_details = TemporaryUpload.find_by(merchant_id: session[:merchant_id], upload_type: "cover image file")
+       @cover_image_file = if check_member_details != nil then check_member_details else TemporaryUpload.new temporary_upload_params end
+
+       	if check_member_details.nil?
+           @cover_image_file.get_upload_type = "cover image file"
+           if @cover_image_file.save 
+           	 activate_temporary_cover_image_session @cover_image_file.id
+           	 respond_to do|format|
+               format.json { render :json => @cover_image_file }
+           	 end
+           else
+              respond_to do|format|
+		         format.json {render :json => { message: @cover_image_file.errors.full_messages.join(', ')}, :status => 200 }
+		      end
+           end
+       	else
+       		@cover_image_file.get_upload_type = "cover image file"
+       		if @cover_image_file.update(temporary_upload_params)
+	           activate_temporary_cover_image_session @cover_image_file.id
+	           respond_to do|format|
+	              format.json {render :json => @cover_image_file}
+	           end
+	        else
+	       	   respond_to do|format|
+	             format.json {render :json => { message: @cover_image_file.errors.full_messages.join(', ')}, :status => 200 }
+	           end
+	        end
+       	end
 	end
 
 	# upload epub file
@@ -69,6 +98,7 @@ class ProductsController < ApplicationController
        @epub_file = if check_member_details != nil then check_member_details else TemporaryUpload.new temporary_upload_params end
 
        if check_member_details.nil?
+       	  @epub_file.get_upload_type = "epub file"
        	  if @epub_file.save
 	         activate_temporary_epub_session @epub_file.id
 	         respond_to do|format|
@@ -80,6 +110,7 @@ class ProductsController < ApplicationController
 	          end
 	      end
        else
+       	  @epub_file.get_upload_type = "epub file"
           if @epub_file.update(temporary_upload_params)
 	         activate_temporary_epub_session @epub_file.id
 	         respond_to do|format|

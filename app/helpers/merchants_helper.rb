@@ -152,5 +152,6 @@ module MerchantsHelper
       session.delete(:selected_sub_category) unless session[:selected_sub_category].nil?
       session.delete(:epub_id) unless session[:epub_id].nil?
       session.delete(:book_description_id) unless session[:book_description_id].nil?
+      session.delete(:cover_image_id) unless session[:cover_image_id].nil?
     end
 end

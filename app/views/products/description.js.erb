@@ -1,3 +1,7 @@
+var stepTwo = $("#sell-a-book-nav-step-2");
+var stepThree = $("#sell-a-book-nav-step-3");
+var pageLoadingDiv = "#loadingModal";
+
 <% if @epub_not_uploaded.present? && @epub_not_uploaded %>
    bootbox.alert("You haven't uploaded an epub file yet!", function(result) { return; });
 <% else %>
@@ -10,7 +14,16 @@
       
       bootbox.alert(message, function(result) { return; });
    <% else %>
-      /* Proceed to the review page */
-      alert("Yaaay! I got it");
+         /* Proceed to the review page */
+        //load step two
+        $(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
+		setTimeout(function () {
+			     stepTwo.removeClass("tmm-current").addClass("tmm-success");
+			     stepThree.addClass("tmm-current");
+			     $("#sell-a-book-nav-icon-3").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
+			     $(pageLoadingDiv).modal('hide');
+			     $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_3') %>");
+	             $('#tooltipister').tooltipster();
+		}, 2000); // in milliseconds
    <% end %>
 <% end %>

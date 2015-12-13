@@ -1,0 +1,112 @@
+$(function()
+{
+	var epubDropzone;
+	var coverImageDropzone;
+	var stepThree = $("#sell-a-book-nav-step-3");
+	var stepFour = $("#sell-a-book-nav-step-4");
+	var pageLoadingDiv = "#loadingModal";
+
+		epubDropzone = new Dropzone("#epub-dropzone",{
+		                                          maxFilesize: 300,
+												  accept: function(file, done) {
+												    //console.log("uploaded");
+												    done();
+												  },
+												  init: function() {
+												    this.on("addedfile", function() {
+												      if (this.files[1]!=null){
+												        this.removeFile(this.files[0]);
+												      }
+												    });
+												  }
+												});
+	return epubDropzone.on("success", function(file, responseText)
+	{
+		var _this = this;
+		var uploadError = $("#upload-epub-error");
+		if(typeof responseText == "object")
+		{
+			if(!responseText.message)
+			{
+				uploadError.removeClass("alert alert-danger");
+                uploadError.html("");
+                setTimeout(function()
+				{
+					var getFileName = responseText.file_name.url.split("/");
+					var fileName = getFileName[getFileName.length - 1].charAt(0).toUpperCase() + getFileName[getFileName.length - 1].slice(1);
+					//console.log(fileName);
+
+				   //disable further upload of files
+				   var element = '<div style="text-align: left"><i class="step-1-completed fa  fa-check-circle fa-2x"></i> File successfully uploaded.</div>';
+				   $("#upload-epub-file-holder").removeClass("dropfile visible-lg");
+				   $('#upload-epub-file-holder').prop('onclick',null).off('click');
+				   $("#upload-epub-file-holder").html(element);
+		           $('#epubFileModal').modal('hide');
+		           _this.removeAllFiles();
+				}, 1000);
+			}
+			else
+			{
+				_this.removeAllFiles();
+               uploadError.addClass("alert alert-danger");
+               uploadError.html(responseText.message);
+			}
+		}
+		else
+		{
+			_this.removeAllFiles();
+            alert("Unknown error, please try again");
+		}
+	});
+
+    coverImageDropzone = new Dropzone("#cover-image",{
+    	                                          maxFilesize: 2,
+												  accept: function(file, done) {
+												    //console.log("uploaded");
+												    done();
+												  },
+												  init: function() {
+												    this.on("addedfile", function() {
+												      if (this.files[1]!=null){
+												        this.removeFile(this.files[0]);
+												      }
+												    });
+												  }
+												});
+	return coverImageDropzone.on("success", function(file, responseText)
+	{
+		var _this = this;
+		var uploadError = $("#upload-cover-image-error");
+		if(typeof responseText == "object")
+		{
+			if(!responseText.message)
+			{
+				uploadError.removeClass("alert alert-danger");
+                uploadError.html("");
+
+                //disable further upload of files
+			    $('#cover-image').prop('onclick',null).off('click');
+	            _this.removeAllFiles();
+
+	            //proceed to review upload
+	            stepThree.removeClass("tmm-current").addClass("tmm-success");
+			    stepFour.addClass("tmm-current");
+			    $("#sell-a-book-nav-icon-4").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
+			    $(pageLoadingDiv).modal('hide');
+			    $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_3') %>");
+	            $('#tooltipister').tooltipster();
+			}
+			else
+			{
+				_this.removeAllFiles();
+               uploadError.addClass("alert alert-danger");
+               uploadError.html(responseText.message);
+			}
+		}
+		else
+		{
+			_this.removeAllFiles();
+            alert("Unknown error, please try again");
+		}
+	});
+});

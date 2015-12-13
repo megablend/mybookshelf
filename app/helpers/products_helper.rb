@@ -18,4 +18,13 @@ module ProductsHelper
 	def activate_temporary_book_desc_session(book_description_id)
        session[:book_description_id] = book_description_id
 	end
+
+	# activate temporary cover image session
+	def activate_temporary_cover_image_session(temporary_image_id)
+      session['cover_image_id'] = temporary_image_id
+	end
+
+	def temporary_cover_image_session_active?
+      !session[:cover_image_id].nil?
+	end
 end

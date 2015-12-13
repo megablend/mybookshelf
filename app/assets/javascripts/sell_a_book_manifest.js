@@ -15,3 +15,4 @@
 //= require ckeditor/init
 //= require dropzone
 //= require upload_epub_file
+//= require upload_cover_image

@@ -1,20 +1,8 @@
 $(function()
 {
 	var epubDropzone;
-	Dropzone.options.myAwesomeDropzone = {
-	  accept: function(file, done) {
-	    console.log("uploaded");
-	    done();
-	  },
-	  init: function() {
-	    this.on("addedfile", function() {
-	      if (this.files[1]!=null){
-	        this.removeFile(this.files[0]);
-	      }
-	    });
-	  }
-	};
-	epubDropzone = new Dropzone("#epub-dropzone",{
+		epubDropzone = new Dropzone("#epub-dropzone",{
+		                                          maxFilesize: 300,
 												  accept: function(file, done) {
 												    //console.log("uploaded");
 												    done();
@@ -54,9 +42,10 @@ $(function()
 			}
 			else
 			{
+				var filteredMessage = responseText.message.replace("File name", "EPUB file: ");
 				_this.removeAllFiles();
                uploadError.addClass("alert alert-danger");
-               uploadError.html(responseText.message);
+               uploadError.html(filteredMessage);
 			}
 		}
 		else

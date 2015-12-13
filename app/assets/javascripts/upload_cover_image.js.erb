@@ -1,0 +1,58 @@
+$(function()
+{
+	var coverImageDropzone;
+	var stepThree = $("#sell-a-book-nav-step-3");
+	var stepFour = $("#sell-a-book-nav-step-4");
+	var pageLoadingDiv = "#loadingModal";
+	coverImageDropzone = new Dropzone("#cover-image",{
+    	                                          maxFilesize: 2,
+												  accept: function(file, done) {
+												    //console.log("uploaded");
+												    done();
+												  },
+												  init: function() {
+												    this.on("addedfile", function() {
+												      if (this.files[1]!=null){
+												        this.removeFile(this.files[0]);
+												      }
+												    });
+												  }
+												});
+	return coverImageDropzone.on("success", function(file, responseText)
+	{
+		var _this = this;
+		var uploadError = $("#upload-cover-image-error");
+		if(typeof responseText == "object")
+		{
+			if(!responseText.message)
+			{
+				uploadError.removeClass("alert alert-danger");
+                uploadError.html("");
+
+                //disable further upload of files
+			    $('#cover-image').prop('onclick',null).off('click');
+	            _this.removeAllFiles();
+
+	            //proceed to review upload
+	            stepThree.removeClass("tmm-current").addClass("tmm-success");
+			    stepFour.addClass("tmm-current");
+			    $("#sell-a-book-nav-icon-4").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
+			    $(pageLoadingDiv).modal('hide');
+			    $("#sell-a-book-form-holder").html("");
+			    alert('hello');
+			}
+			else
+			{
+				var filteredMessage = responseText.message.replace("File name", "Book cover image: ");
+				_this.removeAllFiles();
+               uploadError.addClass("alert alert-danger");
+               uploadError.html(filteredMessage);
+			}
+		}
+		else
+		{
+			_this.removeAllFiles();
+            alert("Unknown error, please try again");
+		}
+	});
+})

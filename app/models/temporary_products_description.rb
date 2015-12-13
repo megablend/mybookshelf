@@ -17,12 +17,16 @@ class TemporaryProductsDescription < ActiveRecord::Base
    validate  :special_price_cannot_be_greater_than_price, if: Proc.new { |a| self.price.present? && a.special_price.present? }
    validates :description, presence: { message: "can't be blank" }, length: {minimum: 20}
    validates :quantity, presence: { message: "can't be blank" }, numericality: { greater_than: 0 }
-   validates :product_protected, presence: { message: " - Do you wish to protect this title?" }, if: :protected_option_selected?
+   validate :select_product_protected_option, if: :protected_option_selected?
 
    def special_price_cannot_be_greater_than_price
        if self.special_price >= self.price
        	  errors.add(:special_price, "can't be greater than or equal to price")
        end
+   end
+
+   def select_product_protected_option
+      errors.add(:product_protected, "option not selected!") if self.product_protected.nil?
    end
 
    def merchant_id
