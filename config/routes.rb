@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
     post '/merchants/categories' => 'categories#get_sub_categories' #books categories
     post '/merchants/book-description' => 'products#description' #add book description
+    post '/merchants/complete-upload' => 'products#complete_upload'
 
     # merchants products routes
     get '/merchants/products' => 'products#index'

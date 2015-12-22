@@ -19,6 +19,30 @@
 
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 <div class="form-group">
+                    <%= f.label :author, raw("<strong>Book Author <span class='compulsory'>*</span></strong>"), class: "col-sm-2 control-label" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :author, class: "form-control validate[required]" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <%= f.label :publisher, raw("<strong>Publisher</strong>"), class: "col-sm-2 control-label" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :publisher, class: "form-control" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <%= f.label :publish_date, raw("<strong>Date Published </strong>"), class: "col-sm-2 control-label" %>
+                    <div class="col-sm-10">
+                        <%= f.text_field :publish_date, class: "datepicker-input form-control" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
                     <%= f.label :isbn, raw("<strong>ISBN</strong>"), class: "col-sm-2 control-label" %>
                     <div class="col-sm-10">
                         <%= f.text_field :isbn, class: "form-control" %> <span class="help-block m-b-none">Maximum of 100 Characters</span>

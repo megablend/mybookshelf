@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
 
-	# Load Merchants Helper
+	# Load Merchants Helper and Products Helper
     include ProductsHelper
+    include MerchantsHelper
 
 	# merchants products list
 	def index
@@ -11,6 +12,77 @@ class ProductsController < ApplicationController
     # add a new product
 	def create
 
+	end
+
+	# Complete Products Upload
+	def complete_upload
+	   temporary_products_desc = TemporaryProductsDescription.find(session[:book_description_id])
+       cover_image = TemporaryUpload.find(session[:cover_image_id])
+
+	   # add product to the products table
+	   resource_id = SecureRandom.hex(8)
+       product = Product.new(get_product(temporary_products_desc, resource_id))
+       if !product.save
+          @error = true
+            # respond to js and html
+	        respond_to do|format|
+	           format.js
+	           format.html
+	        end
+	        return
+       end
+
+       # add product description
+       product_description = ProductsDescription.new(get_product_description(temporary_products_desc, product.id))
+       if !product_description.save
+          @error = true
+            # respond to js and html
+	        respond_to do|format|
+	           format.js
+	           format.html
+	        end
+	        return
+       end
+
+       # Category
+       product_category = Category.new({product_id: product.id, category_id: session[:selected_sub_category]})
+       if !product_category.save
+          @error = true
+            # respond to js and html
+	        respond_to do|format|
+	           format.js
+	           format.html
+	        end
+	        return
+       end
+
+       # Cover Image 
+       source = "#{Rails.public_path}#{cover_image.file_name.url}" # copy image 
+       destination = "#{Rails.public_path}/uploads/products_image/image/#{product.id}"
+       ProcessTemporaryFiles.copy_file source, destination
+
+       old_file_name = "#{Rails.public_path}/uploads/products_image/image/#{product.id}/#{ProcessTemporaryFiles.get_file_name(cover_image.file_name.url)}"
+       new_file_name = "#{Rails.public_path}/uploads/products_image/image/#{product.id}/cover_image_#{SecureRandom.hex(8)}#{ProcessTemporaryFiles.get_file_extension(cover_image.file_name.url)}"
+       product_image_url = "/uploads/products_image/image/#{product.id}/cover_image_#{SecureRandom.hex(8)}#{ProcessTemporaryFiles.get_file_extension(cover_image.file_name.url)}"
+       ProcessTemporaryFiles.rename_file old_file_name, new_file_name
+
+       # add product image
+       product_image_hash = { product_id: product.id, image: product_image_url }
+       product_image = ProductsImage.new(product_image_url)
+       if !product_image.save
+         @error = true
+            # respond to js and html
+	        respond_to do|format|
+	           format.js
+	           format.html
+	        end
+	        return
+       end
+
+       # # process epub data and move uploaded file to the products_ebooks folder
+       # if temporary_epub_session_active?
+       #     epub_file = TemporaryEpubUpload.find(session[:epub_id])
+       # end
 	end
 
 	# add a temporary books description
@@ -63,7 +135,6 @@ class ProductsController < ApplicationController
        @cover_image_file = if check_member_details != nil then check_member_details else TemporaryUpload.new temporary_upload_params end
 
        	if check_member_details.nil?
-           @cover_image_file.get_upload_type = "cover image file"
            if @cover_image_file.save 
            	 activate_temporary_cover_image_session @cover_image_file.id
            	 respond_to do|format|
@@ -71,11 +142,10 @@ class ProductsController < ApplicationController
            	 end
            else
               respond_to do|format|
-		         format.json {render :json => { message: @cover_image_file.errors.full_messages.join(', ')}, :status => 200 }
+		         format.json {render :json => { message: @cover_image_file.errors.full_messages.uniq!.join(', ')}, :status => 200 }
 		      end
            end
        	else
-       		@cover_image_file.get_upload_type = "cover image file"
        		if @cover_image_file.update(temporary_upload_params)
 	           activate_temporary_cover_image_session @cover_image_file.id
 	           respond_to do|format|
@@ -91,14 +161,13 @@ class ProductsController < ApplicationController
 
 	# upload epub file
 	def upload_epub_file
-       temporary_upload_params = { upload_type: "epub file", file_name: params[:file], merchant_id: session[:merchant_id] }
+       temporary_upload_params = { file_name: params[:file], merchant_id: session[:merchant_id] }
 
        # check if a record of the active mechant exists in the temporary uploads table
-       check_member_details = TemporaryUpload.find_by(merchant_id: session[:merchant_id], upload_type: "epub file")
-       @epub_file = if check_member_details != nil then check_member_details else TemporaryUpload.new temporary_upload_params end
+       check_member_details = TemporaryEpubUpload.find_by(merchant_id: session[:merchant_id])
+       @epub_file = if check_member_details != nil then check_member_details else TemporaryEpubUpload.new temporary_upload_params end
 
        if check_member_details.nil?
-       	  @epub_file.get_upload_type = "epub file"
        	  if @epub_file.save
 	         activate_temporary_epub_session @epub_file.id
 	         respond_to do|format|
@@ -110,7 +179,6 @@ class ProductsController < ApplicationController
 	          end
 	      end
        else
-       	  @epub_file.get_upload_type = "epub file"
           if @epub_file.update(temporary_upload_params)
 	         activate_temporary_epub_session @epub_file.id
 	         respond_to do|format|
@@ -126,6 +194,42 @@ class ProductsController < ApplicationController
 
 	private
 	  def description_params
-         params.require(:book_description).permit(:products_type_id, :title, :isbn, :vat_option_id, :price, :special_price, :description, :quantity, :product_protected)
+         params.require(:book_description).permit(:products_type_id, :title, :author, :publisher, :publish_date, :isbn, :vat_option_id, :price, :special_price, :description, :quantity, :product_protected)
+	  end
+
+	  def get_product(temporary_products_desc, resource_id)
+           product = { isbn_number: temporary_products_desc.isbn,
+           	           resource_id: resource_id,
+		   	           quantity: temporary_products_desc.quantity, 
+		   	           merchant_id: temporary_products_desc.merchant_id,
+		   	           products_type_id: temporary_products_desc.products_type_id,
+		   	           price: temporary_products_desc.price,
+		   	           special_price: temporary_products_desc.special_price,
+		   	           status: 1,
+		   	           vat_option_id: temporary_products_desc.vat_option_id }
+	   	   return product
+	  end
+
+	  def get_product_description(description, product_id)
+         product_description = { title: description.title,
+                                 author: description.author,
+                                 description: description.description,
+                                 product_id: product_id,
+                                 publisher: description.publisher,
+                                 publish_date: description.publish_date,
+                                 tag: description.title,
+                                 meta_title: description.title,
+                                 meta_description: description.title,
+                                 meta_keyword: description.title}
+         return product_description
+	  end
+
+	  def delete_temporary_data
+         TemporaryEpubUpload.where(id: session[:epub_id]).destroy_all unless session[:epub_id]
+         TemporaryProductsDescription.where(id: session[:book_description_id]).destroy_all unless session[:book_description_id]
+         TemporaryUpload.where(id: session[:cover_image_id]).destroy_all unless session[:cover_image_id]
+
+         # delete all active sessions 
+         delete_sell_a_book_temporary_sessions
 	  end
 end

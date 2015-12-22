@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212203440) do
+ActiveRecord::Schema.define(version: 20151220141558) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20151212203440) do
     t.integer "approved",        limit: 1,                           default: 0
     t.integer "viewed",          limit: 8,                           default: 0
     t.integer "vat_option_id",   limit: 4
+    t.decimal "special_price",              precision: 15, scale: 4, default: 0.0
   end
 
   add_index "products", ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
@@ -174,6 +175,15 @@ ActiveRecord::Schema.define(version: 20151212203440) do
   add_index "stores", ["store_type_id"], name: "index_stores_on_store_type_id", using: :btree
   add_index "stores", ["url"], name: "index_stores_on_url", unique: true, using: :btree
 
+  create_table "temporary_epub_uploads", force: :cascade do |t|
+    t.string   "file_name",   limit: 255, null: false
+    t.integer  "merchant_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "temporary_epub_uploads", ["merchant_id"], name: "index_temporary_epub_uploads_on_merchant_id", using: :btree
+
   create_table "temporary_products_descriptions", force: :cascade do |t|
     t.integer  "products_type_id",  limit: 4
     t.string   "title",             limit: 255,                                        null: false
@@ -186,7 +196,10 @@ ActiveRecord::Schema.define(version: 20151212203440) do
     t.datetime "created_at",                                                           null: false
     t.datetime "updated_at",                                                           null: false
     t.integer  "merchant_id",       limit: 4
-    t.integer  "product_protected", limit: 1,                              default: 1
+    t.integer  "product_protected", limit: 1
+    t.string   "author",            limit: 128
+    t.string   "publisher",         limit: 128
+    t.date     "publish_date"
   end
 
   add_index "temporary_products_descriptions", ["merchant_id"], name: "index_temporary_products_descriptions_on_merchant_id", using: :btree
@@ -222,6 +235,7 @@ ActiveRecord::Schema.define(version: 20151212203440) do
   add_foreign_key "products_images", "products"
   add_foreign_key "stores", "merchants"
   add_foreign_key "stores", "store_types"
+  add_foreign_key "temporary_epub_uploads", "merchants"
   add_foreign_key "temporary_products_descriptions", "merchants"
   add_foreign_key "temporary_products_descriptions", "products_types"
   add_foreign_key "temporary_products_descriptions", "vat_options"

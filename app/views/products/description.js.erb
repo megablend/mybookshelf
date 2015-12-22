@@ -18,12 +18,97 @@ var pageLoadingDiv = "#loadingModal";
         //load step two
         $(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
 		setTimeout(function () {
+			     // alert('hello');
 			     stepTwo.removeClass("tmm-current").addClass("tmm-success");
 			     stepThree.addClass("tmm-current");
 			     $("#sell-a-book-nav-icon-3").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
 			     $(pageLoadingDiv).modal('hide');
 			     $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_3') %>");
 	             $('#tooltipister').tooltipster();
+
+	             /** Activate Dropzone for Book Cover Image **/
+	                var coverImageDropzone;
+					var stepFour = $("#sell-a-book-nav-step-4");
+					coverImageDropzone = new Dropzone("#cover-image",{
+				    	                                          maxFilesize: 2,
+																  accept: function(file, done) {
+																    //console.log("uploaded");
+																    done();
+																  },
+																  init: function() {
+																    this.on("addedfile", function() {
+																      if (this.files[1]!=null){
+																        this.removeFile(this.files[0]);
+																      }
+																    });
+																  }
+																});
+					return coverImageDropzone.on("success", function(file, responseText)
+					{
+						var _this = this;
+						var uploadError = $("#upload-cover-image-error");
+						console.log(responseText.merchant_id);
+						if(typeof responseText == "object")
+						{
+							if(!responseText.message)
+							{
+								//console.log(responseText);
+								uploadError.removeClass("alert alert-danger");
+				                uploadError.html("");
+
+				                //disable further upload of files
+							    $('#cover-image').prop('onclick',null).off('click');
+					            _this.removeAllFiles();
+
+					            //proceed to review upload
+					            stepThree.removeClass("tmm-current").addClass("tmm-success");
+							    stepFour.addClass("tmm-current");
+							    $("#sell-a-book-nav-icon-4").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
+							    $(pageLoadingDiv).modal('hide');
+							    $("#sell-a-book-form-holder").html("<%= j (render partial: 'merchants/partials/sell_a_book_step_4', locals: { category: Category.find(session[:selected_sub_category]), description: TemporaryProductsDescription.find(session[:book_description_id]), epub_file: TemporaryEpubUpload.find_by(id: session[:epub_id]) }) %>");
+							    var coverImageHolder = $("#cover-image-holder");
+							    if(coverImageHolder)
+							    {
+							    	var fileName = responseText.file_name.url.split('\\').pop().split('/').pop();
+							    	var getFileName = fileName.split('.');
+							    	coverImageHolder.html('<img src="' + responseText.file_name.url + '" class="img-responsive cover-img-style" />');
+							    	$("#cover-image-file-name").html(getFileName[0]);
+							    	$("#cover-image-file-ext").html(getFileName[1].toUpperCase());
+							    }
+							}
+							else
+							{
+								$(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
+								setTimeout(function()
+								{ 
+									$(pageLoadingDiv).modal('hide');
+                                    var filteredMessage = responseText.message.replace("File name", "Book cover image: ");
+									_this.removeAllFiles();
+					               uploadError.addClass("alert alert-danger");
+					               uploadError.html(filteredMessage);
+								}, 2000);
+							}
+						}
+						else
+						{
+							_this.removeAllFiles();
+				            alert("Unknown error, please try again");
+						}
+					});
 		}, 2000); // in milliseconds
    <% end %>
 <% end %>
+
+// Process Complete Upload Button
+$("#complete-upload").submit(function(event)
+	{
+		var form = this;
+        event.preventDefault();
+        bootbox.confirm("You're about to upload your book. Are you done reviewing?", function(result)
+        	{
+               $(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
+		       setTimeout(function () {
+                   form.submit();
+		       }, 2000);
+        	});
+	});

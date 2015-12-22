@@ -2,8 +2,10 @@ class TemporaryProductsDescription < ActiveRecord::Base
 	attr_accessor :add_merchant_id
 	# Before a parameter is saved
 	before_save do
-		self.price = self.price.to_f
-		self.special_price = self.special_price.to_f if self.special_price.present?
+    logger.debug "Date passed: " + self.publish_date.to_s
+		self.price = self.vat_option_id.to_i == 1 ? add_price_vat_option(self.price) : self.price.to_f 
+		self.special_price = (self.vat_option_id.to_i == 1 ? add_price_vat_option(self.special_price) : self.special_price.to_f) if self.special_price.present?
+    self.publish_date = DateTime.strptime(self.publish_date.to_s, "%Y-%d-%m").to_formatted_s(:db) if self.publish_date.present? && !self.publish_date.blank?
 	end
 
 	before_create :merchant_id
@@ -11,6 +13,7 @@ class TemporaryProductsDescription < ActiveRecord::Base
 
    # validate form parameters
    validates :products_type_id, presence: { message: "wasn't selected" }, length: {maximum: 1}
+   validates :author, presence: { message: "can't be blank" }, length: {maximum: 128}
    validates :title, presence: { message: "can't be blank" }, length: {maximum: 128}
    validates :vat_option_id, presence: { message: "wasn't selected" }, length: {maximum: 1}
    validates :price, presence: { message: "can't be blank" }, numericality: { greater_than: 0 }
@@ -37,5 +40,13 @@ class TemporaryProductsDescription < ActiveRecord::Base
        # check if the protected option was selected
 	   def protected_option_selected?
           return true if self.products_type_id == 2 || self.products_type_id == 3
-	  end
+	   end
+
+     def get_five_percent_vat(price)
+      price.to_f * 0.05
+     end 
+
+     def add_price_vat_option(price)
+         price.to_f + get_five_percent_vat(price)
+     end
 end

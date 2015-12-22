@@ -12,7 +12,7 @@
 //
 //= require merchants/file-input/bootstrap-filestyle.min
 //= require merchants/wysiwyg/jquery.hotkeys
+//= require merchants/datepicker/bootstrap-datepicker
 //= require ckeditor/init
 //= require dropzone
 //= require upload_epub_file
-//= require upload_cover_image

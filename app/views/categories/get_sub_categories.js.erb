@@ -32,6 +32,9 @@ var pageLoadingDiv = "#loadingModal";
 			     $(pageLoadingDiv).modal('hide');
 			     $("#sell-a-book-form-holder").html("<%= j (render 'merchants/partials/sell_a_book_step_2') %>");
                  $('#tooltipister').tooltipster();
+                 
+                 // datepicker
+                 $(".datepicker-input").each(function(){ $(this).datepicker();});
 		}, 2000); // in milliseconds
 <% end %>
 
