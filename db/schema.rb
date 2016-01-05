@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220141558) do
+ActiveRecord::Schema.define(version: 20151227110522) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -85,22 +85,23 @@ ActiveRecord::Schema.define(version: 20151220141558) do
   add_index "merchants", ["state_id"], name: "index_merchants_on_state_id", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string  "isbn_number",     limit: 64
-    t.string  "resource_id",     limit: 10
-    t.integer "quantity",        limit: 4,                           default: 0
-    t.integer "merchant_id",     limit: 4
-    t.integer "product_type_id", limit: 4
-    t.decimal "price",                      precision: 15, scale: 4, default: 0.0
-    t.integer "points",          limit: 8,                           default: 0
-    t.integer "status",          limit: 1,                           default: 0
-    t.integer "approved",        limit: 1,                           default: 0
-    t.integer "viewed",          limit: 8,                           default: 0
-    t.integer "vat_option_id",   limit: 4
-    t.decimal "special_price",              precision: 15, scale: 4, default: 0.0
+    t.string  "isbn_number",      limit: 64
+    t.string  "resource_id",      limit: 32
+    t.integer "quantity",         limit: 4,                           default: 0
+    t.integer "merchant_id",      limit: 4
+    t.integer "products_type_id", limit: 4
+    t.decimal "price",                       precision: 15, scale: 4, default: 0.0
+    t.integer "points",           limit: 8,                           default: 0
+    t.integer "status",           limit: 1,                           default: 0
+    t.integer "approved",         limit: 1,                           default: 0
+    t.integer "viewed",           limit: 8,                           default: 0
+    t.integer "vat_option_id",    limit: 4
+    t.decimal "special_price",               precision: 15, scale: 4, default: 0.0
+    t.decimal "ebook_price",                 precision: 15, scale: 4, default: 0.0
   end
 
   add_index "products", ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
-  add_index "products", ["product_type_id"], name: "index_products_on_product_type_id", using: :btree
+  add_index "products", ["products_type_id"], name: "index_products_on_products_type_id", using: :btree
   add_index "products", ["vat_option_id"], name: "index_products_on_vat_option_id", using: :btree
 
   create_table "products_categories", id: false, force: :cascade do |t|
@@ -127,10 +128,11 @@ ActiveRecord::Schema.define(version: 20151220141558) do
   add_index "products_descriptions", ["product_id"], name: "index_products_descriptions_on_product_id", using: :btree
 
   create_table "products_ebooks", force: :cascade do |t|
-    t.string   "ebook",      limit: 255, null: false
-    t.integer  "product_id", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "ebook",           limit: 255,             null: false
+    t.integer  "product_id",      limit: 4
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "ebook_protected", limit: 1,   default: 0
   end
 
   add_index "products_ebooks", ["product_id"], name: "index_products_ebooks_on_product_id", using: :btree
@@ -186,20 +188,21 @@ ActiveRecord::Schema.define(version: 20151220141558) do
 
   create_table "temporary_products_descriptions", force: :cascade do |t|
     t.integer  "products_type_id",  limit: 4
-    t.string   "title",             limit: 255,                                        null: false
+    t.string   "title",             limit: 255,                                          null: false
     t.string   "isbn",              limit: 255
     t.integer  "vat_option_id",     limit: 4
-    t.decimal  "price",                           precision: 15, scale: 4,             null: false
+    t.decimal  "price",                           precision: 15, scale: 4,               null: false
     t.decimal  "special_price",                   precision: 15, scale: 4
     t.text     "description",       limit: 65535
-    t.integer  "quantity",          limit: 1,                              default: 0, null: false
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
+    t.integer  "quantity",          limit: 1,                              default: 0,   null: false
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
     t.integer  "merchant_id",       limit: 4
-    t.integer  "product_protected", limit: 1
+    t.integer  "product_protected", limit: 1,                              default: 0
     t.string   "author",            limit: 128
     t.string   "publisher",         limit: 128
     t.date     "publish_date"
+    t.decimal  "ebook_price",                     precision: 15, scale: 4, default: 0.0
   end
 
   add_index "temporary_products_descriptions", ["merchant_id"], name: "index_temporary_products_descriptions_on_merchant_id", using: :btree
@@ -226,7 +229,7 @@ ActiveRecord::Schema.define(version: 20151220141558) do
   add_foreign_key "local_govts", "states"
   add_foreign_key "merchants", "states"
   add_foreign_key "products", "merchants"
-  add_foreign_key "products", "products_types", column: "product_type_id"
+  add_foreign_key "products", "products_types"
   add_foreign_key "products", "vat_options"
   add_foreign_key "products_categories", "categories"
   add_foreign_key "products_categories", "products"

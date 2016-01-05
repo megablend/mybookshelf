@@ -1,8 +1,12 @@
 <% provide(:title, "Buy Unlimited Books at Lower Prices") %>
 <% provide(:class_name, "common-home") %>
+<% logger.debug "Cart Details: #{cart_title}" %>
+<% content_for :modals do %>
+       <%= render 'frontend_pages/modals/choose_product' %>
+<% end %>
 
  <!-- Page Body -->
-   <div class="featured-pro container wow bounceInUp animated">
+   <div class="featured-pro container">
     <div class="slider-items-products">
       <div class="new_title center">
         <h2>#Trending Right Now</h2>
@@ -20,7 +24,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="Fastrack Modern Wallet " href="index9144.html?route=product/product&amp;product_id=40"> 
-                <%= image_tag "data/p48-700x850.jpg", alt: "", class: "img-responsive" %>
+                <%= image_tag "data/smaple_cover.jpg", alt: "", class: "img-responsive", width: "199", height: "302" %>
                 </a>
 
                 <div class="actions-links">
@@ -68,7 +72,7 @@
                 </div><!--info-inner-->
 
                 <div class="actions">
-                  <button type="button" title="Add to Cart" class="button btn-cart" onclick="cart.add('40');"><span>Add to Cart</span>
+                  <button type="button" title="Add to Cart" class="button btn-cart" onclick="<%= product_javascript_function('Print and Ebook', 'Fastrack Modern Wall of Fame', 18, 1) %>"><span>Add to Cart</span>
                   </button>
                 </div>
                 <!--actions-->
@@ -87,7 +91,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="Alessia74 Handbag" href="indexbfcf.html?route=product/product&amp;product_id=31">
-                <%= image_tag "data/p52-700x850.jpg", alt: "", class: "img-responsive" %>
+                <%= image_tag "data/1501111671.jpg", alt: "", class: "img-responsive", width: "199", height: "302" %>
                 </a>
 
                 <div class="actions-links">
@@ -156,7 +160,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="American Crew Men's Comfort" href="indexbb02.php?route=product/product&amp;product_id=42">
-                <%= image_tag "data/p1-700x850.jpg", alt: "", class: "img-responsive" %>
+                <%= image_tag "data/0316410985.jpg", alt: "", class: "img-responsive", width: "199", height: "302" %>
                 </a>
 
                 <div class="actions-links">
@@ -224,7 +228,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="American Crew Men's Comfort Fit" href="indexfac8.html?route=product/product&amp;product_id=35">
-                <%= image_tag "data/p4-700x850.jpg", alt: "", class: "img-responsive" %> 
+                <%= image_tag "data/0553538411.jpg", alt: "", class: "img-responsive", width: "199", height: "302" %>
                 </a>
 
                 <div class="actions-links">
@@ -291,7 +295,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="Bata Women's Fashion Sandals" href="indexb8ca.html?route=product/product&amp;product_id=43">
-                <%= image_tag "data/p69-700x850.jpg", alt: "", class: "img-responsive" %>
+                <%= image_tag "data/1250109302.jpg", alt: "", class: "img-responsive", width: "199", height: "302" %>
                 </a>
 
                 <div class="actions-links">
@@ -358,7 +362,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="Butterflies Women's Handbag" href="index0f47.html?route=product/product&amp;product_id=29">
-                <%= image_tag "data/p49-700x850.jpg", alt: "", class: "img-responsive" %>
+                <%= image_tag "data/1501125710.jpg", alt: "", class: "img-responsive", width: "199", height: "302" %>
                 </a>
 
                 <div class="actions-links">
@@ -427,7 +431,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="Canon EOS 5D" href="indexf073.html?route=product/product&amp;product_id=30">
-                <%= image_tag "data/p10-700x850.jpg", alt: "", class: "img-responsive" %> 
+                <%= image_tag "data/0316410985.jpg", alt: "", class: "img-responsive" %> 
                 </a>
 
                 <div class="actions-links">
@@ -495,7 +499,7 @@
               <div class="product-image-area"> 
                 
                 <a class="product-image" title="Clifton Mens Black Shorts" href="indexd94c-2.html?route=product/product&amp;product_id=44">
-                <%= image_tag "data/p28-700x850.jpg", alt: "", class: "img-responsive" %>
+                <%= image_tag "data/1419717014.jpg", alt: "", class: "img-responsive" %>
                 </a>
 
                 <div class="actions-links">
@@ -562,7 +566,7 @@
 
   <!-- Promo Banner -->
   <div>
-    <div class="offer-banner-section wow bounceInUp animated">
+    <div class="offer-banner-section">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-xs-12 col-sm-4"><a href="#"><%= image_tag "data/offer-banner1.jpg", alt: "", class: "img-responsive" %><div class="overlay"><span class="info">Learn More</span></div>
@@ -592,7 +596,7 @@
 
 
   </div></div>
-  <div class="featured-pro container wow bounceInUp animated">
+  <div class="featured-pro container">
     <div class="slider-items-products">
       <div class="new_title center">
         <h2>Featured</h2>
@@ -1153,10 +1157,10 @@
 
    <!-- Promo Banner -->
    <div>
-        <div class="promo-banner-section container wow bounceInUp animated">
+        <div class="promo-banner-section container">
       <div class="row"><div class="col-lg-12"><%= image_tag "data/jewelry-banner.jpg", alt: "", class: "img-responsive" %></div></div>   
   </div></div>
-    <div class="middle-slider container wow bounceInUp animated">
+    <div class="middle-slider container">
     <div class="row">
       <div class="col-md-6">
         <div class="bag-product-slider small-pr-slider cat-section">
@@ -1731,48 +1735,6 @@
 
     </div>
   </div> 
-
-
-
-
-
-        <!-- <div class="brand-logo wow bounceInUp animated">
-    <div class="container">
-      <div class="row">
-      <div class="slider-items-products">
-        <div id="brand-logo-slider0" class="product-flexslider hidden-buttons">
-          <div class="slider-items slider-width-col6">
-            
-                        
-                        <div class="item"><img src="images/data/demo/manufacturer/nfl-130x50.png" alt="NFL" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/redbull-130x50.png" alt="RedBull" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/sony-130x50.png" alt="Sony" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/cocacola-130x50.png" alt="Coca Cola" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/burgerking-130x50.png" alt="Burger King" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/canon-130x50.png" alt="Canon" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/harley-130x50.png" alt="Harley Davidson" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/dell-130x50.png" alt="Dell" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/disney-130x50.png" alt="Disney" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/starbucks-130x50.png" alt="Starbucks" class="img-responsive" /></div>
-                                    
-                        <div class="item"><img src="images/data/demo/manufacturer/nintendo-130x50.png" alt="Nintendo" class="img-responsive" /></div>
-                        
-          </div>
-        </div>
-      </div>
-      </div>
-
-    </div>
-  </div> -->
     
 
 <script type="text/javascript">

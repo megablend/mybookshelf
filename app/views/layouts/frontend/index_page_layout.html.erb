@@ -39,9 +39,9 @@
  <%= render 'layouts/frontend/footer' %>
  <!-- End Page Footer -->
 
- <!-- Debugging Notifier -->
- <%= debug(params) if Rails.env.development? %>
- <!-- End Debugging Notifier-->
+<!-- Popup Modals -->
+ <%= yield :modals %>
+<!-- End Popup Modals -->
 
 </body>
 </html>

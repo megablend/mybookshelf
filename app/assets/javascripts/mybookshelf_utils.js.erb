@@ -46,6 +46,7 @@ $(document).ready(function() {
 
 });
 
+
 var MyBookshelfUtil = {};
 MyBookshelfUtil.openCoverImageModal = function(){
    var coverImageModalDiv = $('#coverImageModal');
@@ -62,6 +63,16 @@ MyBookshelfUtil.populateEbookSection = function(element)
 {
    var val = $(element).find('option:selected').text();
    var ebookSection = $('#ebook-section');
+   var ebookElement = '<div class="line line-dashed b-b line-lg pull-in"></div>\
+                    <div class="form-group">\
+                        <label class="col-sm-2 control-label" for="ebook-price"><strong>Ebook Price  ₦ <span class="note">(if different from the price of the print book)</span></strong></label>\
+                        <div class="col-sm-10">\
+                            <input class="form-control validate[required, custom[phone-number]]" id="ebook-price" onkeypress="return MyBookshelfUtil.filterPrice(event, this);" onkeyup="MyBookshelfUtil.populatePricePreview(\'ebook-price\');" type="text" name="book_description[ebook_price]">\
+                            <span class="help-block m-b-none">Only numerals e.g 1200</span>\
+                        </div>\
+                    </div>\
+                    <div id="ebook-price-preview">\
+                    </div>';
    var elements = '<div class="line line-dashed b-b line-lg pull-in"></div>\
                    <div class="form-group">\
                     <label class="col-sm-2 control-label" for="book_description_protect_book">Wish to protect this book? <span class="compulsory">*</span></label>\
@@ -86,11 +97,15 @@ MyBookshelfUtil.populateEbookSection = function(element)
                 </div>';
    if(val == "EBook" || val == "Print and EBook")
    {
+     $("#ebook-price-holder").html(ebookElement);
      ebookSection.html(elements);
      $('#tooltip-epub').tooltipster();
    }
    else
-     ebookSection.html('');
+   {
+      $("#ebook-price-holder").html('');
+      ebookSection.html('');
+   }
 };
 MyBookshelfUtil.getVatDescription = function()
 {
@@ -160,16 +175,27 @@ MyBookshelfUtil.populatePricePreview = function(elementType)
                                 <span class="total-price-display">&#8358;<span id="preview-amount">' + MyBookshelfUtil.getPricePreview(amount) + '</span></span>\
                             </div>\
                         </div>';
-   if(elementType == "price") 
+   switch(elementType)
    {
-      activeElement = $("#price-preview");
-      $("#special-price-preview").html("");
+      case "price":
+         activeElement = $("#price-preview");
+         $("#ebook-price-preview").html("");
+         $("#special-price-preview").html("");
+      break;
+
+      case "ebook-price":
+         activeElement = $("#ebook-price-preview");
+         $("#price-preview").html("");
+         $("#special-price-preview").html("");
+      break;
+
+      case "special-price":
+         activeElement = $("#special-price-preview");
+         $("#ebook-price-preview").html("");
+         $("#price-preview").html("");
+      break;
    }
-   else
-   {
-      activeElement = $("#special-price-preview");
-      $("#price-preview").html("");
-   }
+   
 
    if($("#" + elementType).val() != "" && !isNaN(amount)) activeElement.html(previewElement); else activeElement.html("");
 };

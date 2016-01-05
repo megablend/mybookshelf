@@ -1,4 +1,4 @@
-<footer class="footer wow bounceInUp animated">
+<footer class="footer">
   <div class="footer-top">
     <div class="container">
       <div class="row">
@@ -37,7 +37,7 @@
   <div class="row">
     <div class="col-md-3 col-sm-4">
       <div class="footer-logo"><a href="index-2.html" title="Logo"><%= image_tag "site/logo-2.png", alt: "logo" %></a></div>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus diam arcu. </p>
+<p>Nigeria's best online bookstore with a single mandate which is to serve customers better. </p>
       <div class="payment-accept">
       <div>
       <%= image_tag "data/payment-1.png", alt: "payment1" %>
@@ -92,14 +92,14 @@
       <div class="contacts-info">
             
                         <address>
-            <i class="add-icon"></i>123 Main Street, Anytown,  CA 12345 USA            </address>
+            <i class="add-icon"></i><%= company_details.address %></address>
 
                         <div class="phone-footer">
-            <i class="phone-icon"></i>+1 800 123 1234            </div>
+            <i class="phone-icon"></i><%= company_details.telephone %></div>
             
               
             <div class="email-footer">
-            <i class="email-icon"> </i><a href="mailto:support@magikcommerce.com">support@magikcommerce.com</a>
+            <i class="email-icon"> </i><a href="mailto:support@magikcommerce.com"><%= company_details.email %></a>
             </div>
             
               </div>

@@ -18,6 +18,7 @@ gem 'coffee-rails',            '4.1.0'
 gem 'jquery-rails',            '4.0.3'
 gem 'bootbox-rails', '~>0.4'
 gem 'tooltipster-rails'
+gem 'jquery-slick-rails'
 gem 'turbolinks',              '2.3.0'
 gem 'jbuilder',                '2.2.3'
 gem 'sdoc',                    '0.4.0', group: :doc

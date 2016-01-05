@@ -14,10 +14,11 @@
 //= require bootstrap
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery.slick
 //= require_tree ./fancybox
-//= require parallax
+//= require jquery.noty.packaged.min
 //= require common
 //= require common1
 //= require cloudzoom
+//= require bootbox
 //= require_tree ./jquery-lib/owl-carousel
-//= require revslider

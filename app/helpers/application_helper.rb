@@ -17,4 +17,9 @@ module ApplicationHelper
 	def capitalize_string(string)
         string.downcase.split(" ").map(&:capitalize).join(" ")
 	end
+
+	# Company Details
+	def company_details
+      company = CompanyProfile.find(1)
+	end
 end

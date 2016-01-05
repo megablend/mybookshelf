@@ -2,7 +2,7 @@ class CreateProducts < ActiveRecord::Migration
   def change
     create_table :products do |t|
       t.string :isbn_number, limit: 64
-      t.string :resource_id, limit: 10
+      t.string :resource_id, limit: 32
       t.integer :quantity, limit: 4, default: 0
       t.references :merchant, index: true, foreign_key: true
       t.references :products_type, index: true, foreign_key: true

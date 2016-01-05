@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'cart/add_book'
+
+  get 'cart/add_ebook'
+
   mount Ckeditor::Engine => '/ckeditor'
   #  get 'merchants/new'
 
@@ -11,6 +15,15 @@ Rails.application.routes.draw do
   get '/sell' => 'frontend_pages#sell' # sellers
   get '/blog' => 'frontend_pages#blog'
 
+  # cart routes
+  scope path: '/cart', controller: :cart do
+     post 'add-ebook' => :add_ebook
+     post 'add-product' => :add_product
+     post 'add-book' => :add_book
+     post 'delete-item' => :delete_item
+     get 'load-cart' => :load_cart
+  end
+
   # terms of use
   get '/terms' => 'frontend_pages#terms'
 
@@ -19,26 +32,6 @@ Rails.application.routes.draw do
     post '/stores' => 'stores#create'
   
   # -- Merchants Routes --
-    # merchants login routes
-    # scope path: "/merchants" do
-    #     get 'login' => 'sessions#new'
-    #     post 'login' => 'sessions#create'
-    #     delete 'logout' => 'sessions#destroy'
-
-    #     post 'categories' => 'categories#get_sub_categories' #books categories
-    #     post 'book-description' => 'products#description' #add book description
-
-    #     # merchants products routes
-    #     get 'products' => 'products#index'
-    #     post 'products' => 'products#create'
-    #     post 'upload-cover-image' => 'products#upload_cover_image'
-    #     post 'upload-epub-file' => 'products#upload_epub_file'
-
-    #     get 'sell' => 'merchants#sell' # sell a book
-    #     get 'signup' => 'merchants#new' # merchants signup link
-    #     get 'resend-verification-mail' => 'merchants#resend_mail' # resend verification code
-    #     get 'verify-email/:verification_code', to: 'merchants#verify_email', constraints: { verification_code: /[A-Za-z0-9]{50}/ } # verify email
-    # end
     get '/merchants/terms' => 'merchants#terms'
     get '/merchants/login' => 'sessions#new'
     post '/merchants/login' => 'sessions#create'

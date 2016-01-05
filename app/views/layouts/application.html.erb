@@ -7,6 +7,9 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 
   <!-- Include Libs and Plugins -->
+  <%= yield :other_css_files %>
+
+  <!-- Include Libs and Plugins -->
   <%= javascript_include_tag 'frontend_index_page_manifest', 'data-turbolinks-track' => true %>
   <%= yield :validation %>
   
@@ -37,7 +40,7 @@
  <!-- End Page Footer -->
 
  <!-- Debugging Notifier -->
- <%= debug(params) if Rails.env.development? %>
+ 
  <!-- End Debugging Notifier-->
 
 </body>

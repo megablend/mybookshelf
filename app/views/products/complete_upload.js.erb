@@ -1,5 +1,12 @@
+var stepFour = $("#sell-a-book-nav-step-4");
 <% if @error %>
-   alert('Something is wrong here oooo!');
+   bootbox.alert('Something went wrong while trying to upload your listing. 
+   	Please try again or cancel to start afresh. Our Engineers are working to fix it.', function(result)
+   	{
+   		return;
+   	});
 <% else %>
-   alert('we did it guys');
+ stepFour.removeClass("tmm-current").addClass("tmm-success");
+ $("#sell-a-book-nav-icon-4").removeClass("add-nav-margin-black").addClass("add-nav-margin-white");
+ $("#sell-a-book-form-holder").html("<%= j (render partial: 'merchants/partials/sell_a_book_step_5', locals: { company_profile: CompanyProfile.find(1) }) %>");
 <% end %>

@@ -1,0 +1,55 @@
+<% if shopping_cart_empty? || shopping_cart_hash_empty? %>
+                 <li><div class="text-center" style="margin: 10px">
+                  <p>Your shopping cart is empty!</p>
+                  <p class="cart-description">Browse the store - find your favorite books and more</p>
+                </div></li> 
+              <% else %>
+                 <% if any_products_in_cart? %>
+                     <% products_in_cart.each do|key, item| %>
+                     <% product_item = Product.find(Base64.decode64(key).chomp.to_i) %>
+                     <!-- Product Item -->
+                     <li>
+                        <span class="item" title="<%= product_item.products_description.title.capitalize %>">
+                          <span class="item-left">
+                              <%= image_tag product_item.products_image.image, class: "img-responsive cart-thumbnail", alt: "" %>
+                              <span class="item-info">
+                                  <span><%= truncate(product_item.products_description.title.capitalize, length: 30) %></span>
+                                  <span><strong><%= item %> x &#8358;<%= number_to_currency(product_item.price).delete('$') %></strong></span>
+                              </span>
+                          </span>
+                          <span class="item-right">
+                              <button class="btn btn-xs btn-danger pull-right" onClick="cart.removeCartItem('<%= product_item.id %>', 'print_book')">x</button>
+                          </span>
+                      </span>
+                    </li>
+                    <li class="divider"></li>
+
+                     <% end %>
+                <% end %>
+
+                  <% if any_ebooks_in_cart? %>
+                     <% ebooks_in_cart.each do|key, item| %>
+                     <% ebook_item = Product.find(Base64.decode64(key).chomp.to_i) %>
+                     <!-- Product Item -->
+                     <li>
+                        <span class="item" title="<%= "#{ebook_item.products_description.title.capitalize} (ebook)" %>">
+                          <span class="item-left">
+                              <%= image_tag ebook_item.products_image.image, class: "img-responsive cart-thumbnail", alt: "" %>
+                              <span class="item-info">
+                                  <span><%= truncate(ebook_item.products_description.title.capitalize, length: 30) %> (ebook)</span>
+                                  <span><strong><%= item %> x &#8358;<%= number_to_currency(ebook_item.ebook_price.to_f).delete "$" %></strong></span>
+                              </span>
+                          </span>
+                          <span class="item-right">
+                              <button class="btn btn-xs btn-danger pull-right" onClick="cart.removeCartItem('<%= ebook_item.id %>', 'ebook')">x</button>
+                          </span>
+                      </span>
+                    </li>
+                    <li class="divider"></li>
+
+                     <% end %>
+                 <% end %>
+                 <li><div class="cart-sub-total"><strong>Subtotal: &#8358;<%= number_to_currency(get_sub_total).delete "$" %></strong></div></li>
+                 <li class="divider"></li>
+                 <li><div class="text-center ost-footer"><a href="#" class="ost-view-cart">View Cart</a> <a href="#" class="ost-view-cart-2">Proceed to checkout</a></div></li>
+              <% end %>

@@ -1,0 +1,42 @@
+<div class="modal fade" style="opacity: 0.98" id="chooseProductModal" tabindex="-1" role="dialog" aria-labelledby="chooseProductModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">We have the underlisted types for <span id="product-title"></span>, please choose one.</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+             <div class="col-md-12">
+                 <div id="error-holder" style="text-align: center"></div>
+                 <form class="form-horizontal" role="form">
+                     <div class="form-group">
+                        <label class="col-lg-4 control-label"><span style="color: red">*</span> I want to purchase... </label>
+                        <div class="col-lg-8">
+                            <div class="radio">
+                               <label>
+                                  <input type="radio" name="select_product" id="select-product" value="Print Book">
+                                  A Print Book <span title="Book that is in hardcover"><strong>[?]</strong></span>
+                               </label>
+                            </div>
+
+                            <div class="radio">
+                               <label>
+                                  <input type="radio" name="select_product" id="select-product" value="Ebook">
+                                  An EBook <span title="Electronic book"><strong>[?]</strong></span>
+                               </label>
+                            </div>
+                            <input type="hidden" id="modal-product-id">
+                        </div>
+                     </div>
+                 </form>
+             </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onClick="cart.addProduct('1')">ADD TO CART</button>
+      </div>
+    </div>
+  </div>
+</div>

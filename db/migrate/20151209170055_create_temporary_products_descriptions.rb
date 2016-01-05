@@ -8,8 +8,8 @@ class CreateTemporaryProductsDescriptions < ActiveRecord::Migration
       t.decimal :price, precision: 15, scale: 4, null: false, default: 0.0000
       t.decimal :special_price, precision: 15, scale: 4, default: 0.0000
       t.text :description, null: false
-      t.integer :quantity, limit: 1, default: 0, null: false
-      t.integer :product_protected, default: 0, limit: 1, null: false
+      t.integer :quantity, limit: 1, null: false, default: 0
+      t.integer :product_protected, limit: 1, null: false, default: 0
       t.timestamps null: false
     end
   end

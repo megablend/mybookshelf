@@ -75,6 +75,22 @@ var pageLoadingDiv = "#loadingModal";
 							    	$("#cover-image-file-name").html(getFileName[0]);
 							    	$("#cover-image-file-ext").html(getFileName[1].toUpperCase());
 							    }
+
+							    //Process form submission
+							    if($("#complete-upload-btn"))
+							    {
+                                    $("#complete-upload-btn").on('click', function () {
+							    		var form = $("#complete-upload");
+									    bootbox.confirm("You're about to upload your book. Are you done reviewing?", function(result)
+									      {
+									           $(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
+									           setTimeout(function () {
+									                   $(pageLoadingDiv).modal('hide');
+									                   form.submit();
+									           }, 2000);
+									      });
+							    	});
+							    }
 							}
 							else
 							{
@@ -98,17 +114,3 @@ var pageLoadingDiv = "#loadingModal";
 		}, 2000); // in milliseconds
    <% end %>
 <% end %>
-
-// Process Complete Upload Button
-$("#complete-upload").submit(function(event)
-	{
-		var form = this;
-        event.preventDefault();
-        bootbox.confirm("You're about to upload your book. Are you done reviewing?", function(result)
-        	{
-               $(pageLoadingDiv).modal({backdrop: 'static', keyboard: false});
-		       setTimeout(function () {
-                   form.submit();
-		       }, 2000);
-        	});
-	});

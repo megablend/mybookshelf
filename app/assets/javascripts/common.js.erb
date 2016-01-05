@@ -34,6 +34,14 @@ function callQuickView(qurl) {
 }
 
 $(document).ready(function() {
+	//load slick 
+	$('.single-item').slick(
+		{
+		    dots: true,
+		    autoplay: true,
+		    autoplaySpeed: 5000
+		});
+
 	// Adding the clear Fix
 	cols1 = $('#column-right, #column-left').length;
 	
@@ -171,106 +179,6 @@ $(document).ready(function() {
 		$('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
 	});
 });
-
-// Cart add remove functions
-var cart = {
-	'add': function(product_id, quantity) {
-		$.ajax({
-			url: 'index.php?route=checkout/cart/add',
-			type: 'post',
-			data: 'product_id=' + product_id + '&quantity=' + (typeof(quantity) != 'undefined' ? quantity : 1),
-			dataType: 'json',
-			beforeSend: function() {
-				$('#cart > button').button('loading');
-			},
-			complete: function() {
-				$('#cart > button').button('reset');
-			},			
-			success: function(json) {
-				$('.alert, .text-danger').remove();
-
-				if (json['redirect']) {
-					location = json['redirect'];
-				}
-
-				if (json['success']) {
-					$('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-					
-					// Need to set timeout otherwise it wont update the total
-					setTimeout(function () {
-						 var myarr = [];
-					     var myarr = json['total'].split("-");
-					    //'<span id="cart-total">' '</span>'
-
-						$('#cart .header > a > span:last-child').text(myarr['0']);
-					}, 100);
-				
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
-
-					$('#cart > ul').load('index1e1c.html?route=common/cart/info%20ul%20li');
-				}
-			}
-		});
-	},
-	'update': function(key, quantity) {
-		$.ajax({
-			url: 'index.php?route=checkout/cart/edit',
-			type: 'post',
-			data: 'key=' + key + '&quantity=' + (typeof(quantity) != 'undefined' ? quantity : 1),
-			dataType: 'json',
-			beforeSend: function() {
-				$('#cart > button').button('loading');
-			},
-			complete: function() {
-				$('#cart > button').button('reset');
-			},			
-			success: function(json) {
-				// Need to set timeout otherwise it wont update the total
-				setTimeout(function () {
-					var myarr = [];
-					var myarr = json['total'].split("-");
-					//'<span id="cart-total">' + myarr['0'] + '</span>'
-					$('#cart .header > a > span:last').text(myarr['0']);
-				}, 100);
-
-				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
-					location = 'index630e.html?route=checkout/cart';
-				} else {
-					$('#cart > ul').load('index1e1c.html?route=common/cart/info%20ul%20li');
-				}
-			}
-		});
-	},
-	'remove': function(key) {
-		$.ajax({
-			url: 'index.php?route=checkout/cart/remove',
-			type: 'post',
-			data: 'key=' + key,
-			dataType: 'json',
-			beforeSend: function() {
-				$('#cart > button').button('loading');
-			},
-			complete: function() {
-				$('#cart > button').button('reset');
-			},			
-			success: function(json) {
-				// Need to set timeout otherwise it wont update the total
-				setTimeout(function () {
-					var myarr = [];
-					     var myarr = json['total'].split("-");
-					     //'<span id="cart-total">' + myarr['0'] + '</span>'
-					$('#cart .header > a > span:last-child').text(myarr['0']);
-				}, 100);
-					
-				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
-					location = 'index630e.html?route=checkout/cart';
-				} else {
-					$('#cart > ul').load('index1e1c.html?route=common/cart/info%20ul%20li');
-				}
-			}
-		});
-	}
-}
 
 var voucher = {
 	'add': function() {
@@ -519,3 +427,163 @@ $(document).delegate('.agree', 'click', function(e) {
 		});
 	}
 })(window.jQuery);
+
+/** Cart Processing Section **/
+var cart = {
+	'getUrl' : function(productType)
+	{
+		var url;
+		switch(productType)
+		{
+           case "print_book":
+              url = 'cart/add-book';
+           break;
+
+           case "ebook":
+              url = 'cart/add-ebook';
+           break;
+		}
+
+		return url;
+	},
+	'addCart' : function(productType, productId, quantity)
+	{
+       $.ajax({
+       	   url: cart.getUrl(productType),
+       	   type: 'POST',
+       	   data: { 'cart_data' : { product_id: productId, quantity: quantity } },
+       	   dataType: 'json',
+       	   success: function(data, textStatus, jqXHR)
+       	   {
+               var jsonData = $.parseJSON(data.message);
+               if(jsonData.success)
+               {
+                   var n = noty({text: '<i class="fa fa-check-circle"></i> ' + jsonData.success,
+	                  theme: 'relax',
+	                  type: 'success',
+	                  dismissQueue: true,
+	                  timeout: 4000,
+	                  animation: {
+                            open : 'animated bounceInRight',
+                            close : 'animated bounceOutRight'
+	                  }
+	              });
+                  
+                  //append cart total
+                  $("#cart-total").html(jsonData.total);
+                  //populate products cart
+                  $("#shopping-cart-items-holder").load('cart/load-cart');
+               }
+               else
+               {
+               	   bootbox.alert(jsonData.error, function(result){ return; });
+               }
+       	   },
+       	   error: function(jqXHR, textStatus, errorThrown)
+       	   {
+              console.log("Error in jqXHR: " + jqXHR);
+              console.log("Error in textStatus: " + textStatus);
+              console.log("Error Thrown: " + errorThrown);
+       	   }
+       });
+	},
+	'addProduct' : function(quantity)
+	{
+       var productId = $("#modal-product-id").val();
+       var optionSelected = $('input:radio[name=select_product]:checked').val();
+       
+       if(optionSelected == "" || typeof(optionSelected) == "undefined")
+       {
+          $("#error-holder").addClass("text-danger").css('margin-bottom', '10px').html("Error: Please select the type you want to purchase!");
+       }
+       else
+       {
+          $.ajax({
+       	   url: 'cart/add-product',
+       	   type: 'POST',
+       	   data: { 'cart_data' : { product_id: productId, selected_option: optionSelected, quantity: quantity } },
+       	   dataType: 'json',
+       	   success: function(data, textStatus, jqXHR)
+       	   {
+               var jsonData = $.parseJSON(data.message);
+               if(jsonData.success)
+               {
+               	   $("#chooseProductModal").modal('hide');
+                   var n = noty({text: '<i class="fa fa-check-circle"></i> ' + jsonData.success,
+	                  theme: 'relax',
+	                  type: 'success',
+	                  dismissQueue: true,
+	                  timeout: 4000,
+	                  animation: {
+                            open : 'animated bounceInRight',
+                            close : 'animated bounceOutRight'
+	                  }
+	              });
+                  
+                  //append cart total
+                  $("#cart-total").html(jsonData.total);
+                  //populate products cart
+                  $("#shopping-cart-items-holder").load('cart/load-cart');
+               }
+               else
+               {
+                   $("#error-holder").addClass("text-danger").css('margin-bottom', '10px').html(jsonData.error);
+               }
+       	   },
+       	   error: function(jqXHR, textStatus, errorThrown)
+       	   {
+              console.log("Error in jqXHR: " + jqXHR);
+              console.log("Error in textStatus: " + textStatus);
+              console.log("Error Thrown: " + errorThrown);
+       	   }
+       });
+       } 
+	},
+	'chooseProduct' : function(productId, productName)
+	{
+		cart.resetSelection();
+		$("#chooseProductModal").modal({backdrop: 'static', keyboard: false});
+		$("#product-title").html("<strong>" + productName + "</strong>");
+		$("#modal-product-id").val(productId);
+	},
+	'resetSelection' : function()
+	{
+		$('input[name="select_product"]').prop('checked', false);
+		$('#error-holder').removeClass('text-danger').css('margin-bottom', '0px').html('');
+	},
+	'removeCartItem' : function(productId, productType)
+	{
+	   var loader = "<img src='<%= asset_path 'site/cart-loading.gif' %>' />";
+       $.ajax({
+       	  url: "cart/delete-item",
+       	  type: "POST",
+       	  data: { 'cart_data' : { product_id: productId, product_type: productType } },
+       	  dataType: "json",
+       	  beforeSend: function()
+       	  {
+             $("#shopping-cart-items-holder").html('<div class="text-center cart-img-loader">' + loader + '</div>');
+       	  },
+       	  success: function(data, textStatus, jqXHR)
+       	  {
+             var jsonData = $.parseJSON(data.message);
+             if(jsonData.status)
+             {
+                //append cart total
+                $("#cart-total").html(jsonData.total);
+                //populate products cart
+                $("#shopping-cart-items-holder").load('cart/load-cart');
+             }
+             else
+             {
+                bootbox.alert("Unable to delete item, please try again", function(result){ return; });
+             }
+       	  },
+       	  error: function(jqXHR, textStatus, errorThrown)
+       	   {
+              console.log("Error in jqXHR: " + jqXHR);
+              console.log("Error in textStatus: " + textStatus);
+              console.log("Error Thrown: " + errorThrown);
+       	   }
+       });
+	}
+};
