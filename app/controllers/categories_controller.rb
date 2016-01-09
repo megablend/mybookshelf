@@ -3,6 +3,11 @@ class CategoriesController < ApplicationController
   # Load Merchants Helper
   include CategoriesHelper
 
+  # get the products for a category
+  def index
+
+  end
+
 
   # get the subcategories of a category
   def get_sub_categories

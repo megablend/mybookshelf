@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227110522) do
+ActiveRecord::Schema.define(version: 20160108115433) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20151227110522) do
   end
 
   add_index "categories", ["name", "parent_id"], name: "index_categories_on_name_and_parent_id", unique: true, using: :btree
+
+  create_table "categories_images", force: :cascade do |t|
+    t.integer  "category_id", limit: 4
+    t.string   "page_image",  limit: 255, null: false
+    t.string   "menu_image",  limit: 255, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "categories_images", ["category_id"], name: "index_categories_images_on_category_id", using: :btree
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -123,6 +133,7 @@ ActiveRecord::Schema.define(version: 20151227110522) do
     t.string  "meta_title",       limit: 255,   null: false
     t.string  "meta_description", limit: 255,   null: false
     t.string  "meta_keyword",     limit: 255,   null: false
+    t.string  "slug",             limit: 255,   null: false
   end
 
   add_index "products_descriptions", ["product_id"], name: "index_products_descriptions_on_product_id", using: :btree
@@ -193,8 +204,8 @@ ActiveRecord::Schema.define(version: 20151227110522) do
     t.integer  "vat_option_id",     limit: 4
     t.decimal  "price",                           precision: 15, scale: 4,               null: false
     t.decimal  "special_price",                   precision: 15, scale: 4
-    t.text     "description",       limit: 65535
-    t.integer  "quantity",          limit: 1,                              default: 0,   null: false
+    t.text     "description",       limit: 65535,                                        null: false
+    t.integer  "quantity",          limit: 4,                                            null: false
     t.datetime "created_at",                                                             null: false
     t.datetime "updated_at",                                                             null: false
     t.integer  "merchant_id",       limit: 4
@@ -226,6 +237,7 @@ ActiveRecord::Schema.define(version: 20151227110522) do
     t.datetime "updated_at",            null: false
   end
 
+  add_foreign_key "categories_images", "categories"
   add_foreign_key "local_govts", "states"
   add_foreign_key "merchants", "states"
   add_foreign_key "products", "merchants"

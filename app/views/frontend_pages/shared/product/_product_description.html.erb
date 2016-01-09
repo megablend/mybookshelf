@@ -1,0 +1,169 @@
+<div class="product-essential">
+           
+
+                        <div class="product-img-box col-lg-6 col-sm-6 col-xs-12">
+              
+            <ul class="moreview" id="moreview">
+
+                <li class="moreview_thumb thumb_6">
+                  <%= image_tag  product.products_image.image, class: "moreview_thumb_image" %>
+                  <%= image_tag  product.products_image.image, class: "moreview_source_image" %> 
+                  <span class="roll-over">Roll over image to zoom in</span> 
+                  <%= image_tag  product.products_image.image, class: "zoomImg", style: "position: absolute;"  %>
+                </li>
+            </ul>
+            <div class="moreview-control"> 
+              <a style="right: 42px;" href="javascript:void(0)" class="moreview-prev"></a> 
+              <a style="right: 42px;" href="javascript:void(0)" class="moreview-next"></a> 
+            </div>
+
+
+            </div><!-- product-img-box col-lg-6 col-sm-6 col-xs-12 -->
+                        
+            <div class="product-shop col-lg-6 col-sm-6 col-xs-12">
+              <div class="product-name">
+              <h1><%= capitalize_string(product_details.first.title) %></h1>
+              </div> 
+
+                            <div class="ratings">
+                <div class="rating-box">
+                  <div class="rating">
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                  </div>
+                </div>
+
+                <p class="rating-links">
+                  <a href="#" onclick="$('a[href=\'#reviews_tabs\']').trigger('click'); return false;">0 reviews</a> / 
+                  <a href="#" onclick="$('a[href=\'#reviews_tabs\']').trigger('click'); return false;">Write a review</a>
+                </p>
+              </div><!-- ratings -->
+              
+              <!-- Availability --> 
+              <div id="availability-holder">
+                <% if product.products_type.product_type == "Print Book" ||
+                    product.products_type.product_type == "Print and EBook" %>
+                <p class="availability in-stock">Availability:<span><%= available_stock product.quantity %></span></p>
+                <% end %>
+              </div>
+              <input type="hidden" id="get-product-availablity" value="<%= available_stock product.quantity %>">
+              
+              <% if product.products_type.product_type == "Print Book" ||
+                    product.products_type.product_type == "Print and EBook" %>
+              <div class="price-block">
+                  <div class="price-box">
+                    <hr>
+                      <h4><strong>Print Book</strong></h4>
+                      <p class="special-price"><span class="price">&#8358;<%= number_to_currency(product.price).delete "$" %></span></p>
+                  </div>
+              </div>
+              <% end %>
+              
+              <% if product.products_type.product_type == "Print and EBook" ||
+                    product.products_type.product_type == "EBook" %>
+              <div class="price-block">
+                  <div class="price-box">
+                      <h4><strong>EBook</strong></h4>
+                      <p class="special-price"><span class="price">&#8358;<%= number_to_currency(product.ebook_price).delete "$" %></span><br/>
+                       <span>This item is available only in EPUB format <span style="cursor: pointer" rel="tooltip" title="EPUB (short for electronic publication; alternatively capitalized as ePub, EPub, or epub, with 'EPUB' preferred by the vendor) is a free and open e-book standard by the International Digital Publishing Forum (IDPF). Files have the extension .epub. EPUB is designed for reflowable content, meaning that the text display can be optimized for the particular display device. The format is meant to function as a single format that publishers and conversion houses can use in-house, as well as for distribution and sale. It supersedes the Open eBook standard."><strong>[?]</strong></span></span>
+                      </p>
+                  </div>
+              </div>
+              <% end %>
+                            
+              <ul class="list-unstyled">
+                <li>Author: <%= capitalize_string(product_details.first.author) %></li>
+                <li>Published: <%= product_details.first.publish_date %></li>
+                <li>Publisher: <%= capitalize_string(product_details.first.publisher) %></li>
+                <li>ISBN: <%= product.isbn_number %></li>
+                <!-- <li> </li> -->
+              </ul>
+
+              <div id="product">
+              <hr>
+              <% if product.products_type.product_type == "Print and EBook" %>
+              <h3>Available Options</h3>
+              <div class="form-group required">
+                <label class="control-label" for="input-option226">Select</label>
+                <select name="option[226]" id="input-option226" class="form-control">
+                      <option value=""> --- Please Select --- </option>
+                      <option>EBook</option>
+                      <option>Print Book</option>
+                </select>
+              </div>
+              <% end %>
+                                                                                                                                                                                      <!--               <div class="form-group">
+              <label class="control-label" for="input-quantity"></label>
+              <input type="text" name="quantity" value="" size="2" id="input-quantity" class="form-control" />
+              <input type="hidden" name="product_id" value="" />
+              <br />
+              <button type="button" id="button-cart" data-loading-text="" class="btn btn-primary btn-lg btn-block"></button>
+              </div> -->
+                            
+
+          <div class="add-to-box">
+                       
+            <div class="add-to-cart">
+              <!-- Product Quantity -->
+              <div id="product-qty-holder">
+                  <% if product.products_type.product_type == "Print and EBook" ||
+                        product.products_type.product_type == "Print Book"  %>
+                  <label class="control-label" for="input-quantity">Qty</label>
+                  <div class="pull-left">
+                    <div class="custom pull-left">
+                        
+                        
+                        <button class="increase items-count" onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" type="button">
+                        <i class="icon-plus"> </i>
+                        </button>
+                        <input type="text" name="quantity" value="1" size="2" id="qty" class="input-text qty" maxlength="12"/>
+                        <button class="reduced items-count" onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 0 ) result.value--;return false;" type="button">
+                        <i class="icon-minus"> </i>
+                        </button>
+                        <input type="hidden" name="product_id" value="30" />
+                    </div>
+                    </div> 
+                    <% end %>
+              </div>
+
+                <div class="pull-left">
+                  <button type="button" id="button-cart" data-loading-text="Loading..." class="button btn-cart" onclick="<%= single_product_javascript_function(product.products_type.product_type, product.id.to_i, 1) %>"><span>Buy Now</span></button>
+                </div>
+              
+            </div>
+            
+          <div class="email-addto-box">
+          <ul class="add-to-links">
+          <li><a class="link-wishlist" title="Add to Wish List" onclick="wishlist.add('30');">
+          <span>Add to Wish List</span>
+          </a></li>
+          <li><a class="link-compare"  title="Add To Compare" onclick="compare.add('30');">
+          <span>Add To Compare</span>
+          </a></li>
+          </ul>
+          </div>
+
+          </div>
+
+                       
+              <!-- AddThis Button BEGIN -->
+              <div class="addthis_toolbox addthis_default_style"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+              <script type="text/javascript" src="../s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
+              <!-- AddThis Button END -->
+              
+
+</div>
+
+
+            </div><!-- product-shop -->
+            
+              
+
+            
+            
+        
+          
+          </div><!-- product essential -->

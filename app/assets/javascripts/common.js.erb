@@ -1,3 +1,4 @@
+
 function getURLVar(key) {
 	var value = [];
 
@@ -34,6 +35,7 @@ function callQuickView(qurl) {
 }
 
 $(document).ready(function() {
+	
 	//load slick 
 	$('.single-item').slick(
 		{
@@ -41,6 +43,42 @@ $(document).ready(function() {
 		    autoplay: true,
 		    autoplaySpeed: 5000
 		});
+
+	// tool tips
+	$("span[rel='tooltip']").tooltipster();
+
+	//product type selector
+	$("#input-option226").change(function(){
+		var activeOption = $("#input-option226 option:selected").text();
+		var availableStock = $("#get-product-availablity").val();
+        var availableStockElements = '<p class="availability in-stock">Availability:<span>' + availableStock + '</span></p>';
+        var qtyElements = '<label class="control-label" for="input-quantity">Qty</label>\
+			                  <div class="pull-left">\
+			                    <div class="custom pull-left">\
+			                        <button class="increase items-count" onclick="var result = document.getElementById(\'qty\'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" type="button">\
+			                        <i class="icon-plus"> </i>\
+			                        </button>\
+			                        <input type="text" name="quantity" value="1" size="2" id="qty" class="input-text qty" maxlength="12"/>\
+			                        <button class="reduced items-count" onclick="var result = document.getElementById(\'qty\'); var qty = result.value; if( !isNaN( qty ) && qty > 0 ) result.value--;return false;" type="button">\
+			                        <i class="icon-minus"> </i>\
+			                        </button>\
+			                        <input type="hidden" name="product_id" value="30" />\
+			                    </div>\
+			                    </div> ';
+
+		//add available stocks and quantity
+        if(activeOption == "Print Book")
+        {
+        	$("#availability-holder").html(availableStockElements);
+        	$("#product-qty-holder").html(qtyElements);
+        }
+        else
+        {
+           $("#availability-holder").html("");
+        	$("#product-qty-holder").html("");
+        }
+	});
+	
 
 	// Adding the clear Fix
 	cols1 = $('#column-right, #column-left').length;
@@ -436,11 +474,11 @@ var cart = {
 		switch(productType)
 		{
            case "print_book":
-              url = 'cart/add-book';
+              url = '/cart/add-book';
            break;
 
            case "ebook":
-              url = 'cart/add-ebook';
+              url = '/cart/add-ebook';
            break;
 		}
 
@@ -448,6 +486,10 @@ var cart = {
 	},
 	'addCart' : function(productType, productId, quantity)
 	{
+	   var qtyId = $("#qty");
+	   if(qtyId.length > 0)
+	   	  quantity = qtyId.val();
+
        $.ajax({
        	   url: cart.getUrl(productType),
        	   type: 'POST',
@@ -472,7 +514,7 @@ var cart = {
                   //append cart total
                   $("#cart-total").html(jsonData.total);
                   //populate products cart
-                  $("#shopping-cart-items-holder").load('cart/load-cart');
+                  $("#shopping-cart-items-holder").load('/cart/load-cart');
                }
                else
                {
@@ -487,6 +529,64 @@ var cart = {
        	   }
        });
 	},
+	'addSingleProduct' : function(productId, quantity)
+	{
+        var activeOption = $("#input-option226 option:selected").text();
+        var optionSelected = activeOption;
+       
+	       if(optionSelected == " --- Please Select --- ")
+	       {
+	          bootbox.alert("Please select the product option you wish to buy!", function(result){
+	          	return;
+	          });
+	       }
+	       else
+	       {
+	       	  var qtyId = $("#qty");
+			  if(qtyId.length > 0)
+			   	  quantity = qtyId.val();
+			   	
+	          $.ajax({
+	       	   url: '/cart/add-product',
+	       	   type: 'POST',
+	       	   data: { 'cart_data' : { product_id: productId, selected_option: optionSelected, quantity: quantity } },
+	       	   dataType: 'json',
+	       	   success: function(data, textStatus, jqXHR)
+	       	   {
+	               var jsonData = $.parseJSON(data.message);
+	               if(jsonData.success)
+	               {
+	               	   $("#chooseProductModal").modal('hide');
+	                   var n = noty({text: '<i class="fa fa-check-circle"></i> ' + jsonData.success,
+		                  theme: 'relax',
+		                  type: 'success',
+		                  dismissQueue: true,
+		                  timeout: 4000,
+		                  animation: {
+	                            open : 'animated bounceInRight',
+	                            close : 'animated bounceOutRight'
+		                  }
+		              });
+	                  
+	                  //append cart total
+	                  $("#cart-total").html(jsonData.total);
+	                  //populate products cart
+	                  $("#shopping-cart-items-holder").load('/cart/load-cart');
+	               }
+	               else
+	               {
+	                   $("#error-holder").addClass("text-danger").css('margin-bottom', '10px').html(jsonData.error);
+	               }
+	       	   },
+	       	   error: function(jqXHR, textStatus, errorThrown)
+	       	   {
+	              console.log("Error in jqXHR: " + jqXHR);
+	              console.log("Error in textStatus: " + textStatus);
+	              console.log("Error Thrown: " + errorThrown);
+	       	   }
+	       });
+	       }
+	},
 	'addProduct' : function(quantity)
 	{
        var productId = $("#modal-product-id").val();
@@ -499,7 +599,7 @@ var cart = {
        else
        {
           $.ajax({
-       	   url: 'cart/add-product',
+       	   url: '/cart/add-product',
        	   type: 'POST',
        	   data: { 'cart_data' : { product_id: productId, selected_option: optionSelected, quantity: quantity } },
        	   dataType: 'json',
@@ -523,7 +623,7 @@ var cart = {
                   //append cart total
                   $("#cart-total").html(jsonData.total);
                   //populate products cart
-                  $("#shopping-cart-items-holder").load('cart/load-cart');
+                  $("#shopping-cart-items-holder").load('/cart/load-cart');
                }
                else
                {
@@ -555,7 +655,7 @@ var cart = {
 	{
 	   var loader = "<img src='<%= asset_path 'site/cart-loading.gif' %>' />";
        $.ajax({
-       	  url: "cart/delete-item",
+       	  url: "/cart/delete-item",
        	  type: "POST",
        	  data: { 'cart_data' : { product_id: productId, product_type: productType } },
        	  dataType: "json",
@@ -571,7 +671,7 @@ var cart = {
                 //append cart total
                 $("#cart-total").html(jsonData.total);
                 //populate products cart
-                $("#shopping-cart-items-holder").load('cart/load-cart');
+                $("#shopping-cart-items-holder").load('/cart/load-cart');
              }
              else
              {

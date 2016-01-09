@@ -1,0 +1,26 @@
+<!-- Start Breadcrumb -->
+<div id="mgkquickview">
+  <div id="magikloading" style="display:none;text-align:center;margin-top:400px;">
+    <%= image_tag "data/loading.gif", alt: "loading" %>
+  </div>
+</div>  
+<div class="breadcrumbs">
+  <div class="container">
+  <div class="row">
+  <div class="col-xs-12">
+    <ul>
+        <li>            <a href="<%= root_path %>"><i class="fa fa-home"></i></a>
+          </li>
+        <li>
+          <span>—› </span>            <a href="#"><%= breadcrumb_category(yield(:category)) %></a>
+        </li>
+        <li>
+          <span>—› </span>            <strong><%= breadcrumb_product_detail(yield(:product_detail)) %></strong>    
+        </li>
+      </ul>
+  </div>
+  </div>
+  </div>
+</div>
+
+<!-- End Breadcrumb -->

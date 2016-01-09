@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require bootstrap
 //= require jquery_ujs
 //= require turbolinks
@@ -21,4 +22,5 @@
 //= require common1
 //= require cloudzoom
 //= require bootbox
+//= require jquery.tooltipster.min.js
 //= require_tree ./jquery-lib/owl-carousel

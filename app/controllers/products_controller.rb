@@ -240,6 +240,7 @@ class ProductsController < ApplicationController
 	  def get_product_description(description, product_id)
          publish_date = !description.publish_date.nil? ? DateTime.strptime(description.publish_date.to_s, "%Y-%m-%d").to_formatted_s(:db) : nil;
          product_description = { title: description.title,
+                                 slug: product_slug(description.title.parameterize, product_id),
                                  author: description.author,
                                  description: description.description,
                                  product_id: product_id,

@@ -1,0 +1,83 @@
+<div class="featured-pro container">
+    <div class="slider-items-products">
+      <div class="new_title center">
+        <h2>#Trending Right Now</h2>
+      </div>
+
+      <div id="featured-slider" class="product-flexslider hidden-buttons">
+        
+                  <div class="slider-items slider-width-col4">
+                  <% trending_right_now.each do|product| %>
+                      <!-- Item -->
+                      <div class="item">
+                            <div class="col-item">
+
+                                             
+
+                              <div class="product-image-area"> 
+                                <%= link_to image_tag(product.products_image.image, alt: capitalize_string(product.products_description.title), class: "img-responsive", width: "199", height: "302"), "/product/#{product.products_description.slug}", 
+                                  class: "product-image", title: capitalize_string(product.products_description.title) %>
+    
+
+                                <div class="actions-links">
+                                  <span class="add-to-links"> 
+                                    <a title="Quick view" class="magik-btn-quickview" onclick="callQuickView('#');"><span>Quick view</span>
+                                    </a> 
+                                    <a title="Add to Wish List" class="link-wishlist" onclick="wishlist.add('<%= product.id %>');"><span>Add to Wish List</span></a> 
+
+                                    <a title="Add To Compare" class="link-compare" onclick="compare.add('<%= product.id %>');"><span>Add To Compare</span></a>
+                                  </span>
+                                </div>
+
+                              </div>
+                              
+                              <div class="info">
+                                <div class="info-inner">
+                                  <div class="item-title">
+                                        <%= link_to truncate(capitalize_string(product.products_description.title), length: 50), 
+                                            "/product/#{product.products_description.slug}", title: product.products_description.title %>
+                                  </div><!--item-title-->
+
+                                        <div class="item-content">
+                                        
+                                                                    <div class="rating">
+                                          <div class="ratings">
+                                          <div class="rating-box">
+                                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                          </div>
+                                          </div>
+                                          </div><!-- rating -->
+                                          
+                                          <div class="item-price">
+                                            <div class="price-box"> 
+                                                <span class="regular-price"><span class="price">&#8358;<%= number_to_currency(product.price).delete "$" %></span></span> 
+                                            </div>
+                                          </div>
+                                          
+                                        </div>
+                                        <!--item-content--> 
+
+                                </div><!--info-inner-->
+
+                                <div class="actions">
+                                  <button type="button" title="Add to Cart" class="button btn-cart" onclick="<%= product_javascript_function(product.products_type.product_type, product.products_description.title, product.id.to_i, 1) %>"><span>Add to Cart</span>
+                                  </button>
+                                </div>
+                                <!--actions-->
+                                
+                                <div class="clearfix"> </div>
+                              </div>
+                            </div>
+                          </div><!-- End Item -->
+                  <% end %>
+
+                  </div><!-- slider items -->
+                 
+      </div><!-- featured-slider -->
+
+    </div><!-- slider-items-products -->
+  </div>

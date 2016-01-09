@@ -27,4 +27,10 @@ module ProductsHelper
 	def temporary_cover_image_session_active?
       !session[:cover_image_id].nil?
 	end
+
+	def product_slug(slug, product_id)
+       check_slug = ProductsDescription.where(slug: slug)
+       # check if slug already exists
+       if check_slug.size == 0 then slug else "#{slug}-#{product_id}" end
+	end
 end

@@ -13,4 +13,19 @@ module CategoriesHelper
   def deactivate_selected_sub_category
      session.delete(:selected_sub_catgeory)
   end
+
+  # list of to level categories
+  def top_level_categories
+     Category.where(parent_id: 0).order(:name).limit(8)
+  end
+  
+  # list of sub-categories
+  def sub_categories(parent_id)
+    Category.where(parent_id: parent_id).order(:name)
+  end
+
+  # other categories
+  def other_top_level_categories
+    Category.where(parent_id: 0).order(:name).offset(9)
+  end
 end

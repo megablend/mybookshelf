@@ -10,8 +10,8 @@
         var width = jQuery('.product-view .product-img-box').width() * 0.80;
         var src_img_width = 80;
         var src_img_height = 100;
-        var ratio_width = 550;
-        var ratio_height = 670;
+        var ratio_width = 395;
+        var ratio_height = 600;
         
         src_img_width = 100 * ratio_width / ratio_height;
         var height = width * ratio_height / ratio_width;

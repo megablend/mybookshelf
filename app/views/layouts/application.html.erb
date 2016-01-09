@@ -27,9 +27,15 @@
    <%= render 'layouts/frontend/nav_bar' %>
    <!-- End Page Home Slider -->
 
-   <!-- Breadcrumb -->
-   <%= render 'layouts/frontend/breadcrumb' %>
-   <!-- End Breadcrumb -->
+   <% if product_breadcrumb?(yield(:product)) %>
+       <!-- Breadcrumb -->
+       <%= render 'layouts/frontend/product_breadcrumb' %>
+       <!-- End Breadcrumb -->
+  <% else %>
+       <!-- Breadcrumb -->
+       <%= render 'layouts/frontend/breadcrumb' %>
+       <!-- End Breadcrumb -->
+  <% end %>
   
   <!-- Page Content -->
   <%= yield %>

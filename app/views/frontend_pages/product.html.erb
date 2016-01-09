@@ -1,0 +1,179 @@
+<% provide(:title, capitalize_string(@product_details.first.title)) %>
+<% provide(:class_name, "product-product-30") %>
+<% provide(:current_page, raw("<strong>#{capitalize_string(@product_details.first.title)}</strong>")) %>
+<% provide(:category, get_product_category(@product_details.first.product_id)) %>
+<% provide(:product_detail, capitalize_string(@product_details.first.title)) %>
+<% provide(:product, "product") %>
+
+<section class="main-container col1-layout">
+    <div class="main container" id="content">
+    <div class="col-main">
+      <div class="row">
+     
+        <div class="product-view">
+          
+          <!-- Product Price and Quantity -->
+          <%= render partial: "frontend_pages/shared/product/product_description", locals: { product_details: @product_details, product: @product} %>
+          <!-- End Product Price and Quantity -->
+
+          <!-- Product Description and Review -->
+          <div class="product-collateral">
+          
+          <%= render partial: "frontend_pages/shared/product/product_description_and_review", locals: { product_description: @product_details.first.description }  %>
+           
+                        <div class="col-sm-12">
+              <div class="box-additional">
+                <div class="related-pro">
+                  <div class="slider-items-products">
+                      <div class="new_title center">
+                      <h2>Customers Also Bought</h2>
+                      </div>
+                      <div id="related-products-slider" class="product-flexslider hidden-buttons">
+                        <div class="slider-items slider-width-col4"> 
+                                               <div class="item">
+                    <div class="col-item">
+
+                    
+                     
+
+                      <div class="product-image-area"> 
+                        <a class="product-image" title=" Vanca Women's Top" href="indexc21e.html?route=product/product&amp;product_id=34"> 
+                          <img src="image/cache/catalog/p3-700x850.jpg" class="img-responsive" alt=" Vanca Women's Top" /> 
+                        </a>
+
+                      <div class="hover_fly"> 
+                        <a class="exclusive ajax_add_to_cart_button" onclick="cart.add('34');" title="Add to Cart">
+                        <div><i class="icon-shopping-cart"></i><span>Add to Cart</span></div>
+                        </a> 
+
+                        
+                        <a class="add_to_compare" title="Add To Compare" onclick="compare.add('34');">
+                        <div><i class="icon-random"></i><span>Add To Compare</span></div>
+                        </a> 
+
+                        <a class="addToWishlist wishlistProd_5" onclick="wishlist.add('34');" title="Add to Wish List" >
+                        <div><i class="icon-heart"></i><span>Add to Wish List</span></div>
+                        </a>
+
+                      </div>
+
+                    </div>
+                    
+                    <div class="info">
+                      <div class="info-inner">
+                        
+                        <div class="item-title">
+                        <a title=" Vanca Women's Top" href="indexc21e.html?route=product/product&amp;product_id=34"> 
+                         Vanca Women's Top                        </a>
+                        </div><!--item-title-->
+
+                        <div class="item-content">
+                        
+                                                    <div class="rating">
+                          <div class="ratings">
+                          <div class="rating-box">
+                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                          </div>
+                          </div>
+                          </div><!-- rating -->
+                          
+                        <div class="item-price">
+                          <div class="price-box"> 
+                              <span class="regular-price"><span class="price">$122.00</span></span> 
+                          </div>
+                        </div>
+                          
+                        </div>
+                        <!--item-content--> 
+                      </div>
+                      <!--info-inner-->
+                      
+                      <div class="clearfix"> </div>
+                    </div>
+                  </div>
+                            </div><!-- item -->
+                                               <div class="item">
+                    <div class="col-item">
+
+                    
+                     
+
+                      <div class="product-image-area"> 
+                        <a class="product-image" title="Bata Women's Fashion Sandals" href="indexb8ca.html?route=product/product&amp;product_id=43"> 
+                          <img src="image/cache/catalog/p69-700x850.jpg" class="img-responsive" alt="Bata Women's Fashion Sandals" /> 
+                        </a>
+
+                      <div class="hover_fly"> 
+                        <a class="exclusive ajax_add_to_cart_button" onclick="cart.add('43');" title="Add to Cart">
+                        <div><i class="icon-shopping-cart"></i><span>Add to Cart</span></div>
+                        </a> 
+
+                        
+                        <a class="add_to_compare" title="Add To Compare" onclick="compare.add('43');">
+                        <div><i class="icon-random"></i><span>Add To Compare</span></div>
+                        </a> 
+
+                        <a class="addToWishlist wishlistProd_5" onclick="wishlist.add('43');" title="Add to Wish List" >
+                        <div><i class="icon-heart"></i><span>Add to Wish List</span></div>
+                        </a>
+
+                      </div>
+
+                    </div>
+                    
+                    <div class="info">
+                      <div class="info-inner">
+                        
+                        <div class="item-title">
+                        <a title="Bata Women's Fashion Sandals" href="indexb8ca.html?route=product/product&amp;product_id=43"> 
+                        Bata Women's Fashion...                        </a>
+                        </div><!--item-title-->
+
+                        <div class="item-content">
+                        
+                                                    <div class="rating">
+                          <div class="ratings">
+                          <div class="rating-box">
+                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                          </div>
+                          </div>
+                          </div><!-- rating -->
+                          
+                                                    <div class="item-price">
+                          <div class="price-box"> 
+                                                    <span class="regular-price"><span class="price">$602.00</span></span> 
+                                                                              </div>
+                          </div>
+                          
+                        </div>
+                        <!--item-content--> 
+                      </div>
+                      <!--info-inner-->
+                      
+                      <div class="clearfix"> </div>
+                    </div>
+                  </div>
+                            </div><!-- item -->
+                                                   </div>
+                      </div><!-- related-products-slider -->
+
+                  </div><!-- slider-items-products -->
+                </div><!-- related-pro wow bounceInUp animated animated -->
+              </div><!-- box-additional -->
+            </div><!-- col-sm-12 -->
+                      </div><!-- product-collateral -->
+
+        </div><!-- product-view -->
+      
+      </div><!-- row -->
+      </div>
+      </div>
+    </section>

@@ -24,6 +24,12 @@ Rails.application.routes.draw do
      get 'load-cart' => :load_cart
   end
 
+  # categories routes
+  get '/categories/:category', to: 'categories#index', constraints: { category: /[A-Za-z0-9-]/ } # get the list of products for a category
+
+  # Products route
+  get '/product/:product_title', to: 'frontend_pages#product' #, constraints: { product_title: /[A-Za-z0-9]{50}/ }
+
   # terms of use
   get '/terms' => 'frontend_pages#terms'
 
