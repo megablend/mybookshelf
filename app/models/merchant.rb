@@ -1,5 +1,5 @@
 class Merchant < ActiveRecord::Base
-    belongs_to :state
+    belongs_to :state, inverse_of: :merchants
     has_one :store, inverse_of: :merchant
     attr_accessor :remember_token
 

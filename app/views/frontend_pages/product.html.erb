@@ -5,6 +5,12 @@
 <% provide(:product_detail, capitalize_string(@product_details.first.title)) %>
 <% provide(:product, "product") %>
 
+<% content_for :external_javascript_plugins do %>
+    <script type="text/javascript">$(document).ready(function(){ var switchTo5x=true; });</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">$(document).ready(function(){ stLight.options({publisher: "acf09681-1b36-4fbd-9015-5a48be3ee28d", doNotHash: false, doNotCopy: false, hashAddressBar: false}); });</script>
+<% end %>
+
 <section class="main-container col1-layout">
     <div class="main container" id="content">
     <div class="col-main">
@@ -13,13 +19,13 @@
         <div class="product-view">
           
           <!-- Product Price and Quantity -->
-          <%= render partial: "frontend_pages/shared/product/product_description", locals: { product_details: @product_details, product: @product} %>
+          <%= render partial: "frontend_pages/shared/product/product_description", locals: { product_details: @product_details, product: @product, product_reviews: @product.products_reviews } %>
           <!-- End Product Price and Quantity -->
 
           <!-- Product Description and Review -->
           <div class="product-collateral">
           
-          <%= render partial: "frontend_pages/shared/product/product_description_and_review", locals: { product_description: @product_details.first.description }  %>
+          <%= render partial: "frontend_pages/shared/product/product_description_and_review", locals: { product_description: @product_details.first.description, product_id: @product.id, product_reviews: @product.products_reviews }  %>
            
                         <div class="col-sm-12">
               <div class="box-additional">

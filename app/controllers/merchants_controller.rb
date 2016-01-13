@@ -85,6 +85,7 @@ class MerchantsController < ApplicationController
   # verify email
   def verify_email
      merchant = Merchant.find_by(verification_code: params[:verification_code])
+     @company_profile = CompanyProfile.find(1)
      if merchant && merchant.email_verified == 0
         @merchant_firstname = merchant.firstname.capitalize
         # complete merchant registration

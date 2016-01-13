@@ -1,0 +1,17 @@
+$("#button-review").html("Continue");
+$("#input-name").val("");
+$("#input-review").val("");
+$('input[name="product_review[rating]"]:checked').prop('checked', false);
+<% if @duplicate %>
+   $("#review").addClass("alert alert-danger").html("This review has already been sent to the seller of this item");
+<% else %>
+   <% if @error %>
+	   var message = "";
+	   <% @review.errors.full_messages.each do|msg| %>
+	          message += "<span style='color: #ff0000'>**</span> <%= j (msg) %>" + "</br>";
+	   <% end %>
+	   $("#review").addClass("alert alert-danger").html(message);
+   <% else %>
+	   $("#review").addClass("alert alert-success").html("Thank you for the review. The seller of this item will act accordingly.");
+   <% end %>
+<% end %>

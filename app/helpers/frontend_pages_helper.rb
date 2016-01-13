@@ -23,4 +23,9 @@ module FrontendPagesHelper
 	def available_stock(quantity)
        if quantity.to_i > 0 then "In Stock" else "Out of Stock" end
 	end
+
+	# get the average number of ratings
+	def ratings(number_of_reviews)
+		return true if number_of_reviews > 0
+	end
 end

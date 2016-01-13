@@ -2351,7 +2351,7 @@ a.btn-button-st:hover {
 }
 .regular-price .price {
 	font-weight: 900;
-	font-size: 12px;
+	font-size: 18px;
 	color: #ff0000;
 }
 .block .regular-price, .block .regular-price .price {
@@ -4179,6 +4179,29 @@ button.button.view-all:before {
 	font-weight: bold;
 	text-transform: uppercase;
 }
+.button-1 {
+	font-family: 'Open Sans', sans-serif;
+	border: none !important;
+	background: #fff;
+	padding: 7px 12px !important;
+	transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
+	border-radius: 0px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.cart-empty-block {
+    background-color: #fff;
+    padding: 5% 0;
+    margin-top: 0px;
+}
+
+.cart-empty-block-wr {
+    width: 400px;
+    margin: 0 auto;
+    background: url("<%= asset_path 'data/empty_cart.png' %>") no-repeat;
+    padding: 35px 0 35px 130px;
+}
 .button:hover {
 	border: 1px solid #37a4d9;
 	background: #37a4d9;
@@ -5913,10 +5936,10 @@ a.button.view-all {
 	padding-bottom: 10px !important;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-	border: none;
-	border-bottom: 3px solid #1c95d1;
-	background: #37a4d9;
-	color: #fff;
+	border: none !important;
+	border-bottom: 3px solid #1c95d1 !important;
+	background: #37a4d9 !important;
+	color: #fff !important;
 }
 .product-tabs a {
 	display: inline-block;

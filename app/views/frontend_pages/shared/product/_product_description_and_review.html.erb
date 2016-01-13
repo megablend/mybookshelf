@@ -4,7 +4,7 @@
 
             <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
               <li class="active"> <a href="#product_tabs_description" data-toggle="tab">Description</a> </li>
-              <li><a href="#reviews_tabs" data-toggle="tab">Reviews (0)</a></li>
+              <li><a href="#reviews_tabs" data-toggle="tab">Reviews (<%= product_reviews.size %>)</a></li>
                             
             </ul>
          
@@ -19,47 +19,53 @@
 
             
             
-                        <div class="tab-pane fade" id="reviews_tabs">
-              <form class="form-horizontal">
-                <div id="review"></div>
-                <h2>Write a review</h2>
-                                <div class="form-group required">
-                  <div class="col-sm-12">
-                    <label class="control-label" for="input-name">Your Name</label>
-                    <input type="text" name="name" value="" id="input-name" class="form-control" />
-                  </div>
-                </div>
-                <div class="form-group required">
-                  <div class="col-sm-12">
-                    <label class="control-label" for="input-review">Your Review</label>
-                    <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
-                    <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
-                  </div>
-                </div>
-                <div class="form-group required">
-                  <div class="col-sm-12">
-                    <label class="control-label">Rating</label>
-                    &nbsp;&nbsp;&nbsp; Bad&nbsp;
-                    <input type="radio" name="rating" value="1" />
-                    &nbsp;
-                    <input type="radio" name="rating" value="2" />
-                    &nbsp;
-                    <input type="radio" name="rating" value="3" />
-                    &nbsp;
-                    <input type="radio" name="rating" value="4" />
-                    &nbsp;
-                    <input type="radio" name="rating" value="5" />
-                    &nbsp;Good</div>
-                </div>
-                                <div class="buttons clearfix">
+           <div class="tab-pane fade" id="reviews_tabs">
+              <%= form_for(:product_review, url: product_review_path, remote: true, html: { class: "form-horizontal", id: "product-review-form"}) do|f| %>
+                  <div id="review"></div>
+                  <h2>Write a review</h2>
+
+                  <div class="form-group required">
+                    <div class="col-sm-12">
+                      <%= f.label :author, "Your Name", class: "control-label", for: "input-name" %>
+                      <%= f.text_field :author, class: "form-control", id: "input-name" %>
+                      <%= f.hidden_field :product_id, value: product_id %>
+                    </div>
+                 </div>
+
+                 <div class="form-group required">
+                    <div class="col-sm-12">
+                      <%= f.label :text, "Your Review", class: "control-label", for: "input-review" %>
+                      <%= f.text_area :text, rows: 5, class: "form-control", id: "input-review" %>
+                      <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+                    </div>
+                 </div>
+
+                 <div class="form-group required">
+                    <div class="col-sm-12">
+                      <%= f.label :rating, "Your Review", class: "control-label" %>
+                      &nbsp;&nbsp;&nbsp; Bad&nbsp;
+                      <%= f.radio_button :rating, 1 %>
+                      &nbsp;
+                      <%= f.radio_button :rating, 2 %>
+                      &nbsp;
+                      <%= f.radio_button :rating, 3 %>
+                      &nbsp;
+                      <%= f.radio_button :rating, 4 %>
+                      &nbsp;
+                      <%= f.radio_button :rating, 5 %>
+                      &nbsp;Good
+                    </div>
+                 </div>
+
+                 <div class="buttons clearfix">
                   <div class="pull-right">
                     <button type="button" id="button-review" data-loading-text="Loading..." class="button submit">Continue</button>
                   </div>
                 </div>
-                              </form>
+              <% end %>
             </div>
              
 
           </div><!-- productTabContent -->
 
-            </div><!-- col-sm-12 wow bounceInUp animated animated -->
+</div><!-- col-sm-12 wow bounceInUp animated animated -->

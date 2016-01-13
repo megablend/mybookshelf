@@ -23,7 +23,7 @@ module CartHelper
       total_items_in_cart = !session[:cart].nil? ?  session[:cart].length : 0
       total_ebooks_items_in_cart = !session[:ebooks_cart].nil? ? session[:ebooks_cart].length : 0
       item_pluralize = (total_items_in_cart + total_ebooks_items_in_cart) == 1 ? "Item" : "Items"
-      if session[:cart].nil? && session[:ebooks_cart].nil? then "0 - Items" else "#{total_items_in_cart + total_ebooks_items_in_cart} #{item_pluralize}" end
+      if session[:cart].nil? && session[:ebooks_cart].nil? then "0 - Items in Cart" else "#{total_items_in_cart + total_ebooks_items_in_cart} #{item_pluralize} in Cart" end
 	end
 
 	def get_sub_total

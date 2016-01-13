@@ -51,5 +51,7 @@
                  <% end %>
                  <li><div class="cart-sub-total"><strong>Subtotal: &#8358;<%= number_to_currency(get_sub_total).delete "$" %></strong></div></li>
                  <li class="divider"></li>
-                 <li><div class="text-center ost-footer"><a href="#" class="ost-view-cart">View Cart</a> <a href="#" class="ost-view-cart-2">Proceed to checkout</a></div></li>
+                 <li><div class="text-center ost-footer">
+                  <%= link_to "View Cart", {controller: "cart", action: "index" }, class: "ost-view-cart" %>
+                  <%= link_to "Proceed to Checkout", "#", class: "ost-view-cart-2" %></div></li>
               <% end %>

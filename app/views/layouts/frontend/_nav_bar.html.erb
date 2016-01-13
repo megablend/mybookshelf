@@ -156,7 +156,7 @@
     <!-- Shopping Cart -->
        <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" id="shopping-cart-holder" data-loading-text="Loading...">
-          <a href="#" class="cart-focus dropdown-toggle" style="color: #fff; font-weight: bold; font-size: 14px" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> <span id="cart-total"><%= cart_title %></span><span class="caret"></span></a>
+          <a href="#" class="cart-focus dropdown-toggle" style="color: #fff; font-weight: bold; font-size: 14px" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> <span id="cart-total"><%= cart_title %> </span><span class="caret"></span></a>
           <ul class="dropdown-cart dropdown-menu" id="shopping-cart-items-holder" role="menu">
               <% logger.debug "Cart plenty: #{shopping_cart_empty?}" %>
               <% if shopping_cart_empty? || shopping_cart_hash_empty? %>
@@ -200,6 +200,7 @@
                                   <span><%= truncate(ebook_item.products_description.title.capitalize, length: 30) %> (ebook)</span>
                                   <span><strong><%= item %> x &#8358;<%= number_to_currency(ebook_item.ebook_price.to_f).delete "$" %></strong></span>
                               </span>
+                              </a>
                           </span>
                           <span class="item-right">
                               <button class="btn btn-xs btn-danger pull-right" onClick="cart.removeCartItem('<%= ebook_item.id %>', 'ebook')">x</button>
@@ -212,7 +213,10 @@
                  <% end %>
                  <li><div class="cart-sub-total"><strong>Subtotal: &#8358;<%= number_to_currency(get_sub_total).delete "$" %></strong></div></li>
                  <li class="divider"></li>
-                 <li><div class="text-center ost-footer"><a href="#" class="ost-view-cart">View Cart</a> <a href="#" class="ost-view-cart-2">Proceed to checkout</a></div></li>
+                 <li><div class="text-center ost-footer">
+                 <%= link_to "View Cart", { controller: "cart", action: "index" }, class: "ost-view-cart" %>
+                 <%= link_to "Proceed to Checkout", "#", class: "ost-view-cart-2" %>
+                 </div></li>
               <% end %>
           </ul>
         </li>

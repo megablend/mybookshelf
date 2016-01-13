@@ -2,6 +2,11 @@ class CartController < ApplicationController
   # carts helper
   include CartHelper
 
+  # list of items in cart 
+  def index
+     
+  end
+
   # add print books to cart
   def add_book
      data_response = Hash.new

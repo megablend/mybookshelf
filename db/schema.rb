@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108115433) do
+ActiveRecord::Schema.define(version: 20160109213811) do
 
   create_table "categories", force: :cascade do |t|
     t.integer  "parent_id",      limit: 4
@@ -64,6 +64,22 @@ ActiveRecord::Schema.define(version: 20160108115433) do
     t.string "youtube_profile",     limit: 50
     t.string "bbm_profile",         limit: 50
     t.string "domain_name",         limit: 50
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "firstname",       limit: 32,                null: false
+    t.string   "lastname",        limit: 32,                null: false
+    t.string   "email",           limit: 96,                null: false
+    t.string   "telephone",       limit: 32,                null: false
+    t.string   "password_digest", limit: 255,               null: false
+    t.text     "cart",            limit: 65535
+    t.text     "wishlist",        limit: 65535
+    t.integer  "newsletter",      limit: 1,     default: 0
+    t.integer  "status",          limit: 1,     default: 1
+    t.integer  "approved",        limit: 1,     default: 0
+    t.string   "token",           limit: 255
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "local_govts", force: :cascade do |t|
@@ -155,6 +171,20 @@ ActiveRecord::Schema.define(version: 20160108115433) do
 
   add_index "products_images", ["product_id"], name: "index_products_images_on_product_id", using: :btree
 
+  create_table "products_reviews", force: :cascade do |t|
+    t.integer  "product_id",  limit: 4
+    t.integer  "customer_id", limit: 4
+    t.string   "author",      limit: 64,    null: false
+    t.text     "text",        limit: 65535, null: false
+    t.integer  "rating",      limit: 1,     null: false
+    t.integer  "status",      limit: 1,     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "products_reviews", ["customer_id"], name: "index_products_reviews_on_customer_id", using: :btree
+  add_index "products_reviews", ["product_id"], name: "index_products_reviews_on_product_id", using: :btree
+
   create_table "products_types", force: :cascade do |t|
     t.string   "product_type", limit: 128,             null: false
     t.datetime "created_at",                           null: false
@@ -204,8 +234,8 @@ ActiveRecord::Schema.define(version: 20160108115433) do
     t.integer  "vat_option_id",     limit: 4
     t.decimal  "price",                           precision: 15, scale: 4,               null: false
     t.decimal  "special_price",                   precision: 15, scale: 4
-    t.text     "description",       limit: 65535,                                        null: false
-    t.integer  "quantity",          limit: 4,                                            null: false
+    t.text     "description",       limit: 65535
+    t.integer  "quantity",          limit: 1,                              default: 0,   null: false
     t.datetime "created_at",                                                             null: false
     t.datetime "updated_at",                                                             null: false
     t.integer  "merchant_id",       limit: 4
@@ -248,6 +278,8 @@ ActiveRecord::Schema.define(version: 20160108115433) do
   add_foreign_key "products_descriptions", "products"
   add_foreign_key "products_ebooks", "products"
   add_foreign_key "products_images", "products"
+  add_foreign_key "products_reviews", "customers"
+  add_foreign_key "products_reviews", "products"
   add_foreign_key "stores", "merchants"
   add_foreign_key "stores", "store_types"
   add_foreign_key "temporary_epub_uploads", "merchants"

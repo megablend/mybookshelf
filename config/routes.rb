@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   # -- General Pages --
   get '/sell' => 'frontend_pages#sell' # sellers
   get '/blog' => 'frontend_pages#blog'
+  get '/cart' => 'cart#index'
+  get '/checkout' => 'frontend_pages#checkout'
 
   # cart routes
   scope path: '/cart', controller: :cart do
@@ -28,7 +30,8 @@ Rails.application.routes.draw do
   get '/categories/:category', to: 'categories#index', constraints: { category: /[A-Za-z0-9-]/ } # get the list of products for a category
 
   # Products route
-  get '/product/:product_title', to: 'frontend_pages#product' #, constraints: { product_title: /[A-Za-z0-9]{50}/ }
+  get '/product/:product_title', to: 'frontend_pages#product' , constraints: { product_title: /[A-Za-z0-9-]+/ }
+  post '/product-review' => 'frontend_pages#review'
 
   # terms of use
   get '/terms' => 'frontend_pages#terms'

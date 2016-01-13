@@ -33,8 +33,8 @@
 
                            <div class="form-group required <%= 'has-error' if f.object.errors.include?(:url) %>">
                                <%= f.label :url, "Store URL", class: "col-sm-2 control-label" %>
-                               <div class="col-sm-2 middle-align"><span class="store-url">www.mybookshelf.com.ng/</span></div>
-                               <div class="col-sm-8">
+                               <div class="col-sm-2 middle-align" style="margin-right: 30px"><span class="store-url">www.mybookshelf.ng/store/</span></div>
+                               <div class="col-sm-5">
                                   
                                   <%= f.text_field :url, class: "form-control validate[required]", autofocus: true, placeholder: "Enter a preferred URL name for your store" %>
                                   <span class="<%= 'form-error' if f.object.errors.include?(:url) %>"><%= f.object.errors[:url].join(raw(" -- Email ")) %></span>
@@ -42,7 +42,7 @@
                            </div>
 
                            <div class="form-group required <%= 'has-error' if f.object.errors.include?(:store_type_id) %>">
-                             <%= f.label :store_type_id, "Type of Store1", class: "col-sm-2 control-label" %>
+                             <%= f.label :store_type_id, "Type of Store", class: "col-sm-2 control-label" %>
                              <div class="col-sm-10">
                                 <%= f.collection_select :store_type_id, StoreType.order(:name), :id, :name, { :prompt => "Select a Store Type" }, { class: "form-control" } %>
                                 <span class="<%= 'form-error' if f.object.errors.include?(:store_type_id) %>"><%= f.object.errors[:store_type_id].join(raw(" -- Store Type ")) %></span>

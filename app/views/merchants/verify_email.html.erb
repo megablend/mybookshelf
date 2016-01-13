@@ -1,6 +1,6 @@
 <% provide(:title, "Sell on MYBOOKSHELF") %>
 <% provide(:class_name, "information-information") %>
-<% provide(:current_page, raw("<strong>Signup as a Merchant</strong>")) %>
+<% provide(:current_page, raw("<strong>Registration Completed!</strong>")) %>
 
 
 <!-- Registration Form -->
@@ -20,36 +20,11 @@
         <div id="content" class="col-sm-9 col-main">    
             <div class="page-title"><h2>Registration Completed!</h2></div>
               <p>Hi <%= @merchant_firstname %>, thank you for choosing MyBookshelf to sell your books. You have successfully completed the registration process and the opportunities here are limitless. Happy Selling!</p>
-              <p>If you ever have any issues with your account please contact us on 08060108165 or shoot us an email at <%= link_to "support@mybookshelf.com.ng", "mailto:support@mybookshelf.com.ng" %>. Thank you.</p>
-              <p  class="add-margin-top"><%= link_to "Login", "/merchants/login", class: "button add-margin-top" %></p>
+              <p>If you ever have any issues with your account please contact us on @company_profile.telephone or shoot us an email at <%= link_to @company_profile.email, "mailto:#{@company_profile.email}" %>. Thank you.</p>
+              <p  class="add-margin-top"><%= link_to "Login", { controller: "sessions", action: "new" }, class: "button add-margin-top" %></p>
       </div>
 
-
-    <div id="column-right" class="col-sm-3">
-        <div class="block block-account">
-           <div class="block-title">Account  </div>
-             <div class="block-content">
-                  <ul>
-                    
-                      <li><a href="indexe223.html?route=account/login" class="">Login</a> </li>
-                      <li><a href="index5502.html?route=account/register" class="">Register</a> </li>
-                      <li><a href="indexacda.html?route=account/forgotten" class="">Forgotten Password</a></li>
-                        
-                      <li><a href="indexe223.html?route=account/account" class="">My Account</a></li>
-                        
-                      <li><a href="indexc6b3.php?route=account/address" class="">Address Book</a> </li>
-                      <li><a href="index4628.php?route=account/wishlist" class="">Wish List</a> </li>
-                      <li><a href="indexe223.html?route=account/order" class="">Order History</a> </li>
-                      <li><a href="indexe223.html?route=account/download" class="">Downloads</a> </li>
-                      <li><a href="indexe223.html?route=account/reward" class="">Reward Points</a> </li>
-                      <li><a href="indexe223.html?route=account/return" class="">Returns</a> </li>
-                      <li><a href="indexe223.html?route=account/transaction" class="">Transactions</a> </li>
-                      <li><a href="indexe223.html?route=account/newsletter" class="">Newsletter</a></li>
-                      <li><a href="indexe223.html?route=account/recurring" class="">Recurring payments</a></li>
-                  </ul>
-            </div>
-        </div>  
-    </div>
+     <%= render "merchants/shared/quick_links" %>
 </div>
 </div><!-- main container -->
 

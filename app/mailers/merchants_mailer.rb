@@ -1,6 +1,6 @@
 class MerchantsMailer < ApplicationMailer
 	include ApplicationHelper # mix merchants helper
-	default from: "\"MyBookshelf\" <no-reply@mybookshelf.com.ng>"
+	default from: "\"MyBookshelf\" <no-reply@mybookshelf.ng>"
 
 	def registration_email(merchant)
        @merchant = merchant # get merchant details

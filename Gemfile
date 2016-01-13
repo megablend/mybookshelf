@@ -23,8 +23,9 @@ gem 'turbolinks',              '2.3.0'
 gem 'jquery-turbolinks'
 gem 'jbuilder',                '2.2.3'
 gem 'sdoc',                    '0.4.0', group: :doc
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.18'
 gem "font-awesome-rails"
+gem 'net-ssh'
 
 # CKEDITOR GEMS FOR MY PROJECT
 gem 'ckeditor', github: 'galetahub/ckeditor'
@@ -32,13 +33,18 @@ gem 'paperclip'
 
 
 group :development, :test do
+  gem 'spring-commands-rspec'
   gem 'byebug',      '3.4.0'
   gem 'spring',      '1.1.3'
+  gem 'rspec-rails', '~> 3.2.0'
+  gem 'guard-rspec'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/
 end
 
 group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'
+  gem 'capybara', '~> 2.2.0'
 end
 
 group :production do
