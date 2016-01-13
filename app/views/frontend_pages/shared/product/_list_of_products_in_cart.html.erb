@@ -22,9 +22,10 @@
                  
                  <tr>
                     <td class="text-center">   
-                      <%= link_to image_tag(product_item.products_image.image, class: "img-thumbnail", alt: capitalize_string(product_item.products_description.title), title: capitalize_string(product_item.products_description.title)), product_path(product_item.products_description.slug) %> 
+                      <%= link_to image_tag(product_item.products_image.image, class: "img-thumbnail", alt: capitalize_string(product_item.products_description.title), width: "60", height: "84", title: capitalize_string(product_item.products_description.title)), "product/#{product_item.products_description.slug}" %> 
                   </td>
-                  <td class="text-left"><a href="http://polo.magikcommerce.com/index.php?route=product/product&amp;product_id=40" class="cart-title"><b>Fastrack Modern Wallet </b></a>
+                  <td class="text-left">
+                    <%= link_to raw("<b>#{capitalize_string(product_item.products_description.title)}</b>"), "/product/#{product_item.products_description.slug}", class: "cart-title" %>
                 </td>
                 <td class="text-left"><div class="input-group" style="max-width: 200px;">
                       <span class="input-group-btn">
@@ -32,7 +33,7 @@
                             <span class="glyphicon glyphicon-minus"></span>
                         </button>
                       </span>
-                      <input type="text" name="quant[1]" size="4" style="height: 34px" class="form-control input-number" value="1" min="1" max="1000">
+                      <input type="text" name="quant[1]" size="4" style="height: 34px" class="form-control input-number" value="<%= item %>" min="1" max="1000">
                       <span class="input-group-btn">
                           <button type="button" style="outline: 0;" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
                               <span class="glyphicon glyphicon-plus"></span>
@@ -41,8 +42,8 @@
                     <span class="input-group-btn">
                     <button type="submit" data-toggle="tooltip" title="Update" class="button"><span class="fa fa-refresh"></span></button>
                     <button type="button" data-toggle="tooltip" title="Remove" class="button" onclick="cart.remove('YToxOntzOjEwOiJwcm9kdWN0X2lkIjtpOjQwO30=');"><span class="fa fa-times-circle"></span></button></span></div></td>
-                <td class="text-right price">$123.20</td>
-                <td class="text-right price">$123.20</td>
+                <td class="text-right price">&#8358;<%= number_to_currency(product_item.price).delete "$" %></td>
+                <td class="text-right price">&#8358;<%= number_to_currency(product_item.price).delete "$" %></td>
               </tr>
               <% end %>
             <% end %>
